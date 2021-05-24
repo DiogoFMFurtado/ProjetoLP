@@ -1,4 +1,4 @@
-/*const express = require('express');
+const express = require('express');
 const router = express.Router();
 const Marcacao = require('../model/Marcacao');
 
@@ -22,4 +22,4 @@ router.post('/POST', async(req, res) => {
     }
 });
 
-module.exports = router;*/
+module.exports = router;
