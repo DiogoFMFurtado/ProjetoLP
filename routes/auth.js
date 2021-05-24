@@ -5,7 +5,7 @@ const router = express.Router();
 const authController = require('../controllers/authController')
 const authControllerAdmin = require('../controllers/authControllerAdmin')
 const authControllerTrab = require('../controllers/authControllerTrab')
-const marcacao = require('../controllers/marcacao')
+const marcacao = require('./marcacao')
 
 //------------ Login Route ------------//
 //router.get('/login', (req, res) => res.render('login'));
