@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Cillit Bang</title>
-    
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <!---->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
     <!-- Google web font "Open Sans" -->
     <link rel="stylesheet" href="/public/font-awesome-4.5.0/css/font-awesome.min.css">
@@ -29,6 +31,36 @@
             renderPage = false;
         }
     </script>
+    <!--script para esconder a marcação da limpeza-->
+    <script>
+        $(document).ready(function(){
+            $('#Login').on('click', function(){
+                $('#Login').hide(); //Faz apareçer a tm-section-3, utiliza o id da secção
+                $('#Logout').show(); //Faz apareçer a tm-section-2, utiliza o id da secção
+            })
+        })
+    </script>
+    <!--Fim do script para esconder a marcação da limpeza-->
+    <!-- script para esconder o botão login no menu apos ser feito o login e fazer apareçer o log-out-->
+    <script>
+        $(document).ready(function(){
+            $('#serv').on('click', function(){
+                $('#tm-section-3').show(); //Faz apareçer a tm-section-3, utiliza o id da secção
+                $('#tm-section-2').show(); //Faz apareçer a tm-section-2, utiliza o id da secção
+            })
+        })
+    </script>
+    <!--Fim do scrip do Login-->
+    <!-- script para apareçer o login apos ser feito o logout -->
+    <script>
+        $(document).ready(function(){
+            $('#Logout').on('click', function(){
+                $('#Login').show(); //Faz apareçer a tm-section-3, utiliza o id da secção
+                $('#Logout').hide(); //Faz apareçer a tm-section-2, utiliza o id da secção
+            })
+        })
+    </script>
+    <!--Fim do script do logout-->
 
 </head>
 
@@ -45,60 +77,32 @@
         <div class="loader-section section-left"></div>
         <div class="loader-section section-right"></div>
     </div>
+    <!--MENU-->
+    <nav class="navigationbar">
+        <div class="logomenubar">CillitBang</div>
+        <input type="checkbox" id="click">
+        <label for="click" class="menu-btn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <ul>
+            <li><a id="Login" class="navigationbaractive Login" href="/auth/login_registar_user">Log-in</a> </li>
+            <li><a class="" href="#">About</a> </li>
+            <li><a class="serv" id="serv" href="#tm-section-4">Serviços</a> </li>
+            <li><a href="#">Gallery</a> </li>
+            <li><a href="#">Feedback</a> </li>
+            <li><a id="Logout" class="Logout hidden" href="#">Log-out</a></li>
+        </ul>
+    </nav>
+    <!--FIM DO MENU-->
+
+
+
     <div class="container">
         <section class="tm-section-head" id="top">
             <header id="header" class="text-center tm-text-gray">
                 <h1>CILLIT BANG</h1>
                 <p>A Sujidade Desaparece</p>
             </header>
-
-            <nav class="navbar narbar-light">
-                <a class="navbar-brand tm-text-gray" href="#">
-                    Menu
-                </a>
-                <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon">
-                        <i class="fa fa-navicon tm-fa-toggler-icon"></i>
-                    </span>
-                </button>
-                <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link tm-text-gray" href="#top">Home
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tm-text-gray" href="/auth/login_registar_user">Log in</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tm-text-gray" href="#tm-section-2">Sobre nós</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tm-text-gray" href="#tm-section-3">Marque já</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tm-text-gray" href="#tm-section-6">Cliente</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tm-text-gray" href="#tm-section-7">Trabalhador</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tm-text-gray" href="#tm-section-8">Feedback</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tm-text-gray" href="#tm-section-9">Contacte-nos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tm-text-gray" href="/auth/logout">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tm-text-gray" href="/auth/loginAdmin">Admin</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
             <div class="navbar navbar-default navbar-fixed-top">
                 <a href="/index.html" class="navbar-brand"></a>
