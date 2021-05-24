@@ -5,7 +5,7 @@ const router = express.Router();
 const authController = require('../controllers/authController')
 const authControllerAdmin = require('../controllers/authControllerAdmin')
 const authControllerTrab = require('../controllers/authControllerTrab')
-const marcacao = require('../controllers/marcacao')
+const authControllerMarc = require('../controllers/authControllerMarc')
 
 //------------ Login Route ------------//
 //router.get('/login', (req, res) => res.render('login'));
@@ -21,6 +21,8 @@ router.get('/forgot', (req, res) => res.render('forgot'));
 router.get('/colegas', (req, res) => res.render('colegas'));
 
 router.get('/colegas2', (req, res) => res.render('colegas2'));
+
+router.get('/welcome', (req, res) => res.render('welcome'));
 
 //------------ Reset Password Route ------------//
 router.get('/reset/:id', (req, res) => {
@@ -39,7 +41,9 @@ router.get('/registeradmin', (req, res) => res.render('colegas'));
 
 router.get('/registertrab', (req, res) => res.render('colegas2'));
 
-router.get('/marcacao', (req, res) => res.render('welcome'));
+router.get('/registermarc', (req, res) => res.render('welcome'));
+
+//router.get('/marcacao', (req, res) => res.render('welcome'));
 
 //------------ Register POST Handle ------------//
 //router.post('/register', authController.registerHandle);
@@ -47,6 +51,8 @@ router.get('/marcacao', (req, res) => res.render('welcome'));
 router.post('/registeradmin', authControllerAdmin.registerAdminHandle);
 
 router.post('/registertrab', authControllerTrab.registerTrabHandle);
+
+router.post('/registermarc', authControllerMarc.registerMarcHandle);
 
 //router.post('/marcacao', marcacao.marcacao);
 
@@ -58,6 +64,8 @@ router.get('/activate/:token', authController.activateHandle);
 router.get('/activate2/:token', authControllerAdmin.activateAdminHandle);
 
 router.get('/activate3/:token', authControllerTrab.activateTrabHandle);
+
+
 
 //------------ Forgot Password Handle ------------//
 router.post('/forgot', authController.forgotPassword);

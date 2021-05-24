@@ -17,6 +17,10 @@ router.get('/welcome', ensureAuthenticated, (req, res) => res.render('welcome', 
     name: req.user.name
 }));
 
+router.get('/loginAdmin', ensureAuthenticated, (req, res) => res.render('loginAdmin', {
+    name: req.user.name
+}));
+
 router.get('/calendario', ensureAuthenticated, (req, res) => res.render('calendario', {
     name: req.user.name
 }));
