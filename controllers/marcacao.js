@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Marcacao = require('../model/Marcacao');
+const Marcacao = require('../models/Marcacao');
 
 // Post Marcacao 
 router.post('/POST', async(req, res) => {
