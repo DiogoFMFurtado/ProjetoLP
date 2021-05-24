@@ -5,7 +5,7 @@ const router = express.Router();
 const authController = require('../controllers/authController')
 const authControllerAdmin = require('../controllers/authControllerAdmin')
 const authControllerTrab = require('../controllers/authControllerTrab')
-const authControllerMarc = require('../controllers/authControllerMarc')
+//const authControllerMarc = require('../controllers/authControllerMarc')
 
 //------------ Login Route ------------//
 //router.get('/login', (req, res) => res.render('login'));
@@ -41,9 +41,9 @@ router.get('/registeradmin', (req, res) => res.render('colegas'));
 
 router.get('/registertrab', (req, res) => res.render('colegas2'));
 
-router.get('/registermarc', (req, res) => res.render('welcome'));
 
-//router.get('/marcacao', (req, res) => res.render('welcome'));
+
+
 
 //------------ Register POST Handle ------------//
 //router.post('/register', authController.registerHandle);
@@ -52,9 +52,6 @@ router.post('/registeradmin', authControllerAdmin.registerAdminHandle);
 
 router.post('/registertrab', authControllerTrab.registerTrabHandle);
 
-router.post('/registermarc', authControllerMarc.registerMarcHandle);
-
-//router.post('/marcacao', marcacao.marcacao);
 
 router.post('/register', authController.registerHandle);
 
