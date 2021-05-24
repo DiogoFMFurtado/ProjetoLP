@@ -6,7 +6,7 @@ const MarcacaoSchema = new mongoose.Schema({
     hour: { type: String, required: true},
     type: { type: String, required: true},
     address: {type: String, required: true},
-    state: {type: String, required: true},
+    state: {type: String},
     admin: { type: Schema.Types.ObjectId, ref:'Admin' },
     equipa: { type: Schema.Types.ObjectId, ref: 'Equipa' },
     cliente: { type: Schema.Types.ObjectId, ref: 'Cliente'}
