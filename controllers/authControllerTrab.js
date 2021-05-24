@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const JWT_KEY = "jwtactive987";
 const JWT_RESET_KEY = "jwtreset987";
 
-const Trab = require('../models/Trabalhador');
+const Trab = require('../models/Trab');
 
 //------------ Register Handle ------------//
 
@@ -16,7 +16,7 @@ exports.registerTrabHandle = (req, res) => {
     let errors = [];
 
     //------------ Checking required fields ------------//
-    if (!name|| !email || !password || !password2) {
+    if (!name || !email || !password || !password2) {
         errors.push({ msg: 'Please enter all fields' });
     }
 
@@ -31,7 +31,7 @@ exports.registerTrabHandle = (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render('colegas2', {
+        res.render('colegas', {
             errors,
             name,
             email,
@@ -40,11 +40,11 @@ exports.registerTrabHandle = (req, res) => {
         });
     }else {
         //------------ Validation passed ------------//
-        Trab.findOne({ email: email }).then(Trab => {
+        Trab.findOne({ email: email }).then(trab => {
             if (trab) {
                 //------------ User already exists ------------//
                 errors.push({ msg: 'Email ID already registered' });
-                res.render('colegas2', {
+                res.render('colegas', {
                     errors,
                     name,
                     email,
@@ -101,7 +101,7 @@ exports.registerTrabHandle = (req, res) => {
                             'error_msg',
                             'Something went wrong on our end. Please register again.'
                         );
-                        res.redirect('/auth/colegas2');
+                        res.redirect('/auth/colegas');
                     }
                     else {
                         console.log('Mail sent : %s', info.response);
@@ -109,7 +109,7 @@ exports.registerTrabHandle = (req, res) => {
                             'success_msg',
                             'Activation link sent to email ID. Please activate to log in.'
                         );
-                        res.redirect('/auth/colegas2');
+                        res.redirect('/auth/colegas');
                     }
                 })
 
@@ -129,7 +129,7 @@ exports.activateTrabHandle = (req, res) => {
                     'error_msg',
                     'Incorrect or expired link! Please register again.'
                 );
-                res.redirect('/auth/colegas2');
+                res.redirect('/auth/colegas');
             }
             else {
                 const { name, email, password } = decodedToken;
@@ -140,7 +140,7 @@ exports.activateTrabHandle = (req, res) => {
                             'error_msg',
                             'Email ID already registered! Please log in.'
                         );
-                        res.redirect('/auth/colegas2');
+                        res.redirect('/auth/colegas');
                     } else {
                         const newTrab = new Trab({
                             name,
@@ -159,7 +159,7 @@ exports.activateTrabHandle = (req, res) => {
                                             'success_msg',
                                             'Account activated. You can now log in.'
                                         );
-                                        res.redirect('/auth/colegas2');
+                                        res.redirect('/auth/colegas');
                                     })
                                     .catch(err => console.log(err));
                             });
@@ -175,10 +175,110 @@ exports.activateTrabHandle = (req, res) => {
     }
 }
 
+exports.forgotPassword = (req, res) => {
+    const { email } = req.body;
+
+    let errors = [];
+
+    //------------ Checking required fields ------------//
+    if (!email) {
+        errors.push({ msg: 'Please enter an email ID' });
+    }
+
+    if (errors.length > 0) {
+        res.render('forgot', {
+            errors,
+            email
+        });
+    } else {
+        Trab.findOne({ email: email }).then(trab => {
+            if (!trab) {
+                //------------ User already exists ------------//
+                errors.push({ msg: 'User with Email ID does not exist!' });
+                res.render('forgot', {
+                    errors,
+                    email
+                });
+            } else {
+
+                const oauth2Client = new OAuth2(
+                    "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com", // ClientID
+                    "OKXIYR14wBB_zumf30EC__iJ", // Client Secret
+                    "https://developers.google.com/oauthplayground" // Redirect URL
+                );
+
+                oauth2Client.setCredentials({
+                    refresh_token: "1//04T_nqlj9UVrVCgYIARAAGAQSNwF-L9IrGm-NOdEKBOakzMn1cbbCHgg2ivkad3Q_hMyBkSQen0b5ABfR8kPR18aOoqhRrSlPm9w"
+                });
+                const accessToken = oauth2Client.getAccessToken()
+
+                const token = jwt.sign({ _id: trab._id }, JWT_RESET_KEY, { expiresIn: '30m' });
+                const CLIENT_URL = 'http://' + req.headers.host;
+                const output = `
+                <h2>Please click on below link to reset your account password</h2>
+                <p>${CLIENT_URL}/auth/forgot/${token}</p>
+                <p><b>NOTE: </b> The activation link expires in 30 minutes.</p>
+                `;
+
+                Trab.updateOne({ resetLink: token }, (err, success) => {
+                    if (err) {
+                        errors.push({ msg: 'Error resetting password!' });
+                        res.render('forgot', {
+                            errors,
+                            email
+                        });
+                    }
+                    else {
+                        const transporter = nodemailer.createTransport({
+                            service: 'gmail',
+                            auth: {
+                                type: "OAuth2",
+                                user: "nodejsa@gmail.com",
+                                clientId: "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com",
+                                clientSecret: "OKXIYR14wBB_zumf30EC__iJ",
+                                refreshToken: "1//04T_nqlj9UVrVCgYIARAAGAQSNwF-L9IrGm-NOdEKBOakzMn1cbbCHgg2ivkad3Q_hMyBkSQen0b5ABfR8kPR18aOoqhRrSlPm9w",
+                                accessToken: accessToken
+                            },
+                        });
+
+                        // send mail with defined transport object
+                        const mailOptions = {
+                            from: '"Auth Trab" <nodejsa@gmail.com>', // sender address
+                            to: email, // list of receivers
+                            subject: "Account Password Reset: NodeJS Auth ✔", // Subject line
+                            html: output, // html body
+                        };
+
+                        transporter.sendMail(mailOptions, (error, info) => {
+                            if (error) {
+                                console.log(error);
+                                req.flash(
+                                    'error_msg',
+                                    'Something went wrong on our end. Please try again later.'
+                                );
+                                res.redirect('/auth/forgot');
+                            }
+                            else {
+                                console.log('Mail sent : %s', info.response);
+                                req.flash(
+                                    'success_msg',
+                                    'Password reset link sent to email ID. Please follow the instructions.'
+                                );
+                                res.redirect('/auth/colegas');
+                            }
+                        })
+                    }
+                })
+
+            }
+        });
+    }
+}
+
 exports.loginTrabHandle = (req, res, next) => {
     passport.authenticate('local', {
         successRedirect: '/dashboard',
-        failureRedirect: '/auth/login_registar_user',
+        failureRedirect: '/loginAdmin',
         failureFlash: true
     })(req, res, next);
 }

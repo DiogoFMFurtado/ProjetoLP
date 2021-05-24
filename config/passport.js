@@ -8,26 +8,7 @@ const Admin = require('../models/Admin');
 module.exports = function (passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-
-            /*Admin.findOne({
-                email: email
-            }).then(admin => {
-                if (!admin) {
-                    return done(null, false, { message: 'This email ID is not registered' });
-                }
-
-                //------------ Password Matching ------------//
-                bcrypt.compare(password, admin.password, (err, isMatch) => {
-                    if (err) throw err;
-                    if (isMatch) {
-                        return done(null, admin);
-                    } else {
-                        return done(null, false, { message: 'Password incorrect! Please try again.' });
-                    }
-                });
-            });*/
-        
-        
+            
             //------------ User Matching ------------//
             User.findOne({
                 email: email
@@ -49,18 +30,6 @@ module.exports = function (passport) {
         })
     );
 
-    /*passport.serializeUser(function (admin, done) {
-        done(null, admin.id);
-    });
-
-    passport.deserializeUser(function (id, done) {
-        Admin.findById(id, function (err, admin) {
-            done(err, admin);
-        });
-    });*/
-
-
-
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
@@ -72,9 +41,7 @@ module.exports = function (passport) {
     });
 };
 
-/*const Admin = require('../models/Admin');
-
-module.exports = function (passport) {
+/*module.exports = function (passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
             //------------ User Matching ------------//
