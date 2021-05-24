@@ -171,7 +171,7 @@
                 <h2 class="h2-spaced">Marque a sua limpeza</h2>
                 <div class="col-xl-12">
                     <div class="contact_message">
-                        <form action="/routes/marcacao.js" method="post" class="contact-form">
+                        <form action="/controllers/marcacao.js" method="POST" class="contact-form">
                             <div class="row mb-3">
                                 <div class="form-group col-xs-12 pl-lg-3">
                                     <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Primeiro e Último nome" required/>
@@ -206,7 +206,7 @@
                                     <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Morada" required/>
                                 </div>
                                 <div id="pos-btn" class="form-group col-xl-2 pl-xl-4">
-                                    <button onclick="javascript: form.action='/routes/marcacao.js'" type="submit" class="btn  tm-btn-submit float-right btn-marcar">Marcar</button>
+                                    <button type="submit" class="btn  tm-btn-submit float-right btn-marcar" onclick="javascript: form.action='/controllers/marcacao.js'">Marcar</button>
                                 </div>
                             </div>
                         </form>
