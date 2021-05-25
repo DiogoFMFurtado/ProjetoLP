@@ -1,6 +1,6 @@
-/*const express = require('express');
+const express = require('express');
 const router = express.Router();
-const Marcacao = require('../model/Marcacao');
+const Marcacao = require('../models/Marcacao');
 
 // Post Marcacao 
 router.post('/POST', async(req, res) => {
@@ -22,4 +22,4 @@ router.post('/POST', async(req, res) => {
     }
 });
 
-module.exports = router;*/
+module.exports = router;

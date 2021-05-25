@@ -13,7 +13,7 @@ require('./config/passport')(passport);
 const db = require('./config/key').MongoURI;
 
 //------------ Mongo Connection ------------//
-mongoose.connect('mongodb://localhost:27017/projeto', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connect('mongodb+srv://Diogo:121231234a@cluster0.m4vxj.mongodb.net/Data', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
     .then(() => console.log("Successfully connected to MongoDB"))
     .catch(err => console.log(err));
   
@@ -64,6 +64,7 @@ app.use(function(req, res, next) {
 //------------ Routes ------------//
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
+app.use('/marcacao', require('./controllers/marcacao'));
 
 
 
