@@ -22,7 +22,7 @@
     <!-- tooplate style -->
 
     <script>
-        var renderPage = true;
+        let renderPage = true;
 
         if (navigator.userAgent.indexOf('MSIE') !== -1
             || navigator.appVersion.indexOf('Trident/') > 0) {
@@ -549,7 +549,7 @@
 
         <footer class="mt-5">
             <p class="text-center">Copyright © 2020 Cillit Bang
-                <a rel="nofollow" href="http://www.tooplate.com/view/2103-central" target="_parent" class="tm-text-black">Central</a>
+                <a rel="nofollow" href="https://www.tooplate.com/view/2103-central" target="_parent" class="tm-text-black">Central</a>
             </p>
         </footer>
     </div>
@@ -565,7 +565,7 @@
 
     <script>
         function setCarousel() {
-            var slider = $('.tm-img-slider');
+            const slider = $('.tm-img-slider');
 
             if (slider.hasClass('slick-initialized')) {
                 slider.slick('destroy');
@@ -618,9 +618,9 @@
                 .click(function (event) {
                     // On-page links
                     if (
-                        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+                        location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '')
                         &&
-                        location.hostname == this.hostname
+                        location.hostname === this.hostname
                     ) {
                         // Figure out element to scroll to
                         var target = $(this.hash);
