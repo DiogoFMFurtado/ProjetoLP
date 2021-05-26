@@ -6,6 +6,7 @@ const authController = require('../controllers/authController')
 const authControllerAdmin = require('../controllers/authControllerAdmin')
 const authControllerTrab = require('../controllers/authControllerTrab')
 //const authControllerMarc = require('../controllers/authControllerMarc')
+const authControllerMarcacao = require('../controllers/authControllerMarcacao')
 
 //------------ Login Route ------------//
 //router.get('/login', (req, res) => res.render('login'));
@@ -81,5 +82,11 @@ router.post('/loginAd', authControllerAdmin.loginAdminHandle);
 
 //------------ Logout GET Handle ------------//
 router.get('/logout', authController.logoutHandle);
+
+
+
+// Post Marcacao
+router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
+
 
 module.exports = router;

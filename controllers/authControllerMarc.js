@@ -7,20 +7,9 @@ const jwt = require('jsonwebtoken');
 const JWT_KEY = "jwtactive987";
 const JWT_RESET_KEY = "jwtreset987";
 
-const Marc = require('../models/Marcacao');
+const Marcacao = require('../models/Marcacao');
+const User = require('../models/User');
 
-//------------ Register Handle ------------//
-
-exports.registerMarcHandle = (req, res) => {
-    const { date, hour, type, address } = req.body;
-    let errors = [];
-
-    //------------ Checking required fields ------------//
-
-    
-}
-
-//------------ Activate Account Handle ------------//
 exports.registerMarcHandle = (req, res) => {
     const token = req.params.token;
     let errors = [];
@@ -31,43 +20,46 @@ exports.registerMarcHandle = (req, res) => {
                     'error_msg',
                     'Incorrect or expired link! Please register again.'
                 );
-                res.redirect('/auth/colegas');
+                res.redirect('/views/welcome.ejs');
             }
             else {
-                const { date, hour, type, address } = decodedToken;
-                Marc.findOne({ date: date }).then(marc => {
-             
-                        const newMarc = new Marc({
-                            date, 
-                            hour, 
-                            type, 
+                const { name, email, date, hour, type, address } = decodedToken;
+
+                User.findOne({ email: email}).then(user => {
+                    if (!user) {
+                        errors.push({ msg: 'User not found. Must be registered' });
+                        res.render('welcome', {
+                           errors,
+                           name,
+                           email,
+                           date,
+                           hour,
+                           type,
+                           address
+                        });
+                    } else {
+                        const marcacao = new Marcacao({
+                            name,
+                            email,
+                            date,
+                            hour,
+                            type,
                             address
                         });
-
-                        bcryptjs.genSalt(10, (err, salt) => {
-                            bcryptjs.hash(newMarc.password, salt, (err, hash) => {
-                                if (err) throw err;
-                                newMarc.password = hash;
-                                MarMarc
-                                    .save()
-                                    .then(marc => {
-                                        req.flash(
-                                            'success_msg',
-                                            'Account activated. You can now log in.'
-                                        );
-                                        res.redirect('/auth/welcome');
-                                    })
-                                    .catch(err => console.log(err));
-                            });
-                        });
-                    
-                });
+                        try {
+                            const savedMarcacao = marcacao.save();
+                            res.json(savedMarcacao);
+                        } catch (err) {
+                            res.json({message: err});
+                        }
+                    }
+                })
             }
 
         })
     }
     else {
-        console.log("Account activation error!")
+        console.log("Fatal wrong session")
     }
 }
 
