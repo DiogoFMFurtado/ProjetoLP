@@ -375,117 +375,11 @@ exports.resetPassword = (req, res) => {
     }
 }
 
-//------------ Login Handle ------------//
-
-
-
-
-//-------------------------------------------------------Admin--------------------------------------------------------------------------------------------------
-
-
-/*
-
-//------------ User Model ------------//
-const Admin = require('../models/Admin');
-
-//------------ Register Handle ------------//
-
-exports.registerHandle = (req, res) => {
-    const { firstName, lastName, email, password, password2 } = req.body;
-    let errors = [];
-
-    //------------ Checking required fields ------------//
-    if (!firstName || !lastName || !email || !password || !password2) {
-        errors.push({ msg: 'Please enter all fields' });
-    }
-
-    //------------ Checking password mismatch ------------//
-    if (password != password2) {
-        errors.push({ msg: 'Passwords do not match' });
-    }
-
-    //------------ Checking password length ------------//
-    if (password.length < 8) {
-        errors.push({ msg: 'Password must be at least 8 characters' });
-    }
-
-    if (errors.length > 0) {
-        res.render('colegas', {
-            errors,
-            firstName,
-            lastName,
-            email,
-            password,
-            password2
-        });
-    } 
-}
-
-//------------ Activate Account Handle ------------//
-exports.activateHandle = (req, res) => {
-    const token = req.params.token;
-    let errors = [];
-    if (token) {
-        jwt.verify(token, JWT_KEY, (err, decodedToken) => {
-            if (err) {
-                req.flash(
-                    'error_msg',
-                    'Incorrect or expired link! Please register again.'
-                );
-                res.redirect('/auth/colegas');
-            }
-            else {
-                const { name, email, password } = decodedToken;
-                Admin.findOne({ email: email }).then(admin => {
-                    if (admin) {
-                        //------------ User already exists ------------//
-                        req.flash(
-                            'error_msg',
-                            'Email ID already registered! Please log in.'
-                        );
-                        res.redirect('/auth/colegas');
-                    } else {
-                        const newAdmin = new Admin({
-                            firstName,
-                            lastName,
-                            email,
-                            password
-                        });
-
-                        bcryptjs.genSalt(10, (err, salt) => {
-                            bcryptjs.hash(newAdmin.password, salt, (err, hash) => {
-                                if (err) throw err;
-                                newAdmin.password = hash;
-                                newAdmin
-                                    .save()
-                                    .then(admin => {
-                                        req.flash(
-                                            'success_msg',
-                                            'Account activated. You can now log in.'
-                                        );
-                                        res.redirect('/auth/colegas');
-                                    })
-                                    .catch(err => console.log(err));
-                            });
-                        });
-                    }
-                });
-            }
-
-        })
-    }
-    else {
-        console.log("Account activation error!")
-    }
-}
-*/
-
-//-------------------------------------------------------------------------------------------------------
 
 
 exports.loginHandle = (req, res, next) => {
     passport.authenticate('local', {
-        successRedirect: '/dashboard',
+        successRedirect: '/welcome',
         failureRedirect: '/auth/login_registar_user',
         failureFlash: true
     })(req, res, next);
