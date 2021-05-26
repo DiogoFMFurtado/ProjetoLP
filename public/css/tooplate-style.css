@@ -20,6 +20,10 @@ a:focus,
   color: #666666;
 }
 
+th, td {
+  border: 1px gray;
+}
+
 .tm-text-black {
   color: #212529;
 }
