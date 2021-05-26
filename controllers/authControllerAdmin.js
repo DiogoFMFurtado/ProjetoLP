@@ -43,7 +43,7 @@ exports.registerAdminHandle = (req, res) => {
         //------------ Validation passed ------------//
         Admin.findOne({ email: email }).then(admin => {
             if (admin) {
-                //------------ User already exists ------------//
+                //------------ Admin already exists ------------//
                 errors.push({ msg: 'Email ID already registered' });
                 res.render('colegas', {
                     errors,
@@ -137,7 +137,7 @@ exports.activateAdminHandle = (req, res) => {
                 const { firstName, lastName, email, password } = decodedToken;
                 Admin.findOne({ email: email }).then(admin => {
                     if (admin) {
-                        //------------ User already exists ------------//
+                        //------------ Admin already exists ------------//
                         req.flash(
                             'error_msg',
                             'Email ID already registered! Please log in.'
@@ -178,7 +178,7 @@ exports.activateAdminHandle = (req, res) => {
     }
 }
 
-exports.forgotPassword = (req, res) => {
+exports.forgotAdminPassword = (req, res) => {
     const { email } = req.body;
 
     let errors = [];
@@ -189,16 +189,16 @@ exports.forgotPassword = (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render('forgot', {
+        res.render('forgotAd', {
             errors,
             email
         });
     } else {
         Admin.findOne({ email: email }).then(admin => {
             if (!admin) {
-                //------------ User already exists ------------//
-                errors.push({ msg: 'User with Email ID does not exist!' });
-                res.render('forgot', {
+                //------------ Admin already exists ------------//
+                errors.push({ msg: 'Admin with Email ID does not exist!' });
+                res.render('forgotAd', {
                     errors,
                     email
                 });
@@ -219,14 +219,14 @@ exports.forgotPassword = (req, res) => {
                 const CLIENT_URL = 'http://' + req.headers.host;
                 const output = `
                 <h2>Please click on below link to reset your account password</h2>
-                <p>${CLIENT_URL}/auth/forgot/${token}</p>
+                <p>${CLIENT_URL}/auth/forgotAd/${token}</p>
                 <p><b>NOTE: </b> The activation link expires in 30 minutes.</p>
                 `;
 
                 Admin.updateOne({ resetLink: token }, (err, success) => {
                     if (err) {
                         errors.push({ msg: 'Error resetting password!' });
-                        res.render('forgot', {
+                        res.render('forgotAd', {
                             errors,
                             email
                         });
@@ -259,7 +259,7 @@ exports.forgotPassword = (req, res) => {
                                     'error_msg',
                                     'Something went wrong on our end. Please try again later.'
                                 );
-                                res.redirect('/auth/forgot');
+                                res.redirect('/auth/forgotAd');
                             }
                             else {
                                 console.log('Mail sent : %s', info.response);
@@ -267,13 +267,111 @@ exports.forgotPassword = (req, res) => {
                                     'success_msg',
                                     'Password reset link sent to email ID. Please follow the instructions.'
                                 );
-                                res.redirect('/auth/colegas');
+                                res.redirect('/auth/loginAdmin');
                             }
                         })
                     }
                 })
 
             }
+        });
+    }
+}
+
+exports.gotoResetAdmin = (req, res) => {
+    const { token } = req.params;
+
+    if (token) {
+        jwt.verify(token, JWT_RESET_KEY, (err, decodedToken) => {
+            if (err) {
+                req.flash(
+                    'error_msg',
+                    'Incorrect or expired link! Please try again.'
+                );
+                res.redirect('/auth/loginAdmin');
+            }
+            else {
+                const { _id } = decodedToken;
+                Admin.findById(_id, (err, admin) => {
+                    if (err) {
+                        req.flash(
+                            'error_msg',
+                            'Admin with email ID does not exist! Please try again.'
+                        );
+                        res.redirect('/auth/loginAdmin');
+                    }
+                    else {
+                        res.redirect(`/auth/resetAdmin/${_id}`)
+                    }
+                })
+            }
+        })
+    }
+    else {
+        console.log("Password reset error!")
+    }
+}
+
+
+exports.resetAdminPassword = (req, res) => {
+    var { password, password2 } = req.body;
+    const id = req.params.id;
+    let errors = [];
+
+    //------------ Checking required fields ------------//
+    if (!password || !password2) {
+        req.flash(
+            'error_msg',
+            'Please enter all fields.'
+        );
+        res.redirect(`/auth/resetAdmin/${id}`);
+    }
+
+    //------------ Checking password length ------------//
+    else if (password.length < 8) {
+        req.flash(
+            'error_msg',
+            'Password must be at least 8 characters.'
+        );
+        res.redirect(`/auth/resetAdmin/${id}`);
+    }
+
+    //------------ Checking password mismatch ------------//
+    else if (password != password2) {
+        req.flash(
+            'error_msg',
+            'Passwords do not match.'
+        );
+        res.redirect(`/auth/resetAdmin/${id}`);
+    }
+
+    else {
+        bcryptjs.genSalt(10, (err, salt) => {
+            bcryptjs.hash(password, salt, (err, hash) => {
+                if (err) throw err;
+                password = hash;
+
+                Admin.findByIdAndUpdate(
+                    { _id: id },
+                    { password },
+                    function (err, result) {
+                        if (err) {
+                            req.flash(
+                                'error_msg',
+                                'Error resetting password!'
+                            );
+                            res.redirect(`/auth/resetAdmin/${id}`);
+                        } else {
+                            req.flash(
+                                'success_msg',
+                                'Password reset successfully!'
+                            );
+                            res.redirect('/auth/loginAdmin');
+                        }
+                    }
+                );
+
+            });
         });
     }
 }
@@ -287,8 +385,8 @@ exports.loginAdminHandle = (req, res, next) => {
 }
 
 //------------ Logout Handle ------------//
-exports.logoutHandle = (req, res) => {
+exports.logoutAdminHandle = (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
-    res.redirect('/auth/login_registar_user');
+    res.redirect('/auth/loginAdmin');
 }
