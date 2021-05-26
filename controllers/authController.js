@@ -379,7 +379,7 @@ exports.resetPassword = (req, res) => {
 
 exports.loginHandle = (req, res, next) => {
     passport.authenticate('local', {
-        successRedirect: '/welcome',
+        successRedirect: '/clientpage',
         failureRedirect: '/auth/login_registar_user',
         failureFlash: true
     })(req, res, next);
