@@ -300,7 +300,7 @@
         <section class="tm-section-6" id="tm-section-6">
             <h2>Nome do Cliente</h2>
             <div class="row mb-3 pl-xl-3">
-                <table class="tabela-clientes">
+                <table id="tabelaCliente" class="tabela-clientes">
                     <tr>
                         <th>Morada</th>
                         <th>Data</th> 
@@ -309,6 +309,12 @@
                         <th>Estado</th>
                         <th></th>
                     </tr>
+
+                    <tbody>
+
+                    </tbody>
+
+                    <!--
                     <tr>
                         <td>Rua xxxxxx</td>
                         <td>24/2/2020</td>
@@ -377,8 +383,7 @@
                                             <input type="radio" name="star" id="star4"><label for="star4">
                                             </label>
                                             <input type="radio" name="star" id="star5"><label for="star5">
-                                            </label>
-                                            <!-- https://www.youtube.com/watch?v=Ep78KjstQuw -->      
+                                            </label>     
                                             
                                             <button type="submit" class="btn  tm-btn-submit float-right btn-smol">Enviar</button>
                                         </div>
@@ -389,7 +394,7 @@
                                 </div>
                             </div>
                         </td>
-                    </tr>
+                    </tr> 
                     <tr>
                         <td>Rua xxxxxx</td>
                         <td>24/2/2020</td>
@@ -424,7 +429,6 @@
                                             </label>
                                             <input type="radio" name="star" id="star5"><label for="star5">
                                             </label>
-                                            <!-- https://www.youtube.com/watch?v=Ep78KjstQuw -->
                                             
                                             <button type="submit" class="btn  tm-btn-submit float-right btn-smol">Enviar</button>
                                             
@@ -436,7 +440,7 @@
                                 </div>
                             </div>
                         </td>
-                    </tr>   
+                    </tr> -->   
                 </table>
             </div>
         </section>
@@ -647,6 +651,10 @@
                     }
                 });
         });
+
+        function buildtable(data) {
+            let table = document.getElementById("tabelaCliente");
+        }
     </script>
 
 </body>
