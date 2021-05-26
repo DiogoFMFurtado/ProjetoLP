@@ -42,7 +42,9 @@ router.get('/registeradmin', (req, res) => res.render('colegas'));
 
 router.get('/registertrab', (req, res) => res.render('colegas2'));
 
+// Get marcacoes
 
+router.get('/marcacoesGET', authControllerMarcacao.getMarcacoes);
 
 
 
