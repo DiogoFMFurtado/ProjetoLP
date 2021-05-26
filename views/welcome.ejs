@@ -1,295 +1,107 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cillit Bang</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
+        <link rel="stylesheet" href="/public/font-awesome-4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/public/slick/slick.css" />
+        <link rel="stylesheet" type="text/css" href="/public/slick/slick-theme.css" />
+        <link rel="stylesheet" href="/public/css/tooplate-style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <body>
+<!--Loader--------------------------------------------------------->
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+        </div>
+<!--Menu----------------------------------------------------------->
+        <nav class="navigationbar">
+            <div class="logomenubar">CillitBang</div>
+            <input type="checkbox" id="click">
+            <label for="click" class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <ul>
+                <li><a id="Login" class="navigationbaractive Login" href="/auth/login_registar_user">Log-in</a> </li>
+                <li><a class="" href="#">About</a> </li>
+                <li><a class="serv" id="serv" href="#tm-section-4">Serviços</a> </li>
+                <li><a href="#">Gallery</a> </li>
+                <li><a href="#">Feedback</a> </li>
+                <li><a id="Logout" class="Logout hidden" href="#">Log-out</a></li>
+            </ul>
+        </nav>
+<!--Cabeçalho------------------------------------------------------>
+        <div class="container">
+            <section class="tm-section-head" id="top">
+                <header id="header" class="text-center tm-text-gray">
+                    <h1>CILLIT BANG</h1>
+                    <p>A Sujidade Desaparece</p>
+                </header>
 
-    <title>Cillit Bang</title>
-    <!--JQuery-->
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <!---->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
-    <!-- Google web font "Open Sans" -->
-    <link rel="stylesheet" href="/public/font-awesome-4.5.0/css/font-awesome.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/slick/slick.css" />
-    <link rel="stylesheet" type="text/css" href="/public/slick/slick-theme.css" />
-    <link rel="stylesheet" href="/public/css/tooplate-style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
-    <!-- tooplate style -->
-
-    <script>
-        var renderPage = true;
-
-        if (navigator.userAgent.indexOf('MSIE') !== -1
-            || navigator.appVersion.indexOf('Trident/') > 0) {
-            /* Microsoft Internet Explorer detected in. */
-            alert("Please view this in a modern browser such as Chrome or Microsoft Edge.");
-            renderPage = false;
-        }
-    </script>
-    <!--script para esconder a marcação da limpeza-->
-    <script>
-        $(document).ready(function(){
-            $('#Login').on('click', function(){
-                $('#Login').hide(); //Faz apareçer a tm-section-3, utiliza o id da secção
-                $('#Logout').show(); //Faz apareçer a tm-section-2, utiliza o id da secção
-            })
-        })
-    </script>
-    <!--Fim do script para esconder a marcação da limpeza-->
-    <!-- script para esconder o botão login no menu apos ser feito o login e fazer apareçer o log-out-->
-    <script>
-        $(document).ready(function(){
-            $('#serv').on('click', function(){
-                $('#tm-section-3').show(); //Faz apareçer a tm-section-3, utiliza o id da secção
-                $('#tm-section-2').show(); //Faz apareçer a tm-section-2, utiliza o id da secção
-            })
-        })
-    </script>
-    <!--Fim do scrip do Login-->
-    <!-- script para apareçer o login apos ser feito o logout -->
-    <script>
-        $(document).ready(function(){
-            $('#Logout').on('click', function(){
-                $('#Login').show(); //Faz apareçer a tm-section-3, utiliza o id da secção
-                $('#Logout').hide(); //Faz apareçer a tm-section-2, utiliza o id da secção
-            })
-        })
-    </script>
-    <!--Fim do script do logout-->
-
-</head>
-
-<style>
-    th, td {
-        border: 1px gray;
-    }
-</style>
-
-<body>
-    <!-- Loader -->
-    <div id="loader-wrapper">
-        <div id="loader"></div>
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-    </div>
-    <!--MENU-->
-    <nav class="navigationbar">
-        <div class="logomenubar">CillitBang</div>
-        <input type="checkbox" id="click">
-        <label for="click" class="menu-btn">
-            <i class="fas fa-bars"></i>
-        </label>
-        <ul>
-            <li><a id="Login" class="navigationbaractive Login" href="/auth/login_registar_user">Log-in</a> </li>
-            <li><a class="" href="#">About</a> </li>
-            <li><a class="serv" id="serv" href="#tm-section-4">Serviços</a> </li>
-            <li><a href="#">Gallery</a> </li>
-            <li><a href="#">Feedback</a> </li>
-            <li><a id="Logout" class="Logout hidden" href="#">Log-out</a></li>
-        </ul>
-    </nav>
-    <!--FIM DO MENU-->
-
-
-
-    <div class="container">
-        <section class="tm-section-head" id="top">
-            <header id="header" class="text-center tm-text-gray">
-                <h1>CILLIT BANG</h1>
-                <p>A Sujidade Desaparece</p>
-            </header>
-
-            <div class="navbar navbar-default navbar-fixed-top">
-                <a href="/index.html" class="navbar-brand"></a>
-                <botton class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mydropdown">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </botton>
-
-            </div>
-
-            <div class="collapse navbar-collapse" id="mydropdown">
-
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">Home</a>
-                    </li>
-                    <li>
-                        <a href="#">info</a>
-                    </li>
-                    <li>
-                        <a href="#">contact</a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Slider de imagens -->
-        <section class="row" id="tm-section-1">
-            <div class="col-lg-12 tm-slider-col">
-                <div class="tm-img-slider">
-                    <div class="tm-img-slider-item" href="/public/img/sli3.png">
-                        <p class="tm-slider-caption">Bem vindos à Cillit Bang Limpezas. Onde a Sujidade Desaparece.</p>
-                        <img src="/public/img/sli3.png" alt="Image" class="tm-slider-img">
-                    </div>
-                    <div class="tm-img-slider-item" href="/public/img/c4">
-                        <p class="tm-slider-caption">Marcações disponíveis a Particulares e Empresas.</p>
-                        <img src="/public/img/c4" alt="Image" class="tm-slider-img">
-                    </div>
-                    <div class="tm-img-slider-item" href="/public/img/gallery-img-03.jpg">
-                        <p class="tm-slider-caption">Escolha entre um único empregado ou uma equipa para o seu trabalho.</p>
-                        <img src="/public/img/clean.gif" alt="Image" class="tm-slider-img">
-                    </div>
-                    <div class="tm-img-slider-item" href="/public/img/gallery-img-04.jpg">
-                        <p class="tm-slider-caption">Serviço 24h/7 a seu dispor.</p>
-                        <img src="/public/img/imagem4.png" alt="Image" class="tm-slider-img">
+                
+            </section>
+<!--Slider-de-imagens---------------------------------------------->
+            <section class="row" id="tm-section-1">
+                <div class="col-lg-12 tm-slider-col">
+                    <div class="tm-img-slider">
+                        <div class="tm-img-slider-item" href="/public/img/sli3.png">
+                            <p class="tm-slider-caption">Bem vindos à Cillit Bang Limpezas. Onde a Sujidade Desaparece.</p>
+                            <img src="/public/img/sli3.png" alt="Image" class="tm-slider-img">
+                        </div>
+                        <div class="tm-img-slider-item" href="/public/img/c4">
+                            <p class="tm-slider-caption">Marcações disponíveis a Particulares e Empresas.</p>
+                            <img src="/public/img/c4" alt="Image" class="tm-slider-img">
+                        </div>
+                        <div class="tm-img-slider-item" href="/public/img/gallery-img-03.jpg">
+                            <p class="tm-slider-caption">Escolha entre um único empregado ou uma equipa para o seu trabalho.</p>
+                            <img src="/public/img/clean.gif" alt="Image" class="tm-slider-img">
+                        </div>
+                        <div class="tm-img-slider-item" href="/public/img/gallery-img-04.jpg">
+                            <p class="tm-slider-caption">Serviço 24h/7 a seu dispor.</p>
+                            <img src="/public/img/imagem4.png" alt="Image" class="tm-slider-img">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- About Us Section -->
-        <section class="tm-section-2 tm-section-mb" id="tm-section-2">
-            <div class="row">
-                <div class="col-xl-12">
-                    <header class="text-center"></header>
-
-                    <h2>Sobre nós</h2>
-                    <p>Meter aqui uma introdução da nossa empresa e do que fazemos</p>
-
-                    <a href="#tm-section-3" class="btn tm-btn-pad-2 float-left  ">Marque já</a>
+            </section>
+<!--Sobre-nos------------------------------------------------------>
+            <section class="tm-section-2 tm-section-mb" id="tm-section-2">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <header class="text-center"></header>
+                        <h2>Sobre nós</h2>
+                        <p>Meter aqui uma introdução da nossa empresa e do que fazemos</p>
+                    </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Marque já -->
-        <section class="tm-section-3" id="tm-section-3">
-            <div class="row">
-                <header class="text-center"></header>
-                <h2 class="h2-spaced">Marque a sua limpeza</h2>
-                <div class="col-xl-12">
-                    <div class="contact_message">
-                        <form action="/auth/marcacaoPOST" method="POST" class="contact-form">
-                            <div class="row mb-3">
-                                <div class="form-group col-xs-12 pl-lg-3">
-                                    <input type="text" id="contact_name" name="name" class="form-control" placeholder="Primeiro e Último nome" required/>
-                                </div>
-                                <div class="form-group col-sm-4 pl-xl-4">
-                                    <input type="email" id="contact_email" name="email" class="form-control" placeholder="Email" required/>
-                                </div>
+            </section>
+
+            <!--
+            <section class="tm-section-3 tm-section-mb" id="tm-section-3">
+                <div class="row">
+                    <div class="col-md-6 tm-mb-sm-4 tm-2col-l">
+                        <div class="image">
+                            <img src="img/tm-img-1.jpg" class="img-fluid" />
+                        </div>
+                        <div class="tm-box-3">
+                            <h2>Lorem ipsum dolor</h2>
+                            <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor
+                                velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat
+                                lacus placerat malesuada.</p>
+                            <div class="text-center">
+                                <a href="#tm-section-5" class="btn btn-big">Details</a>
                             </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-xs-12 pl-lg-3">
-                                    <p>Escolha uma data:</p>
-                                    <input type="date" name="date" id="contact_date" class="form-control" required/>
-                                </div>
-                                <div class="form-group col-xs-12 pl-xl-4">
-                                    <p>Escolha uma hora:</p>
-                                    <input type="time" name="hour" id="hora_marcacao" class="form-control" required/>
-                                    <!--
-                                    <input type="time" max="21:00" min="09:00" id="hora_marcacao" class="form-control" required/>
-                                    -->
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="form-group col-xs-12 pl-lg-3">
-                                    <p>Escolha a dimensão do projeto:</p>
-                                    <select id="projeto" name="type" class="form-control-select">
-                                        <option value="Projeto Grande - 3 Pessoas">Projeto Grande - 3 Pessoas</option>
-                                        <option value="Projeto Pequeno - 1 Pessoa">Projeto Pequeno - 1 Pessoa</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-xl-6 pl-xl-4">
-                                    <p>Morada da marcação:</p>
-                                    <input type="text" id="contact_name" name="address" class="form-control" placeholder="Morada" required/>
-                                </div>
-                                <div id="pos-btn" class="form-group col-xl-2 pl-xl-4">
-                                    <button type="submit" class="btn  tm-btn-submit float-right btn-marcar" onclick="javascript: form.action='/auth/marcacaoPOST'">Marcar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--
-        <section class="tm-section-3 tm-section-mb" id="tm-section-3">
-            <div class="row">
-                <div class="col-md-6 tm-mb-sm-4 tm-2col-l">
-                    <div class="image">
-                        <img src="img/tm-img-1.jpg" class="img-fluid" />
-                    </div>
-                    <div class="tm-box-3">
-                        <h2>Lorem ipsum dolor</h2>
-                        <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor
-                            velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat
-                            lacus placerat malesuada.</p>
-                        <div class="text-center">
-                            <a href="#tm-section-5" class="btn btn-big">Details</a>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 tm-2col-r">
-                    <div class="image">
-                        <img src="img/tm-img-2.jpg" class="img-fluid" />
-                    </div>
-                    <div class="tm-box-3">
-                        <header>
-                            <h2>Vestibulum sit amet</h2>
-                        </header>
-                        <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor
-                            velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat
-                            lacus placerat malesuada.</p>
-                        <div class="text-center">
-                            <a href="#tm-section-5" class="btn btn-big">Details</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        -->
-
-        <section class="tm-section-4 tm-section-mb" id="tm-section-4">
-            <div class="row">
-
-            </div>
-        </section>
-
-        <section class="tm-section-5" id="tm-section-5">
-            <div class="row">
-                <div class="col-lg-4 col-md-12 col-sm-12">
-                    <div class="image fit">
-                        <img src="/public/img/tm-sc4-img-1.jpg" class="img-fluid">
-                    </div>
-                </div>
-
-                <div class="col-lg-8 col-md-12 col-sm-12 pl-lg-0">
-                    <div class="media tm-media">
-                        <img src="/public/img/sc4-img-2.jpg" class="img-responsive tm-media-img">
-                        <div class="media-body tm-box-5">
-                            <h2>Marque já</h2>
-                            <p class="mb-0">Pode agendar uma limpeza após ter feito o seu registo e login no site. Se deseja saber mais sobre nós envie-nos uma mensagem no contacte-nos.</p>
-                        </div>
-                    </div>
-                    <div class="media tm-media">
-                        <img src="/public/img/sc4-img-3.jpg" class="img-responsive tm-media-img">
-                        <div class="media-body tm-box-5">
-                            <h2>Tipo de Limpeza</h2>
-                            <p class="mb-0">Pode optar por escolher uma equipe ou, simplesmente um empregado para a sua limpeza.</p>
-                        </div>
-                    </div>
-                    <div class="media tm-media">
-                        <img src="/public/img/sc4-img-4.jpg" class="img-responsive tm-media-img">
-                        <div class="media-body tm-box-5">
-                            <h2>Área Cliente</h2>
-                            <p class="mb-0"> Veja todas as suas marcações e o seu estado. Não se esqueça de avaliar o trabalho realizado para melhorarmos os nossos serviços. </p>
+                    <div class="col-md-6 tm-2col-r">
+                        <div class="image">
+                            <img src="img/tm-img-2.jpg" class="img-fluid" />
                         </div>
                     </div>
                 </div>
@@ -511,152 +323,61 @@
                         </form>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+            -->
 
-        <section class="tm-section-9" id="tm-section-9">
-            <div class="row">
-                <div class="col-lg-7 col-md-7 col-xs-12">
-                    <div class="contact_message">
-                        <form action="" method="post" class="contact-form">
-                            <div class="row mb-2">
-                                <div class="form-group col-xl-6">
-                                    <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Nome" required/>
-                                </div>
-                                <div class="form-group col-xl-6 pl-xl-1">
-                                    <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email" required/>
-                                </div>
+<!--Imagem-de-fundo------------------------------------------------>
+            <section class="tm-section-4 tm-section-mb" id="tm-section-4">
+                <div class="row"></div>
+            </section>
+<!--Informações---------------------------------------------------->
+            <section class="tm-section-5" id="tm-section-5">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="image fit">
+                            <img src="/public/img/tm-sc4-img-1.jpg" class="img-fluid">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8 col-md-12 col-sm-12 pl-lg-0">
+                        <div class="media tm-media">
+                            <img src="/public/img/sc4-img-2.jpg" class="img-responsive tm-media-img">
+                            <div class="media-body tm-box-5">
+                                <h2>Marque já</h2>
+                                <p class="mb-0">Pode agendar uma limpeza após ter feito o seu registo e login no site. Se deseja saber mais sobre nós envie-nos uma mensagem no contacte-nos.</p>
                             </div>
-                            <div class="form-group">
-                                <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Messagem" required></textarea>
+                        </div>
+                        <div class="media tm-media">
+                            <img src="/public/img/sc4-img-3.jpg" class="img-responsive tm-media-img">
+                            <div class="media-body tm-box-5">
+                                <h2>Tipo de Limpeza</h2>
+                                <p class="mb-0">Pode optar por escolher uma equipe ou, simplesmente um empregado para a sua limpeza.</p>
                             </div>
-                            <button type="submit" class="btn  tm-btn-submit float-right btn-big">Enviar</button>
-                        </form>
+                        </div>
+                        <div class="media tm-media">
+                            <img src="/public/img/sc4-img-4.jpg" class="img-responsive tm-media-img">
+                            <div class="media-body tm-box-5">
+                                <h2>Área Cliente</h2>
+                                <p class="mb-0"> Veja todas as suas marcações e o seu estado. Não se esqueça de avaliar o trabalho realizado para melhorarmos os nossos serviços. </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </section>
+<!--Rodapé--------------------------------------------------------->
+            <footer class="mt-5">
+                <p class="text-center">Copyright © 2020 Cillit Bang
+                    <a rel="nofollow" href="http://www.tooplate.com/view/2103-central" target="_parent" class="tm-text-black">Central</a>
+                </p>
+            </footer>
+        </div>
+<!--Sripts--------------------------------------------------------->
 
-                <div class="col-lg-5 col-md-5 col-xs-12 tm-contact-right">
-                    <div class="tm-address-box">
-                        <h2 class="mb-4">Contacte-nos</h2>
-                        <p class="mb-5">Envie-nos uma mensagem e tentaremos responder-lhe o mais rapidamente possível via email. Indique o seu nome ou nome da empresa e o respetivo email. Alternativamente ligue para o contacto 967709543.</p>
-                        <address>
-                            120-240 Proin mauris enim,
-                            <br> dignissim sit amet ligula id,
-                            <br> finibus tempus erat 10200
-                        </address>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <script type="text/javascript" src="/public/js/jquery-1.11.3.min.js"></script>
+        <script src="/public/js/popper.min.js"></script>
+        <script src="/public/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/public/slick/slick.min.js"></script>
+        <script src="/public/js/page.js"></script>
 
-
-
-        <footer class="mt-5">
-            <p class="text-center">Copyright © 2020 Cillit Bang
-                <a rel="nofollow" href="http://www.tooplate.com/view/2103-central" target="_parent" class="tm-text-black">Central</a>
-            </p>
-        </footer>
-    </div>
-
-    <!-- load JS files -->
-    <script type="text/javascript" src="/public/js/jquery-1.11.3.min.js"></script>
-    <script src="/public/js/popper.min.js"></script>
-    <!-- https://popper.js.org/ -->
-    <script src="/public/js/bootstrap.min.js"></script>
-    <!-- https://getbootstrap.com/ -->
-    <script type="text/javascript" src="/public/slick/slick.min.js"></script>
-    <!-- Slick Carousel -->
-
-    <script>
-        function setCarousel() {
-            var slider = $('.tm-img-slider');
-
-            if (slider.hasClass('slick-initialized')) {
-                slider.slick('destroy');
-            }
-
-            if ($(window).width() > 991) {
-                // Slick carousel
-                slider.slick({
-                    autoplay: true,
-                    fade: true,
-                    speed: 800,
-                    infinite: true,
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                });
-            } else {
-                slider.slick({
-                    autoplay: true,
-                    fade: true,
-                    speed: 800,
-                    infinite: true,
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                });
-            }
-        }
-
-        $(document).ready(function () {
-            if (renderPage) {
-                $('body').addClass('loaded');
-            }
-
-            setCarousel();
-
-            $(window).resize(function () {
-                setCarousel();
-            });
-
-            // Close menu after link click
-            $('.nav-link').click(function () {
-                $('#mainNav').removeClass('show');
-            });
-
-            // https://css-tricks.com/snippets/jquery/smooth-scrolling/
-            // Select all links with hashes
-            $('a[href*="#"]')
-                // Remove links that don't actually link to anything
-                .not('[href="#"]')
-                .not('[href="#0"]')
-                .click(function (event) {
-                    // On-page links
-                    if (
-                        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
-                        &&
-                        location.hostname == this.hostname
-                    ) {
-                        // Figure out element to scroll to
-                        var target = $(this.hash);
-                        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                        // Does a scroll target exist?
-                        if (target.length) {
-                            // Only prevent default if animation is actually gonna happen
-                            event.preventDefault();
-                            $('html, body').animate({
-                                scrollTop: target.offset().top + 1
-                            }, 1000, function () {
-                                // Callback after animation
-                                // Must change focus!
-                                var $target = $(target);
-                                $target.focus();
-                                if ($target.is(":focus")) { // Checking if the target was focused
-                                    return false;
-                                } else {
-                                    $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-                                    $target.focus(); // Set focus again
-                                };
-                            });
-                        }
-                    }
-                });
-        });
-
-        function buildtable(data) {
-            let table = document.getElementById("tabelaCliente");
-        }
-    </script>
-
-</body>
-
+    </body>
 </html>
