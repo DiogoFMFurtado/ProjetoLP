@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const MarcacaoSchema = new mongoose.Schema({
+
     name: { type: String, required: true },
     email: { type: String, required: true },
     date: { type: Date, required: true},
@@ -16,7 +17,7 @@ const MarcacaoSchema = new mongoose.Schema({
 {collection: 'Marcacao'}
 )
 
-module.exports = mongoose.model('Marcacao', MarcacaoSchema);
+module.exports = mongoose.model('Marcacoes', MarcacaoSchema);
 
 /* Teste */
 /* Teste2 */

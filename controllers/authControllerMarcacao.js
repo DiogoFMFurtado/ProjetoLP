@@ -54,4 +54,15 @@ exports.registerMarcHandle = (req, res) => {
     });
 }
 
+exports.getMarcacoes = async(req, res) => {
+    
+    try {
+        const marcacoes = await Marcacao.find();
+        res.json(marcacoes);
+    } catch(err) {
+        res.json({message:err});
+    }
+
+}
+
     
