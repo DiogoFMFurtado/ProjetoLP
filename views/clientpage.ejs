@@ -86,39 +86,39 @@
                     <h2 class="h2-spaced">Marque a sua limpeza</h2>
                     <div class="col-xl-12">
                         <div class="contact_message">
-                            <form action="/controllers/marcacao.js" method="POST" class="contact-form">
+                            <form action="/auth/marcacaoPOST" method="POST" class="contact-form">
                                 <div class="row mb-3">
                                     <div class="form-group col-xs-12 pl-lg-3">
-                                        <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Primeiro e Último nome" required/>
+                                        <input type="text" id="contact_name" name="name" class="form-control" placeholder="Primeiro e Último nome" required/>
                                     </div>
                                     <div class="form-group col-sm-4 pl-xl-4">
-                                        <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email" required/>
+                                        <input type="email" id="contact_email" name="email" class="form-control" placeholder="Email" required/>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="form-group col-xs-12 pl-lg-3">
                                         <p>Escolha uma data:</p>
-                                        <input type="date" id="contact_date" class="form-control" required/>
+                                        <input type="date" name="date" id="contact_date" class="form-control" required/>
                                     </div>
                                     <div class="form-group col-xs-12 pl-xl-4">
                                         <p>Escolha uma hora:</p>
-                                        <input type="time" id="hora_marcacao" class="form-control" required/>
+                                        <input type="time" id="hora_marcacao" name="hour" class="form-control" required/>
                                     </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="form-group col-xs-12 pl-lg-3">
                                         <p>Escolha a dimensão do projeto:</p>
-                                        <select id="projeto" name="projeto" class="form-control-select">
+                                        <select id="projeto" name="type" class="form-control-select">
                                             <option value="Projeto Grande - 3 Pessoas">Projeto Grande - 3 Pessoas</option>
                                             <option value="Projeto Pequeno - 1 Pessoa">Projeto Pequeno - 1 Pessoa</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-xl-6 pl-xl-4">
                                         <p>Morada da marcação:</p>
-                                        <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Morada" required/>
+                                        <input type="text" id="contact_name" name="address" class="form-control" placeholder="Morada" required/>
                                     </div>
                                     <div id="pos-btn" class="form-group col-xl-2 pl-xl-4">
-                                        <button type="submit" class="btn  tm-btn-submit float-right btn-marcar" onclick="javascript: form.action='/controllers/marcacao.js'">Marcar</button>
+                                        <button id="btnMarcacao" type="submit" class="btn  tm-btn-submit float-right btn-marcar" onclick="javascript: form.action='/auth/marcacaoPOST'">Marcar</button>
                                     </div>
                                 </div>
                             </form>
@@ -355,5 +355,35 @@
         <script type="text/javascript" src="/public/slick/slick.min.js"></script>
         <script src="/public/js/page.js"></script>
 
+
+        <script>
+            let thisArray = []
+
+            $.ajax({
+                method:'GET',
+                url:'/auth/marcacoesGET',
+                dataType: 'json',
+                success:function(response){
+                    thisArray = response.data
+                    buildTable(thisArray);
+                    console.log(thisArray)      
+                }
+            })
+
+            function buildTable(data){
+                let table = document.getElementById('tabelaCliente')
+
+                for(let i = 0; i < data.length; i++){
+                    let row = `<tr>
+                                    <td>${data[i]}</td>
+                                    <td>${data[i].date}</td>
+                                    <td>${data[i].hour}</td>
+                                    <td>${data[i].type}</td>
+                                    <td>${data[i].state}</td>
+                               </tr>`
+                    table.innerHTML += row
+                }
+            }
+        </script>
     </body>
 </html>
