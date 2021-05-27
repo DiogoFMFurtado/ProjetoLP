@@ -46,7 +46,8 @@ exports.registerMarcHandle = (req, res) => {
             console.log('3');
             try {
                 const savedMarcacao = marcacao.save();
-                res.json(savedMarcacao);
+                //res.json(savedMarcacao);
+                res.redirect("/clientpage")
             } catch (err) {
                 res.json({message: err});
                 }
