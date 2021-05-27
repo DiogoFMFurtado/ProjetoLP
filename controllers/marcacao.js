@@ -12,7 +12,7 @@ router.post('/POST', async(req, res) => {
         hour: req.body.hour,
         type: req.body.type,
         address: req.body.address,
-        state: req.body.state
+        //state: req.body.state
     });
     try{
         const savedMarcacao = await marcacao.save();
@@ -21,5 +21,4 @@ router.post('/POST', async(req, res) => {
         res.json({message: err});
     }
 });
-
 module.exports = router;
