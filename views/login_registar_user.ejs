@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="../assets/css/loginregistar.css">
 		<div class="container" id="container">
 			<div class="form-container sign-up-container">
+				<button class='close' onclick="javascript: location.replace('/auth/welcome')" >X</button>
 				<form id='reg-form' action="/auth/register" method="POST">
 					<h1>Registar:</h1>
 					<input type="name" id="name" name="name" class="form-control" placeholder="Enter Name"
@@ -29,6 +30,7 @@
 
 
 			<div class="form-container sign-in-container">
+				<button class='close' onclick="javascript: location.replace('/auth/welcome')">X</button>
 				<form action="/auth/login"  method="POST" id='login'>
 					<h1>Login:</h1>
 					<input type="email" id="email" name="email" class="form-control" placeholder="Digite o seu E-mail:" />

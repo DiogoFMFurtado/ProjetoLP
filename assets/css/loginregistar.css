@@ -42,6 +42,17 @@ button {
 button:active {transform: scale(0.95);}
 button:focus {outline: none;}
 
+button.close {
+	position:relative;
+	left:0%;
+	border-radius: 20px;
+	border: 1px solid transparent;
+	background-color: transparent;
+	position: left;
+	color: #ff0080;
+	padding: 5px 10px;
+}
+
 button.ghost {
 	background-color: transparent;
 	border-color: #FFFFFF;
