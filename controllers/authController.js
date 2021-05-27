@@ -6,30 +6,27 @@ const OAuth2 = google.auth.OAuth2;
 const jwt = require('jsonwebtoken');
 const JWT_KEY = "jwtactive987";
 const JWT_RESET_KEY = "jwtreset987";
-
-//------------ User Model ------------//
 const User = require('../models/User');
 
-//------------ Register Handle ------------//
+//-----Register Handle --------------------------------------------------------
 exports.registerHandle = (req, res) => {
     const { name, email, password, password2 } = req.body;
     let errors = [];
 
-    //------------ Checking required fields ------------//
+//-----Requesitos-de-registo---------------------------------------------------
     if (!name || !email || !password || !password2) {
-        errors.push({ msg: 'Please enter all fields' });
-    }
+        errors.push({ msg: 'Preencha todos os espaços' });
+    }else{
+        if (password.length < 8) {
+            errors.push({ msg: 'A Password tem de ter no mínimo 8 caracteres' });
+        }else{
+            if (password != password2) {
+                errors.push({ msg: 'As Passwords não correspondem.' });
+            }
+        }
+    }  
 
-    //------------ Checking password mismatch ------------//
-    if (password != password2) {
-        errors.push({ msg: 'Passwords do not match' });
-    }
-
-    //------------ Checking password length ------------//
-    if (password.length < 8) {
-        errors.push({ msg: 'Password must be at least 8 characters' });
-    }
-
+//-----Validaçao-de-conta------------------------------------------------------
     if (errors.length > 0) {
         res.render('login_registar_user', {
             errors,
@@ -39,11 +36,9 @@ exports.registerHandle = (req, res) => {
             password2
         });
     } else {
-        //------------ Validation passed ------------//
         User.findOne({ email: email }).then(user => {
             if (user) {
-                //------------ User already exists ------------//
-                errors.push({ msg: 'Email ID already registered' });
+                errors.push({ msg: 'Este email já está registado' });
                 res.render('login_registar_user', {
                     errors,
                     name,
@@ -53,6 +48,7 @@ exports.registerHandle = (req, res) => {
                 });
             } else {
 
+//-----Email-------------------------------------------------------------------
                 const oauth2Client = new OAuth2(
                     "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com", // ClientID
                     "OKXIYR14wBB_zumf30EC__iJ", // Client Secret
@@ -68,9 +64,11 @@ exports.registerHandle = (req, res) => {
                 const CLIENT_URL = 'http://' + req.headers.host;
 
                 const output = `
-                <h2>Please click on below link to activate your account</h2>
+                <h2>Recebos o seu registo.</h2>
+                <p>Para confirmar a sua conta copie o seguinte link:</p>
                 <p>${CLIENT_URL}/auth/activate/${token}</p>
-                <p><b>NOTE: </b> The above activation link expires in 30 minutes.</p>
+                <p><b>Atenção: </b></p>
+                <p>O link vai expirar após  30 minutos.</p>
                 `;
 
                 const transporter = nodemailer.createTransport({
@@ -85,21 +83,21 @@ exports.registerHandle = (req, res) => {
                     },
                 });
 
-                // send mail with defined transport object
                 const mailOptions = {
-                    from: '"Auth Admin" <nodejsa@gmail.com>', // sender address
-                    to: email, // list of receivers
-                    subject: "Account Verification: NodeJS Auth ✔", // Subject line
+                    from: '"Nome da empresa" <nodejsa@gmail.com>',
+                    to: email,
+                    subject: "Confirme a sua conta.",
                     generateTextFromHTML: true,
-                    html: output, // html body
+                    html: output,
                 };
 
+//-----Mensagem-de-confirmação-de-rgisto--------------------------------------
                 transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
                         console.log(error);
                         req.flash(
                             'error_msg',
-                            'Something went wrong on our end. Please register again.'
+                            'Ocorreu um erro, por favor, tente de novo.'
                         );
                         res.redirect('/auth/login_registar_user');
                     }
@@ -107,7 +105,7 @@ exports.registerHandle = (req, res) => {
                         console.log('Mail sent : %s', info.response);
                         req.flash(
                             'success_msg',
-                            'Activation link sent to email ID. Please activate to log in.'
+                            'Sucesso! Verifique o seu email.'
                         );
                         res.redirect('/auth/login_registar_user');
                     }
@@ -127,7 +125,7 @@ exports.activateHandle = (req, res) => {
             if (err) {
                 req.flash(
                     'error_msg',
-                    'Incorrect or expired link! Please register again.'
+                    'Link incorreto ou expirado, tente de novo.'
                 );
                 res.redirect('/auth/login_registar_user');
             }
@@ -157,7 +155,7 @@ exports.activateHandle = (req, res) => {
                                     .then(user => {
                                         req.flash(
                                             'success_msg',
-                                            'Account activated. You can now log in.'
+                                            'Conta criada, já pode fazer login.'
                                         );
                                         res.redirect('/auth/login_registar_user');
                                     })
@@ -195,7 +193,7 @@ exports.forgotPassword = (req, res) => {
         User.findOne({ email: email }).then(user => {
             if (!user) {
                 //------------ User already exists ------------//
-                errors.push({ msg: 'User with Email ID does not exist!' });
+                errors.push({ msg: 'Email não encontrado, confirme o seu email' });
                 res.render('forgot', {
                     errors,
                     email
@@ -216,14 +214,16 @@ exports.forgotPassword = (req, res) => {
                 const token = jwt.sign({ _id: user._id }, JWT_RESET_KEY, { expiresIn: '30m' });
                 const CLIENT_URL = 'http://' + req.headers.host;
                 const output = `
-                <h2>Please click on below link to reset your account password</h2>
+                <h2>Nova senha</h2>
+                <p>Para escolher a sua nova senha copie o seginte link:</p>
                 <p>${CLIENT_URL}/auth/forgot/${token}</p>
-                <p><b>NOTE: </b> The activation link expires in 30 minutes.</p>
+                <p><b>Atenção: </b></p>
+                <p>O link vai expirar após  30 minutos.</p>
                 `;
 
                 User.updateOne({ resetLink: token }, (err, success) => {
                     if (err) {
-                        errors.push({ msg: 'Error resetting password!' });
+                        errors.push({ msg: 'Erro.' });
                         res.render('forgot', {
                             errors,
                             email
@@ -244,9 +244,9 @@ exports.forgotPassword = (req, res) => {
 
                         // send mail with defined transport object
                         const mailOptions = {
-                            from: '"Auth Admin" <nodejsa@gmail.com>', // sender address
+                            from: '"Nome da Empresa" <nodejsa@gmail.com>', // sender address
                             to: email, // list of receivers
-                            subject: "Account Password Reset: NodeJS Auth ✔", // Subject line
+                            subject: "Redfinir nova senha", // Subject line
                             html: output, // html body
                         };
 
@@ -255,7 +255,7 @@ exports.forgotPassword = (req, res) => {
                                 console.log(error);
                                 req.flash(
                                     'error_msg',
-                                    'Something went wrong on our end. Please try again later.'
+                                    'Algo deu errado, tente de novo.'
                                 );
                                 res.redirect('/auth/forgot');
                             }
@@ -263,7 +263,7 @@ exports.forgotPassword = (req, res) => {
                                 console.log('Mail sent : %s', info.response);
                                 req.flash(
                                     'success_msg',
-                                    'Password reset link sent to email ID. Please follow the instructions.'
+                                    'Sucesso! Confirme o seu email.'
                                 );
                                 res.redirect('/auth/login_registar_user');
                             }
@@ -285,7 +285,7 @@ exports.gotoReset = (req, res) => {
             if (err) {
                 req.flash(
                     'error_msg',
-                    'Incorrect or expired link! Please try again.'
+                    'Link incorreto ou expirado, tente de novo.'
                 );
                 res.redirect('/auth/login_registar_user');
             }
@@ -330,7 +330,7 @@ exports.resetPassword = (req, res) => {
     else if (password.length < 8) {
         req.flash(
             'error_msg',
-            'Password must be at least 8 characters.'
+            'A Password tem de ter no mínimo 8 caracteres.'
         );
         res.redirect(`/auth/reset/${id}`);
     }
@@ -339,7 +339,7 @@ exports.resetPassword = (req, res) => {
     else if (password != password2) {
         req.flash(
             'error_msg',
-            'Passwords do not match.'
+            'As Passwords não correspondem.'
         );
         res.redirect(`/auth/reset/${id}`);
     }
@@ -357,13 +357,13 @@ exports.resetPassword = (req, res) => {
                         if (err) {
                             req.flash(
                                 'error_msg',
-                                'Error resetting password!'
+                                'Erro na confirmação da nova password'
                             );
                             res.redirect(`/auth/reset/${id}`);
                         } else {
                             req.flash(
                                 'success_msg',
-                                'Password reset successfully!'
+                                'Sucesso na confirmação da nova password.'
                             );
                             res.redirect('/auth/login_registar_user');
                         }
@@ -388,6 +388,6 @@ exports.loginHandle = (req, res, next) => {
 //------------ Logout Handle ------------//
 exports.logoutHandle = (req, res) => {
     req.logout();
-    req.flash('success_msg', 'You are logged out');
+    req.flash('success_msg', 'Saiu da conta');
     res.redirect('/auth/login_registar_user');
 }
