@@ -41,38 +41,4 @@ module.exports = function (passport) {
     });
 };
 
-/*module.exports = function (passport) {
-    passport.use(
-        new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-            //------------ User Matching ------------//
-            Admin.findOne({
-                email: email
-            }).then(admin => {
-                if (!admin) {
-                    return done(null, false, { message: 'This email ID is not registered' });
-                }
-
-                //------------ Password Matching ------------//
-                bcrypt.compare(password, admin.password, (err, isMatch) => {
-                    if (err) throw err;
-                    if (isMatch) {
-                        return done(null, admin);
-                    } else {
-                        return done(null, false, { message: 'Password incorrect! Please try again.' });
-                    }
-                });
-            });
-        })
-    );
-
-    passport.serializeUser(function (admin, done) {
-        done(null, admin.id);
-    });
-
-    passport.deserializeUser(function (id, done) {
-        Admin.findById(id, function (err, admin) {
-            done(err, admin);
-        });
-    });
-};*/
 

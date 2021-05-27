@@ -6,6 +6,7 @@ const authController = require('../controllers/authController')
 const authControllerAdmin = require('../controllers/authControllerAdmin')
 const authControllerTrab = require('../controllers/authControllerTrab')
 //const authControllerMarc = require('../controllers/authControllerMarc')
+const authControllerMarcacao = require('../controllers/authControllerMarcacao')
 
 //------------ Login Route ------------//
 //router.get('/login', (req, res) => res.render('login'));
@@ -14,9 +15,13 @@ router.get('/login', (req, res) => res.render('login_registar_user'));
 
 router.get('/loginAd', (req, res) => res.render('loginAdmin'));
 
+router.get('/loginTr', (req, res) => res.render('loginTrab'));
+
 
 //------------ Forgot Password Route ------------//
 router.get('/forgot', (req, res) => res.render('forgot'));
+
+router.get('/forgotAd', (req, res) => res.render('forgotAd'));
 
 router.get('/colegas', (req, res) => res.render('colegas'));
 
@@ -30,6 +35,11 @@ router.get('/reset/:id', (req, res) => {
     res.render('reset', { id: req.params.id })
 });
 
+router.get('/resetAdmin/:id', (req, res) => {
+    // console.log(id)
+    res.render('resetAdmin', { id: req.params.id })
+});
+
 //------------ Register Route ------------//
 //router.get('/register', (req, res) => res.render('register'));
 
@@ -37,11 +47,15 @@ router.get('/login_registar_user', (req, res) => res.render('login_registar_user
 
 router.get('/loginAdmin', (req, res) => res.render('loginAdmin'));
 
+router.get('/loginTrab', (req, res) => res.render('loginTrab'));
+
 router.get('/registeradmin', (req, res) => res.render('colegas'));
 
 router.get('/registertrab', (req, res) => res.render('colegas2'));
 
+// Get marcacoes
 
+router.get('/marcacoesGET', authControllerMarcacao.getMarcacoes);
 
 
 
@@ -67,11 +81,16 @@ router.get('/activate3/:token', authControllerTrab.activateTrabHandle);
 //------------ Forgot Password Handle ------------//
 router.post('/forgot', authController.forgotPassword);
 
+router.post('/forgotAd', authControllerAdmin.forgotAdminPassword);
+
 //------------ Reset Password Handle ------------//
 router.post('/reset/:id', authController.resetPassword);
 
+router.post('/resetAdmin/:id', authControllerAdmin.resetAdminPassword);
+
 //------------ Reset Password Handle ------------//
 router.get('/forgot/:token', authController.gotoReset);
+router.get('/forgotAd/:token', authControllerAdmin.gotoResetAdmin);
 
 //------------ Login POST Handle ------------//
 //router.post('/login', authController.loginHandle);
@@ -79,7 +98,19 @@ router.post('/login', authController.loginHandle);
 
 router.post('/loginAd', authControllerAdmin.loginAdminHandle);
 
+router.post('/loginTr', authControllerTrab.loginTrabHandle);
+
 //------------ Logout GET Handle ------------//
 router.get('/logout', authController.logoutHandle);
+
+router.get('/logoutAdmin', authControllerAdmin.logoutAdminHandle);
+
+router.get('/logoutTrab', authControllerTrab.logoutTrabHandle);
+
+
+
+// Post Marcacao
+router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
+
 
 module.exports = router;

@@ -175,7 +175,7 @@ exports.activateTrabHandle = (req, res) => {
     }
 }
 
-exports.forgotPassword = (req, res) => {
+exports.forgotTrabPassword = (req, res) => {
     const { email } = req.body;
 
     let errors = [];
@@ -277,15 +277,15 @@ exports.forgotPassword = (req, res) => {
 
 exports.loginTrabHandle = (req, res, next) => {
     passport.authenticate('local', {
-        successRedirect: '/welcome',
-        failureRedirect: '/loginAdmin',
+        successRedirect: '/workerpage',
+        failureRedirect: '/loginTrab',
         failureFlash: true
     })(req, res, next);
 }
 
 //------------ Logout Handle ------------//
-exports.logoutHandle = (req, res) => {
+exports.logoutTrabHandle = (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
-    res.redirect('/auth/login_registar_user');
+    res.redirect('/auth/loginTrab');
 }

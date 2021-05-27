@@ -16,13 +16,13 @@
     </head>
 
     <body>
-<!--Loader--------------------------------------------------------->
+<!--Loader---------------------------------------------------->
         <div id="loader-wrapper">
             <div id="loader"></div>
             <div class="loader-section section-left"></div>
             <div class="loader-section section-right"></div>
         </div>
-<!--Menu----------------------------------------------------------->
+<!--MENU------------------------------------------------------->
         <nav class="navigationbar">
             <div class="logomenubar">CillitBang</div>
             <input type="checkbox" id="click">
@@ -35,22 +35,18 @@
                 <li><a class="serv" id="serv" href="#tm-section-4">Serviços</a> </li>
                 <li><a href="#">Gallery</a> </li>
                 <li><a href="#">Feedback</a> </li>
-                <li><a href="/auth/loginTrab">Staff</a> </li>
-                <li><a href="/auth/loginAdmin">Administrador</a> </li>
-                <li><a id="Logout" class="Logout hidden" href="/auth/logout">Log-out</a></li>
+                <li><a id="Logout" class="Logout hidden" href="#">Log-out</a></li>
             </ul>
         </nav>
-<!--Cabeçalho------------------------------------------------------>
+<!--Cabeçalho-------------------------------------------------->
         <div class="container">
             <section class="tm-section-head" id="top">
                 <header id="header" class="text-center tm-text-gray">
                     <h1>CILLIT BANG</h1>
                     <p>A Sujidade Desaparece</p>
                 </header>
-
-                
             </section>
-<!--Slider-de-imagens---------------------------------------------->
+<!--Slide-de-imagens------------------------------------------->
             <section class="row" id="tm-section-1">
                 <div class="col-lg-12 tm-slider-col">
                     <div class="tm-img-slider">
@@ -72,8 +68,8 @@
                         </div>
                     </div>
                 </div>
-            </section>
-<!--Sobre-nos------------------------------------------------------>
+            </section>     
+<!--Sobre-nos-------------------------------------------------->
             <section class="tm-section-2 tm-section-mb" id="tm-section-2">
                 <div class="row">
                     <div class="col-xl-12">
@@ -83,39 +79,7 @@
                     </div>
                 </div>
             </section>
-
-            <!--
-            <section class="tm-section-3 tm-section-mb" id="tm-section-3">
-                <div class="row">
-                    <div class="col-md-6 tm-mb-sm-4 tm-2col-l">
-                        <div class="image">
-                            <img src="img/tm-img-1.jpg" class="img-fluid" />
-                        </div>
-                        <div class="tm-box-3">
-                            <h2>Lorem ipsum dolor</h2>
-                            <p> Cras aliquet urna ut sapien tincidunt, quis malesuada elit facilisis. Vestibulum sit amet tortor
-                                velit. Nam elementum nibh a libero pharetra elementum. Maecenas feugiat ex purus, quis volutpat
-                                lacus placerat malesuada.</p>
-                            <div class="text-center">
-                                <a href="#tm-section-5" class="btn btn-big">Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 tm-2col-r">
-                        <div class="image">
-                            <img src="img/tm-img-2.jpg" class="img-fluid" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        -->
-
-<!--Imagem-de-fundo------------------------------------------------>
-            <section class="tm-section-4 tm-section-mb" id="tm-section-4">
-                <div class="row"></div>
-            </section>
-<!--Informações---------------------------------------------------->
+<!--Informaçõees----------------------------------------------->
             <section class="tm-section-5" id="tm-section-5">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
@@ -123,7 +87,6 @@
                             <img src="/public/img/tm-sc4-img-1.jpg" class="img-fluid">
                         </div>
                     </div>
-
                     <div class="col-lg-8 col-md-12 col-sm-12 pl-lg-0">
                         <div class="media tm-media">
                             <img src="/public/img/sc4-img-2.jpg" class="img-responsive tm-media-img">
@@ -149,50 +112,81 @@
                     </div>
                 </div>
             </section>
-            
-<!--Contactenos-->
-            <section class="tm-section-9" id="tm-section-9">
+<!--Marcações-Trabalhador-------------------------------------->
+            <section class="tm-section-7" id="tm-section-7">
+                <h2>Nome do Trabalhador</h2>
+                <div class="row mb-3 pl-xl-3">
+                    <table class="tabela-clientes">
+                        <tr>
+                            <th>Morada</th>
+                            <th>Data</th> 
+                            <th>Hora</th>
+                            <th>Tipo Projeto</th>
+                            <th>Gestor</th>
+                        </tr>
+                        <tr>
+                            <td>Rua xxxxxx</td>
+                            <td>24/2/2020</td>
+                            <td>05:13</td>
+                            <td>Grande</td>
+                            <td>Joao</td>
+                        </tr>
+                        <tr>
+                            <td>Rua xxxxxx</td>
+                            <td>24/2/2020</td>
+                            <td>05:13</td>
+                            <td>Grande</td>
+                            <td>Joao</td>
+                        </tr>
+                        <tr>
+                            <td>Rua xxxxxx</td>
+                            <td>24/2/2020</td>
+                            <td>05:13</td>
+                            <td>Grande</td>
+                            <td>Joao</td>
+                        </tr>   
+                    </table>
+                </div>
+            </section>
+<!-- Feedback-------------------------------------------------->
+            <section class="tm-section-8" id="tm-section-8">
                 <div class="row">
-                    <div class="col-lg-7 col-md-7 col-xs-12">
+                    <header class="text-center"></header>
+                    <h2 class="h2-spaced">Feedback</h2>
+                    <div class="col-xl-12">
                         <div class="contact_message">
                             <form action="" method="post" class="contact-form">
-                                <div class="row mb-2">
-                                    <div class="form-group col-xl-6">
-                                        <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Nome" required/>
-                                    </div>
-                                    <div class="form-group col-xl-6 pl-xl-1">
-                                        <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email" required/>
+                                <div class="row mb-3">
+                                    <div class="form-group col-xs-12 pl-lg-3">
+                                        <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Primeiro e Último nome" required/>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Messagem" required></textarea>
+                                <div class="row mb-3">
+                                    <div class="form-group col-xs-12 pl-lg-3">
+                                        <input type="text" id="contact_number" class="form-control" placeholder="Número do Trabalhador" required/>
+                                    </div>
                                 </div>
-                                <button type="submit" class="btn  tm-btn-submit float-right btn-big">Enviar</button>
+                                <div class="row mb-3">
+                                    <div class="form-group col-xl-8 pl-lg-3">
+                                        <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Feedback" required></textarea>
+                                    </div>
+                                    <div id="fback-btn" class="form-group col-xl-2 pl-xl-4">
+                                        <button type="submit" class="btn  tm-btn-submit float-right btn-marcar">Enviar</button>
+                                    </div>
+                                </div>
                             </form>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-5 col-xs-12 tm-contact-right">
-                        <div class="tm-address-box">
-                            <h2 class="mb-4">Contacte-nos</h2>
-                            <p class="mb-5">Envie-nos uma mensagem e tentaremos responder-lhe o mais rapidamente possível via email. Indique o seu nome ou nome da empresa e o respetivo email. Alternativamente ligue para o contacto 967709543.</p>
-                            <address>
-                                120-240 Proin mauris enim,
-                                <br> dignissim sit amet ligula id,
-                                <br> finibus tempus erat 10200
-                            </address>
                         </div>
                     </div>
                 </div>
             </section>
-
-<!--Rodapé--------------------------------------------------------->
+<!--Rodapé----------------------------------------------------->
             <footer class="mt-5">
                 <p class="text-center">Copyright © 2020 Cillit Bang
                     <a rel="nofollow" href="http://www.tooplate.com/view/2103-central" target="_parent" class="tm-text-black">Central</a>
                 </p>
             </footer>
         </div>
-<!--Sripts--------------------------------------------------------->
+<!--Sripts----------------------------------------------------->
 
         <script type="text/javascript" src="/public/js/jquery-1.11.3.min.js"></script>
         <script src="/public/js/popper.min.js"></script>

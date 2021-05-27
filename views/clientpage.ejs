@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cillit Bang</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
+        <link rel="stylesheet" href="/public/font-awesome-4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/public/slick/slick.css" />
+        <link rel="stylesheet" type="text/css" href="/public/slick/slick-theme.css" />
+        <link rel="stylesheet" href="/public/css/tooplate-style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+    </head>
+
+    <body>
+<!--Loader -->
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+        </div>
+<!--MENU-->
+        <nav class="navigationbar">
+            <div class="logomenubar">CillitBang</div>
+            <input type="checkbox" id="click">
+            <label for="click" class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <ul>
+                <li><a id="Login" class="navigationbaractive Login" href="/auth/login_registar_user">Log-in</a> </li>
+                <li><a class="" href="#">About</a> </li>
+                <li><a class="serv" id="serv" href="#tm-section-4">Serviços</a> </li>
+                <li><a href="#">Gallery</a> </li>
+                <li><a href="#">Feedback</a> </li>
+                <li><a id="Logout" class="Logout hidden" href="#">Log-out</a></li>
+            </ul>
+        </nav>
+<!--Cabeçalho-->
+        <div class="container">
+            <section class="tm-section-head" id="top">
+                <header id="header" class="text-center tm-text-gray">
+                    <h1>CILLIT BANG</h1>
+                    <p>A Sujidade Desaparece</p>
+                </header>
+            </section>
+<!-- Slider de imagens -->
+            <section class="row" id="tm-section-1">
+                <div class="col-lg-12 tm-slider-col">
+                    <div class="tm-img-slider">
+                        <div class="tm-img-slider-item" href="/public/img/sli3.png">
+                            <p class="tm-slider-caption">Bem vindos à Cillit Bang Limpezas. Onde a Sujidade Desaparece.</p>
+                            <img src="/public/img/sli3.png" alt="Image" class="tm-slider-img">
+                        </div>
+                        <div class="tm-img-slider-item" href="/public/img/c4">
+                            <p class="tm-slider-caption">Marcações disponíveis a Particulares e Empresas.</p>
+                            <img src="/public/img/c4" alt="Image" class="tm-slider-img">
+                        </div>
+                        <div class="tm-img-slider-item" href="/public/img/gallery-img-03.jpg">
+                            <p class="tm-slider-caption">Escolha entre um único empregado ou uma equipa para o seu trabalho.</p>
+                            <img src="/public/img/clean.gif" alt="Image" class="tm-slider-img">
+                        </div>
+                        <div class="tm-img-slider-item" href="/public/img/gallery-img-04.jpg">
+                            <p class="tm-slider-caption">Serviço 24h/7 a seu dispor.</p>
+                            <img src="/public/img/imagem4.png" alt="Image" class="tm-slider-img">
+                        </div>
+                    </div>
+                </div>
+            </section>
+<!-- About Us Section -->
+            <section class="tm-section-2 tm-section-mb" id="tm-section-2">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <header class="text-center"></header>
+                        <h2>Sobre nós</h2>
+                        <p>Meter aqui uma introdução da nossa empresa e do que fazemos</p>
+                    </div>
+                </div>
+            </section>
+<!--Marque-já-->
+            <section class="tm-section-3" id="tm-section-3">
+                <div class="row">
+                    <header class="text-center"></header>
+                    <h2 class="h2-spaced">Marque a sua limpeza</h2>
+                    <div class="col-xl-12">
+                        <div class="contact_message">
+                            <form action="/controllers/marcacao.js" method="POST" class="contact-form">
+                                <div class="row mb-3">
+                                    <div class="form-group col-xs-12 pl-lg-3">
+                                        <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Primeiro e Último nome" required/>
+                                    </div>
+                                    <div class="form-group col-sm-4 pl-xl-4">
+                                        <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email" required/>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="form-group col-xs-12 pl-lg-3">
+                                        <p>Escolha uma data:</p>
+                                        <input type="date" id="contact_date" class="form-control" required/>
+                                    </div>
+                                    <div class="form-group col-xs-12 pl-xl-4">
+                                        <p>Escolha uma hora:</p>
+                                        <input type="time" id="hora_marcacao" class="form-control" required/>
+                                    </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="form-group col-xs-12 pl-lg-3">
+                                        <p>Escolha a dimensão do projeto:</p>
+                                        <select id="projeto" name="projeto" class="form-control-select">
+                                            <option value="Projeto Grande - 3 Pessoas">Projeto Grande - 3 Pessoas</option>
+                                            <option value="Projeto Pequeno - 1 Pessoa">Projeto Pequeno - 1 Pessoa</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-xl-6 pl-xl-4">
+                                        <p>Morada da marcação:</p>
+                                        <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Morada" required/>
+                                    </div>
+                                    <div id="pos-btn" class="form-group col-xl-2 pl-xl-4">
+                                        <button type="submit" class="btn  tm-btn-submit float-right btn-marcar" onclick="javascript: form.action='/controllers/marcacao.js'">Marcar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+<!--Informações-->
+            <section class="tm-section-5" id="tm-section-5">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="image fit">
+                            <img src="/public/img/tm-sc4-img-1.jpg" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-12 col-sm-12 pl-lg-0">
+                        <div class="media tm-media">
+                            <img src="/public/img/sc4-img-2.jpg" class="img-responsive tm-media-img">
+                            <div class="media-body tm-box-5">
+                                <h2>Marque já</h2>
+                                <p class="mb-0">Pode agendar uma limpeza após ter feito o seu registo e login no site. Se deseja saber mais sobre nós envie-nos uma mensagem no contacte-nos.</p>
+                            </div>
+                        </div>
+                        <div class="media tm-media">
+                            <img src="/public/img/sc4-img-3.jpg" class="img-responsive tm-media-img">
+                            <div class="media-body tm-box-5">
+                                <h2>Tipo de Limpeza</h2>
+                                <p class="mb-0">Pode optar por escolher uma equipe ou, simplesmente um empregado para a sua limpeza.</p>
+                            </div>
+                        </div>
+                        <div class="media tm-media">
+                            <img src="/public/img/sc4-img-4.jpg" class="img-responsive tm-media-img">
+                            <div class="media-body tm-box-5">
+                                <h2>Área Cliente</h2>
+                                <p class="mb-0"> Veja todas as suas marcações e o seu estado. Não se esqueça de avaliar o trabalho realizado para melhorarmos os nossos serviços. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+<!--Secção-Marcações-Cliente-->
+            <!-- Secção Marcações Cliente-->
+        <section class="tm-section-6" id="tm-section-6">
+            <h2>Nome do Cliente</h2>
+            <div class="row mb-3 pl-xl-3">
+                <table id="tabelaCliente" class="tabela-clientes">
+                    <tr>
+                        <th>Morada</th>
+                        <th>Data</th> 
+                        <th>Hora</th>
+                        <th>Tipo Projeto</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+
+                    <tbody>
+
+                    </tbody>
+
+                    <!--
+                    <tr>
+                        <td>Rua xxxxxx</td>
+                        <td>24/2/2020</td>
+                        <td>05:13</td>
+                        <td>Grande</td>
+                        <td>Pendente</td>
+                        <td>
+                            <button type="button" class="btn btn-avaliar" data-toggle="modal" data-target="#aval1">
+                                Avaliar
+                            </button>
+                            <div id="aval1" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="aval" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="univModalLabel">Avaliação</h5>
+                                            <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>
+                                                Este projeto está <span style="color: #ff0000">Em Curso</span>.
+                                            </p>                           
+                                            <p>
+                                                Quando estiver Terminado poderá avaliar de acordo com a sua satisfação.
+                                            </p>                    
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn tm-btn-pad" data-dismiss="modal">Sair</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Rua xxxxxx</td>
+                        <td>24/2/2020</td>
+                        <td>05:13</td>
+                        <td>Grande</td>
+                        <td>Terminado</td>
+                        <td>
+                            <button type="button" class="btn btn-avaliar" data-toggle="modal" data-target="#aval2">
+                                Avaliar
+                            </button>
+                            <div id="aval2" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="aval" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="univModalLabel">Avaliação</h5>
+                                            <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <p>Este Projeto está <span style="color: #ff0000">Terminado</span>.</p>
+                                            <p> Dê-nos uma avaliação de 1-5 de acordo com a sua satisfação do trabalho realizado: </p>
+
+                                            <input type="radio" name="star" id="star1"><label for="star1">
+                                            </label>
+                                            <input type="radio" name="star" id="star2"><label for="star2">
+                                            </label>
+                                            <input type="radio" name="star" id="star3"><label for="star3">
+                                            </label>
+                                            <input type="radio" name="star" id="star4"><label for="star4">
+                                            </label>
+                                            <input type="radio" name="star" id="star5"><label for="star5">
+                                            </label>     
+                                            
+                                            <button type="submit" class="btn  tm-btn-submit float-right btn-smol">Enviar</button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn tm-btn-pad" data-dismiss="modal">Sair</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td>Rua xxxxxx</td>
+                        <td>24/2/2020</td>
+                        <td>05:13</td>
+                        <td>Grande</td>
+                        <td>Terminado</td>
+                        <td>
+                            <button type="button" class="btn btn-avaliar" data-toggle="modal" data-target="#aval3">
+                                Avaliar
+                            </button>
+                            <div id="aval3" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="aval" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="univModalLabel">Avaliação</h5>
+                                            <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <p>Este Projeto está <span style="color: #ff0000">Terminado</span>.</p>
+                                            <p> Dê-nos uma avaliação de 1-5 de acordo com a sua satisfação do trabalho realizado: </p>
+
+                                            <input type="radio" name="star" id="star1"><label for="star1">
+                                            </label>
+                                            <input type="radio" name="star" id="star2"><label for="star2">
+                                            </label>
+                                            <input type="radio" name="star" id="star3"><label for="star3">
+                                            </label>
+                                            <input type="radio" name="star" id="star4"><label for="star4">
+                                            </label>
+                                            <input type="radio" name="star" id="star5"><label for="star5">
+                                            </label>
+                                            
+                                            <button type="submit" class="btn  tm-btn-submit float-right btn-smol">Enviar</button>
+                                            
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn tm-btn-pad" data-dismiss="modal">Sair</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr> -->   
+                </table>
+            </div>
+        </section>
+
+<!-- Feedback Trabalhador -->
+            <section class="tm-section-8" id="tm-section-8">
+                <div class="row">
+                    <header class="text-center"></header>
+                    <h2 class="h2-spaced">Feedback sobre o Trabalhador</h2>
+                    <div class="col-xl-12">
+                        <div class="contact_message">
+                            <form action="" method="post" class="contact-form">
+                                <div class="row mb-3">
+                                    <div class="form-group col-xs-12 pl-lg-3">
+                                        <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Primeiro e Último nome" required/>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="form-group col-xs-12 pl-lg-3">
+                                        <input type="text" id="contact_number" class="form-control" placeholder="Número do Trabalhador" required/>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="form-group col-xl-8 pl-lg-3">
+                                        <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Feedback" required></textarea>
+                                    </div>
+                                    <div id="fback-btn" class="form-group col-xl-2 pl-xl-4">
+                                        <button type="submit" class="btn  tm-btn-submit float-right btn-marcar">Enviar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+<!--Rodapé-->
+            <footer class="mt-5">
+                <p class="text-center">Copyright © 2020 Cillit Bang
+                    <a rel="nofollow" href="http://www.tooplate.com/view/2103-central" target="_parent" class="tm-text-black">Central</a>
+                </p>
+            </footer>
+        </div>
+<!--Scripts-->
+
+        <script type="text/javascript" src="/public/js/jquery-1.11.3.min.js"></script>
+        <script src="/public/js/popper.min.js"></script>
+        <script src="/public/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/public/slick/slick.min.js"></script>
+        <script src="/public/js/page.js"></script>
+
+    </body>
+</html>
