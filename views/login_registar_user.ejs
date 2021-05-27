@@ -3,7 +3,6 @@
 		<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Icons CDN -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://kit.fontawesome.com/761d42c757.js" crossorigin="anonymous"></script>
     <title>Hollywood</title>
@@ -27,8 +26,6 @@
 					<button onclick="javascript: form.action='/auth/register'" type="submit">Registar</button>
 				</form>
 			</div>
-
-
 			<div class="form-container sign-in-container">
 				<button class='close' onclick="javascript: location.replace('/auth/welcome')">X</button>
 				<form action="/auth/login"  method="POST" id='login'>
@@ -39,21 +36,19 @@
 					<a href="/auth/forgot">Não se lembra da senha?</a>
 				</form>
 			</div>
-
-
 			<div class="overlay-container">
 				<div class="overlay">
 					<div class="overlay-panel overlay-left">
-						<%- include ("./messages") %>
 						<h1>Olá</h1>
 						<p>Já és membro?</p>
 						<button class="ghost" id="signIn">Faça o seu Login</button>
+						<div id="mensagem"><%- include ("./messages") %></div>
 					</div>
 					<div class="overlay-panel overlay-right">
-						<%- include ("./messages") %>
 						<h1>Bem vindo de volta!</h1>
 						<p>Ainda não és membro?</p>
 						<button class="ghost" id="signUp">Registe-se Aqui</button>
+						<div id="mensagem"><%- include ("./messages") %></div>
 					</div>
 				</div>
 			</div>
