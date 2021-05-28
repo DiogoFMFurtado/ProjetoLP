@@ -12,7 +12,10 @@ const MarcacaoSchema = new mongoose.Schema({
     state: {type: String, default: 'Pendente'},
     admin: { type: Schema.Types.ObjectId, ref:'Admin' },
     equipa: { type: Schema.Types.ObjectId, ref: 'Equipa' },
-    cliente: { type: Schema.Types.ObjectId, ref: 'Cliente'}
+    cliente: { 
+        type: Schema.Types.ObjectId, 
+        ref: 'user'
+    }
 },
 {collection: 'Marcacao'}
 )

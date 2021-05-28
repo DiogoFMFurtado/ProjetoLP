@@ -37,7 +37,7 @@ app.use('/submit', express.static(__dirname + '/public'));
 
 //------------ Bodyparser Configuration ------------//
 app.use(express.urlencoded({ extended: false }))
-
+app.use(express.json());
 //------------ Express session Configuration ------------//
 app.use(
     session({
