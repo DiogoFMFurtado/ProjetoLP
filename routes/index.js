@@ -12,11 +12,6 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => res.render('dashboar
     name: req.user.name
 }));
 
-
-router.get('/welcome', ensureAuthenticated, (req, res) => res.render('welcome', {
-    name: req.user.name
-}));
-
 router.get('/workerpage', ensureAuthenticated, (req, res) => res.render('workerpage', {
     name: req.user.name
 }));
