@@ -10,6 +10,8 @@ const JWT_RESET_KEY = "jwtreset987";
 const Marcacao = require('../models/Marcacao');
 const User = require('../models/User');
 
+
+/*
 exports.registerMarcHandle = (req, res) => {
     
     console.log('Chegaste aqui ao menos');
@@ -54,6 +56,31 @@ exports.registerMarcHandle = (req, res) => {
             }
     });
 }
+*/
+
+exports.registerMarcHandle = async (req, res) => {
+    
+    const { userId } = req.params;
+    const { name, email, date, hour, type, address } = req.body;
+
+
+    try {
+        console.log(req.body);
+        const marcacao = new Marcacao(req.body);
+        const user = await User.findById(req.params);
+        marcacao.cliente = user;
+        await marcacao.save();
+        user.marcacaoCliente.push(marcacao);
+        await user.save();
+        res.status(201).json()
+        
+    } catch (err) {
+        res.json({message: err});
+    }
+}
+
+
+
 
 exports.getMarcacoes = async(req, res) => {
     
