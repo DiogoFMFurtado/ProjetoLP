@@ -362,23 +362,23 @@
                 method:'GET',
                 url:'/auth/marcacoesGET',
                 dataType: 'json',
-                success:function(response){
-                    thisArray = response.data
+                success:function(marcacao){
+                    thisArray = marcacao
                     buildTable(thisArray);
                     console.log(thisArray)      
                 }
             })
 
-            function buildTable(data){
+            function buildTable(marcacao){
                 let table = document.getElementById('tabelaCliente')
 
-                for(let i = 0; i < data.length; i++){
+                for(let i = 0; i < marcacao.length; i++){
                     let row = `<tr>
-                                    <td>${data[i].address}</td>
-                                    <td>${data[i].date}</td>
-                                    <td>${data[i].hour}</td>
-                                    <td>${data[i].type}</td>
-                                    <td>${data[i].state}</td>
+                                    <td>${marcacao[i].address}</td>
+                                    <td>${marcacao[i].date}</td>
+                                    <td>${marcacao[i].hour}</td>
+                                    <td>${marcacao[i].type}</td>
+                                    <td>${marcacao[i].state}</td>
                                </tr>`
                     table.innerHTML += row
                 }

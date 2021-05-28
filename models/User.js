@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
   resetLink: {
     type: String,
     default: ''
+  },
+  marcacaoCliente: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Marcacao'
   }
 }, { timestamps: true });
 
