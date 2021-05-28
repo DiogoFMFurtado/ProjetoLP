@@ -69,7 +69,7 @@ button:focus {
   padding-top: 65px;
 }
 
-#tm-section-2,
+.tm-section-2,
 #tm-section-6,
 #tm-section-7,
 #tm-section-8,
@@ -720,3 +720,60 @@ a {
   display: none;
 }
 /*--------------------------------------------------------Fim Esconder um bloco------------------------------------*/
+/*--------------------------------------------------------Fim da Área do cliente-----------------------------------*/
+.tm-section-9{
+  padding-top: 40px;
+}
+
+.tm-section-9 nav{
+  width: 100%;
+  height: 50px;
+  background-color:  rgb(242,242,242);
+}
+
+.tm-section-9 ul{
+  margin-left: 60px;
+
+}
+
+.tm-section-9 ul li{
+  list-style: none;
+  display: inline-block;
+  line-height: 50px;
+}
+
+.tm-section-9 ul li a{
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: Arial, serif;
+  color: #1e1e1e;
+  padding: 0 20px;
+}
+
+.tm-section-9 ul li a:hover{
+  color: rgb(212, 16, 16);
+}
+
+.tm-section-9 div{
+  font-family: sans-serif;
+}
+
+.tm-section-9 .marcarlimpeza h3{
+  text-align: center;
+  color: black;
+  margin: 30px 0 50px;
+}
+
+.tm-section-9 .verificarmarcacoes h3{
+  text-align: center;
+  color: black;
+  margin: 30px 0 50px;
+}
+
+.tm-section-9 .feedback-do-trabalhador h3{
+  text-align: center;
+  color: black;
+  margin: 30px 0 50px;
+}
+/*--------------------------------------------------------Fim da Área do cliente-----------------------------------*/

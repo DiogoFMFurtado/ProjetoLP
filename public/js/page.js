@@ -16,21 +16,35 @@ $(document).ready(function(){
     })
 })
 
-//script para esconder o botão login no menu apos ser feito o login e fazer apareçer o log-out
-
-$(document).ready(function(){
-    $('#serv').on('click', function(){
-        $('#tm-section-3').show(); //Faz apareçer a tm-section-3, utiliza o id da secção
-        $('#tm-section-2').show(); //Faz apareçer a tm-section-2, utiliza o id da secção
-    })
-})
-
-//script para apareçer o login apos ser feito o logout
     
 $(document).ready(function(){
     $('#Logout').on('click', function(){
         $('#Login').show(); //Faz apareçer a tm-section-3, utiliza o id da secção
         $('#Logout').hide(); //Faz apareçer a tm-section-2, utiliza o id da secção
+    })
+})
+// Marcação da limpeza
+$(document).ready(function(){
+    $('#limpeza').on('click', function(){
+        $('#marcarlimpeza').show();
+        $('#mostrarmarcacoes').hide();
+        $('#feedbackdotrabalhador').hide();
+    })
+})
+// Verificar as marcações
+$(document).ready(function(){
+    $('#marcacoes').on('click', function(){
+        $('#mostrarmarcacoes').show();
+        $('#marcarlimpeza').hide();
+        $('#feedbackdotrabalhador').hide();
+    })
+})
+// Feedback do trabalhador
+$(document).ready(function(){
+    $('#feedback').on('click', function(){
+        $('#feedbackdotrabalhador').show();
+        $('#mostrarmarcacoes').hide();
+        $('#marcarlimpeza').hide();
     })
 })
 
