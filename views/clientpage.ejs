@@ -30,8 +30,8 @@
                 <i class="fas fa-bars"></i>
             </label>
             <ul>
-                <li><a class="" href="#">About</a> </li>
-                <li><a class="serv" id="serv" href="#tm-section-4">Serviços</a> </li>
+                <li><a class="" href="#sobrenos">Sobre nós</a> </li>
+                <li><a class="serv" id="serv" href="#tm-section-9">Área do cliente</a> </li>
                 <li><a href="#">Gallery</a> </li>
                 <li><a href="#">Feedback</a> </li>
                 <li><a id="Logout" href="/auth/logout">Log-out</a></li>
@@ -42,7 +42,7 @@
             <section class="tm-section-head" id="top">
                 <header id="header" class="text-center tm-text-gray">
                     <h1>CILLIT BANG</h1>
-                    <p>A Sujidade Desaparece</p>
+                    <p>Bem vindo de volta <%= name %>!</p>
                 </header>
             </section>
 <!-- Slider de imagens -->
@@ -69,59 +69,12 @@
                 </div>
             </section>
 <!-- About Us Section -->
-            <section class="tm-section-2 tm-section-mb" id="tm-section-2">
+            <section class="tm-section-2" id="sobrenos">
                 <div class="row">
                     <div class="col-xl-12">
                         <header class="text-center"></header>
                         <h2>Sobre nós</h2>
                         <p>Meter aqui uma introdução da nossa empresa e do que fazemos</p>
-                    </div>
-                </div>
-            </section>
-<!--Marque-já-->
-            <section class="tm-section-3" id="tm-section-3">
-                <div class="row">
-                    <header class="text-center"></header>
-                    <h2 class="h2-spaced">Marque a sua limpeza</h2>
-                    <div class="col-xl-12">
-                        <div class="contact_message">
-                            <form action="/auth/marcacaoPOST" method="POST" class="contact-form">
-                                <div class="row mb-3">
-                                    <div class="form-group col-xs-12 pl-lg-3">
-                                        <input type="text" id="contact_name" name="name" class="form-control" placeholder="Primeiro e Último nome" required/>
-                                    </div>
-                                    <div class="form-group col-sm-4 pl-xl-4">
-                                        <input type="email" id="contact_email" name="email" class="form-control" placeholder="Email" required/>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="form-group col-xs-12 pl-lg-3">
-                                        <p>Escolha uma data:</p>
-                                        <input type="date" name="date" id="contact_date" class="form-control" required/>
-                                    </div>
-                                    <div class="form-group col-xs-12 pl-xl-4">
-                                        <p>Escolha uma hora:</p>
-                                        <input type="time" id="hora_marcacao" name="hour" class="form-control" required/>
-                                    </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="form-group col-xs-12 pl-lg-3">
-                                        <p>Escolha a dimensão do projeto:</p>
-                                        <select id="projeto" name="type" class="form-control-select">
-                                            <option value="Projeto Grande - 3 Pessoas">Projeto Grande - 3 Pessoas</option>
-                                            <option value="Projeto Pequeno - 1 Pessoa">Projeto Pequeno - 1 Pessoa</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-xl-6 pl-xl-4">
-                                        <p>Morada da marcação:</p>
-                                        <input type="text" id="contact_name" name="address" class="form-control" placeholder="Morada" required/>
-                                    </div>
-                                    <div id="pos-btn" class="form-group col-xl-2 pl-xl-4">
-                                        <button id="btnMarcacao" type="submit" class="btn  tm-btn-submit float-right btn-marcar" onclick="javascript: form.action='/auth/marcacaoPOST'">Marcar</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -158,161 +111,215 @@
                     </div>
                 </div>
             </section>
-<!--Secção-Marcações-Cliente-->
-            <!-- Secção Marcações Cliente-->
-        <section class="tm-section-6" id="tm-section-6">
-            <h2>Nome do Cliente</h2>
-            <div class="row mb-3 pl-xl-3">
-                <table id="tabelaCliente" class="tabela-clientes">
-                    <tr>
-                        <th>Morada</th>
-                        <th>Data</th> 
-                        <th>Hora</th>
-                        <th>Tipo Projeto</th>
-                        <th>Estado</th>
-                        <th></th>
-                    </tr>
-
-                    <tbody>
-
-                    </tbody>
-
-                    <!--
-                    <tr>
-                        <td>Rua xxxxxx</td>
-                        <td>24/2/2020</td>
-                        <td>05:13</td>
-                        <td>Grande</td>
-                        <td>Pendente</td>
-                        <td>
-                            <button type="button" class="btn btn-avaliar" data-toggle="modal" data-target="#aval1">
-                                Avaliar
-                            </button>
-                            <div id="aval1" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="aval" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="univModalLabel">Avaliação</h5>
-                                            <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>
-                                                Este projeto está <span style="color: #ff0000">Em Curso</span>.
-                                            </p>                           
-                                            <p>
-                                                Quando estiver Terminado poderá avaliar de acordo com a sua satisfação.
-                                            </p>                    
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn tm-btn-pad" data-dismiss="modal">Sair</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Rua xxxxxx</td>
-                        <td>24/2/2020</td>
-                        <td>05:13</td>
-                        <td>Grande</td>
-                        <td>Terminado</td>
-                        <td>
-                            <button type="button" class="btn btn-avaliar" data-toggle="modal" data-target="#aval2">
-                                Avaliar
-                            </button>
-                            <div id="aval2" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="aval" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="univModalLabel">Avaliação</h5>
-                                            <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-
-                                            <p>Este Projeto está <span style="color: #ff0000">Terminado</span>.</p>
-                                            <p> Dê-nos uma avaliação de 1-5 de acordo com a sua satisfação do trabalho realizado: </p>
-
-                                            <input type="radio" name="star" id="star1"><label for="star1">
-                                            </label>
-                                            <input type="radio" name="star" id="star2"><label for="star2">
-                                            </label>
-                                            <input type="radio" name="star" id="star3"><label for="star3">
-                                            </label>
-                                            <input type="radio" name="star" id="star4"><label for="star4">
-                                            </label>
-                                            <input type="radio" name="star" id="star5"><label for="star5">
-                                            </label>     
-                                            
-                                            <button type="submit" class="btn  tm-btn-submit float-right btn-smol">Enviar</button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn tm-btn-pad" data-dismiss="modal">Sair</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr> 
-                    <tr>
-                        <td>Rua xxxxxx</td>
-                        <td>24/2/2020</td>
-                        <td>05:13</td>
-                        <td>Grande</td>
-                        <td>Terminado</td>
-                        <td>
-                            <button type="button" class="btn btn-avaliar" data-toggle="modal" data-target="#aval3">
-                                Avaliar
-                            </button>
-                            <div id="aval3" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="aval" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="univModalLabel">Avaliação</h5>
-                                            <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-
-                                            <p>Este Projeto está <span style="color: #ff0000">Terminado</span>.</p>
-                                            <p> Dê-nos uma avaliação de 1-5 de acordo com a sua satisfação do trabalho realizado: </p>
-
-                                            <input type="radio" name="star" id="star1"><label for="star1">
-                                            </label>
-                                            <input type="radio" name="star" id="star2"><label for="star2">
-                                            </label>
-                                            <input type="radio" name="star" id="star3"><label for="star3">
-                                            </label>
-                                            <input type="radio" name="star" id="star4"><label for="star4">
-                                            </label>
-                                            <input type="radio" name="star" id="star5"><label for="star5">
-                                            </label>
-                                            
-                                            <button type="submit" class="btn  tm-btn-submit float-right btn-smol">Enviar</button>
-                                            
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn tm-btn-pad" data-dismiss="modal">Sair</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr> -->   
-                </table>
-            </div>
-        </section>
-
-<!-- Feedback Trabalhador -->
-            <section class="tm-section-8" id="tm-section-8">
-                <div class="row">
+<!--Área do cliente------------------------------------------------------>
+            <section class="tm-section-9" id="tm-section-9">
+                <h2>Área do Cliente</h2>
+                <nav>
+                    <ul>
+                        <li>
+                            <a id="limpeza" href="#tm-section-9">Marcação da Limpeza</a>
+                        </li>
+                        <li>
+                            <a id="marcacoes" href="#tm-section-9">Verificar Marcações</a>
+                        </li>
+                        <li>
+                            <a id="feedback" href="#tm-section-9">Feedback do Trabalhador</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div id="marcarlimpeza" class="marcarlimpeza row hidden">
                     <header class="text-center"></header>
-                    <h2 class="h2-spaced">Feedback sobre o Trabalhador</h2>
+                    <h3 class="h2-spaced">Marque a sua limpeza</h3>
+                    <div class="col-xl-12">
+                        <div class="contact_message">
+                            <form action="/auth/marcacaoPOST" method="POST" class="contact-form">
+                                <div class="row mb-3">
+                                    <div class="form-group col-xs-12 pl-lg-3">
+                                        <input type="text" id="contact_name" name="name" class="form-control" placeholder="Primeiro e Último nome" required/>
+                                    </div>
+                                    <div class="form-group col-sm-4 pl-xl-4">
+                                        <input type="email" id="contact_email" name="email" class="form-control" placeholder="Email" required/>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="form-group col-xs-12 pl-lg-3">
+                                        <p>Escolha uma data:</p>
+                                        <input type="date" name="date" id="contact_date" class="form-control" required/>
+                                    </div>
+                                    <div class="form-group col-xs-12 pl-xl-4">
+                                        <p>Escolha uma hora:</p>
+                                        <input type="time" id="hora_marcacao" name="hour" class="form-control" required/>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="form-group col-xs-12 pl-lg-3">
+                                        <p>Escolha a dimensão do projeto:</p>
+                                        <select id="projeto" name="type" class="form-control-select">
+                                            <option value="Projeto Grande - 3 Pessoas">Projeto Grande - 3 Pessoas</option>
+                                            <option value="Projeto Pequeno - 1 Pessoa">Projeto Pequeno - 1 Pessoa</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-xl-6 pl-xl-4">
+                                        <p>Morada da marcação:</p>
+                                        <input type="text" id="contact_name" name="address" class="form-control" placeholder="Morada" required/>
+                                    </div>
+                                    <div id="pos-btn" class="form-group col-xl-2 pl-xl-4">
+                                        <button id="btnMarcacao" type="submit" class="btn  tm-btn-submit float-right btn-marcar" onclick="javascript: form.action='/auth/marcacaoPOST'">Marcar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="mostrarmarcacoes" class="verificarmarcacoes row mb-3 pl-xl-3 hidden">
+                    <header class="text-center"></header>
+                    <h3 class="h3-spaced">Verificar Marcações</h3>
+                    <table id="tabelaCliente" class="tabela-clientes">
+                        <tr>
+                            <th>Morada</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Tipo Projeto</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+
+                        <tbody>
+
+                        </tbody>
+
+                        <!--
+                        <tr>
+                            <td>Rua xxxxxx</td>
+                            <td>24/2/2020</td>
+                            <td>05:13</td>
+                            <td>Grande</td>
+                            <td>Pendente</td>
+                            <td>
+                                <button type="button" class="btn btn-avaliar" data-toggle="modal" data-target="#aval1">
+                                    Avaliar
+                                </button>
+                                <div id="aval1" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="aval" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="univModalLabel">Avaliação</h5>
+                                                <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>
+                                                    Este projeto está <span style="color: #ff0000">Em Curso</span>.
+                                                </p>
+                                                <p>
+                                                    Quando estiver Terminado poderá avaliar de acordo com a sua satisfação.
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn tm-btn-pad" data-dismiss="modal">Sair</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rua xxxxxx</td>
+                            <td>24/2/2020</td>
+                            <td>05:13</td>
+                            <td>Grande</td>
+                            <td>Terminado</td>
+                            <td>
+                                <button type="button" class="btn btn-avaliar" data-toggle="modal" data-target="#aval2">
+                                    Avaliar
+                                </button>
+                                <div id="aval2" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="aval" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="univModalLabel">Avaliação</h5>
+                                                <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <p>Este Projeto está <span style="color: #ff0000">Terminado</span>.</p>
+                                                <p> Dê-nos uma avaliação de 1-5 de acordo com a sua satisfação do trabalho realizado: </p>
+
+                                                <input type="radio" name="star" id="star1"><label for="star1">
+                                                </label>
+                                                <input type="radio" name="star" id="star2"><label for="star2">
+                                                </label>
+                                                <input type="radio" name="star" id="star3"><label for="star3">
+                                                </label>
+                                                <input type="radio" name="star" id="star4"><label for="star4">
+                                                </label>
+                                                <input type="radio" name="star" id="star5"><label for="star5">
+                                                </label>
+
+                                                <button type="submit" class="btn  tm-btn-submit float-right btn-smol">Enviar</button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn tm-btn-pad" data-dismiss="modal">Sair</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rua xxxxxx</td>
+                            <td>24/2/2020</td>
+                            <td>05:13</td>
+                            <td>Grande</td>
+                            <td>Terminado</td>
+                            <td>
+                                <button type="button" class="btn btn-avaliar" data-toggle="modal" data-target="#aval3">
+                                    Avaliar
+                                </button>
+                                <div id="aval3" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="aval" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="univModalLabel">Avaliação</h5>
+                                                <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <p>Este Projeto está <span style="color: #ff0000">Terminado</span>.</p>
+                                                <p> Dê-nos uma avaliação de 1-5 de acordo com a sua satisfação do trabalho realizado: </p>
+
+                                                <input type="radio" name="star" id="star1"><label for="star1">
+                                                </label>
+                                                <input type="radio" name="star" id="star2"><label for="star2">
+                                                </label>
+                                                <input type="radio" name="star" id="star3"><label for="star3">
+                                                </label>
+                                                <input type="radio" name="star" id="star4"><label for="star4">
+                                                </label>
+                                                <input type="radio" name="star" id="star5"><label for="star5">
+                                                </label>
+
+                                                <button type="submit" class="btn  tm-btn-submit float-right btn-smol">Enviar</button>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn tm-btn-pad" data-dismiss="modal">Sair</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>  -->
+                    </table>
+                </div>
+                <div id="feedbackdotrabalhador" class="feedback-do-trabalhador row hidden">
+                    <header class="text-center"></header>
+                    <h3 class="h3-spaced">Feedback sobre o Trabalhador</h3>
                     <div class="col-xl-12">
                         <div class="contact_message">
                             <form action="" method="post" class="contact-form">
