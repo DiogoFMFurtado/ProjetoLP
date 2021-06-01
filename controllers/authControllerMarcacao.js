@@ -58,6 +58,8 @@ exports.registerMarcHandle = (req, res) => {
 }
 */
 
+
+
 exports.registerMarcHandle = async (req, res) => {
     
     const { userId } = req.params;
@@ -66,8 +68,15 @@ exports.registerMarcHandle = async (req, res) => {
 
     try {
         console.log(req.body);
-        const marcacao = new Marcacao(req.body);
-        const user = await User.findById(req.params);
+        const marcacao = new Marcacao({
+            name,
+            email,
+            date,
+            hour,
+            type,
+            address
+        });
+        const user = await User.findById(userId);
         marcacao.cliente = user;
         await marcacao.save();
         user.marcacaoCliente.push(marcacao);
@@ -84,12 +93,21 @@ exports.registerMarcHandle = async (req, res) => {
 
 exports.getMarcacoes = async(req, res) => {
     
+    const { userId } = req.params;
+    const user = await User.findById(userId).populate('marcacaoCliente');
+    console.log('user', user);
+    res.status(200).json(user.marcacaoCliente);
+
+
+    /*
     try {
         const marcacoes = await Marcacao.find();
         res.json(marcacoes);
     } catch(err) {
         res.json({message:err});
     }
+    */
+
 
 }
 

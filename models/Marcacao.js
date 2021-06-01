@@ -14,13 +14,13 @@ const MarcacaoSchema = new mongoose.Schema({
     equipa: { type: Schema.Types.ObjectId, ref: 'Equipa' },
     cliente: { 
         type: Schema.Types.ObjectId, 
-        ref: 'user'
+        ref: 'User'
     }
 },
 {collection: 'Marcacao'}
 )
 
-module.exports = mongoose.model('Marcacoes', MarcacaoSchema);
+module.exports = mongoose.model('Marcacao', MarcacaoSchema);
 
 /* Teste */
 /* Teste2 */
