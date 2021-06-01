@@ -55,7 +55,7 @@ router.get('/registertrab', (req, res) => res.render('colegas2'));
 
 // Get marcacoes
 
-router.get('/marcacoesGET/userId', authControllerMarcacao.getMarcacoes);
+router.get('/marcacoesGET/:userId', authControllerMarcacao.getMarcacoes);
 
 
 
@@ -112,6 +112,6 @@ router.get('/logoutTrab', authControllerTrab.logoutTrabHandle);
 // Post Marcacao
 
 router.post('/marcacaoPOST/:userId', authControllerMarcacao.registerMarcHandle);
-
+//router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
 
 module.exports = router;
