@@ -7,6 +7,7 @@ const authControllerAdmin = require('../controllers/authControllerAdmin')
 const authControllerTrab = require('../controllers/authControllerTrab')
 //const authControllerMarc = require('../controllers/authControllerMarc')
 const authControllerMarcacao = require('../controllers/authControllerMarcacao')
+const authControllerFeedback = require('../controllers/authControllerFeedback')
 
 //------------ Login Route ------------//
 //router.get('/login', (req, res) => res.render('login'));
@@ -66,7 +67,6 @@ router.post('/registeradmin', authControllerAdmin.registerAdminHandle);
 
 router.post('/registertrab', authControllerTrab.registerTrabHandle);
 
-
 router.post('/register', authController.registerHandle);
 
 //------------ Email ACTIVATE Handle ------------//
@@ -107,11 +107,13 @@ router.get('/logoutAdmin', authControllerAdmin.logoutAdminHandle);
 
 router.get('/logoutTrab', authControllerTrab.logoutTrabHandle);
 
-
-
 // Post Marcacao
 
-router.post('/marcacaoPOST/:userId', authControllerMarcacao.registerMarcHandle);
+router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
 //router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
+
+//Feedback
+
+router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
 
 module.exports = router;
