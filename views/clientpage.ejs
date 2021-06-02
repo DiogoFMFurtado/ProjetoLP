@@ -364,11 +364,15 @@
 
         <script>
             let thisArray = []
+            let userId = $('#userId').val();
 
             $.ajax({
                 method:'GET',
-                url:'/auth/marcacoesGET',
+                url:'/auth/marcacoesGET/' + userId,
                 dataType: 'json',
+                data: {
+                    userId: userId
+                },
                 success:function(marcacao){
                     thisArray = marcacao
                     buildTable(thisArray);

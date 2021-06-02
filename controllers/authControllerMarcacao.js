@@ -94,9 +94,14 @@ exports.registerMarcHandle = async (req, res) => {
 exports.getMarcacoes = async(req, res) => {
     
     const { userId } = req.params;
-    const user = await User.findById(userId).populate('marcacaoCliente');
-    console.log('user', user);
-    res.status(200).json(user.marcacaoCliente);
+    try {
+        const user = await User.findById({_id : userId}).populate('marcacaoCliente');
+        console.log('user', user);
+        res.status(200).json(user.marcacaoCliente);
+    } catch (err) {
+        res.json({message:err});
+    }
+    
 
 
     /*
