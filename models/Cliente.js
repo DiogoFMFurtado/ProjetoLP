@@ -7,6 +7,7 @@ const ClienteSchema = new mongoose.Schema({
     password: { type: String, required: true },
     password2: { type: String, required: true },
     marcacoes: { type: Schema.Types.ObjectId, ref:'Marcacao' },
+    feedback: { type: Schema.Types.ObjectId, ref:'Feedback' },
     admin: { type: Schema.Types.ObjectId, ref: 'Admin'},
     role: { type: String, required: true, default: 'Cliente'}
 },
