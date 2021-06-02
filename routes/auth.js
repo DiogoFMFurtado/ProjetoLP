@@ -111,7 +111,7 @@ router.get('/logoutTrab', authControllerTrab.logoutTrabHandle);
 
 // Post Marcacao
 
-router.post('/marcacaoPOST/:userId', authControllerMarcacao.registerMarcHandle);
+router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
 //router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
 
 module.exports = router;
