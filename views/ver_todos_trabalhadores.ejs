@@ -252,18 +252,23 @@
           </div>
         </div>
 
-
         <div class="row">
           <div class="col-md-12">
-            <div class="input-group">
-              <div class="form-outline">
-                <input type="text" id="despedir" class="form-control" />
-                <label class="form-label" for="form1">Worker ID</label>
+            <form action="/auth/workerFIRE" method="POST" >
+              <div class="row">
+                <div class="col-sm-2">
+                  <div class="form-group">
+                    <input type="text" name="_id" class="form-control" placeholder="Worker ID">
+                  </div>
+                  <button type="submit" id="btnDespedir" class="btn  btn-primary-smol" onclick="javascript: form.action='/auth/workerFIRE'">Despedir</button>
+                </div>
               </div>
-              <button type="button" class="btn  btn-primary-smol">Despedir</button>
-            </div>
+            </form>
           </div>
         </div>
+        
+        
+
 
 
         <div class="table-responsive">
@@ -561,6 +566,25 @@
         table.innerHTML += row
       }
     }
+
+  </script>
+
+  <script>
+
+    $('form').submit(function(e) {
+      e.preventDefault();
+      let formData = $(this).serialize()
+      let formAction = $(this).attr('action');
+      $.ajax({
+        type: 'DELETE',
+        url: formAction,
+        data: formData,
+        success: function(data){
+          
+        }
+      })
+    })
+
 
   </script>
 </body>

@@ -22,5 +22,23 @@ exports.getWorkers = async(req, res) => {
     console.log("Done!");
 }
 
+exports.fireWorker = async(req,res) => {
+
+    console.log("Removing Worker..");
+    // Falta Fazer um reload da página após ter sido apagado um Worker
+    // Outra nota para não esquecer. Após registar staff, está a fazer um redirect para o /colegas inves de /colegas2
+    // Slava se quiseres já podes tratar da função hidden
+
+    try {
+        const firedWorker = await Trab.deleteOne({_id: req.body._id});
+        console.log(req.body);
+        res.status(200).json(firedWorker);
+        console.log("Worker Removed!");
+    } catch (err) {
+        res.status(400).json({message: err});
+    }
+
+}
+
 
 
