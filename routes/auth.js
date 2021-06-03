@@ -8,6 +8,7 @@ const authControllerTrab = require('../controllers/authControllerTrab')
 //const authControllerMarc = require('../controllers/authControllerMarc')
 const authControllerMarcacao = require('../controllers/authControllerMarcacao')
 const authControllerFeedback = require('../controllers/authControllerFeedback')
+const ControllerWorker = require('../controllers/ControllerWorker')
 
 //------------ Login Route ------------//
 //router.get('/login', (req, res) => res.render('login'));
@@ -58,6 +59,10 @@ router.get('/registertrab', (req, res) => res.render('colegas2'));
 
 router.get('/marcacoesGET/:userId', authControllerMarcacao.getMarcacoes);
 
+
+// Get Workers
+
+router.get('/workersGET', ControllerWorker.getWorkers);
 
 
 //------------ Register POST Handle ------------//
