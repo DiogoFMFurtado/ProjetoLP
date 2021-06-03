@@ -30,10 +30,8 @@
                 <i class="fas fa-bars"></i>
             </label>
             <ul>
-                <li><a class="" href="#">About</a> </li>
-                <li><a class="serv" id="serv" href="#tm-section-4">Serviços</a> </li>
-                <li><a href="#">Gallery</a> </li>
-                <li><a href="#">Feedback</a> </li>
+                <li><a class="" href="#sobrenos">Sobre nós</a> </li>
+                <li><a class="serv" id="serv" href="#tm-section-9">Area do trabalhador</a> </li>
                 <li><a id="Logout" class="Logout" href="/auth/logoutTrab">Log-out</a></li>
             </ul>
         </nav>
@@ -69,7 +67,7 @@
                 </div>
             </section>     
 <!--Sobre-nos-------------------------------------------------->
-            <section class="tm-section-2 tm-section-mb" id="tm-section-2">
+            <section class="tm-section-2" id="sobrenos">
                 <div class="row">
                     <div class="col-xl-12">
                         <header class="text-center"></header>
@@ -111,14 +109,24 @@
                     </div>
                 </div>
             </section>
-<!--Marcações-Trabalhador-------------------------------------->
-            <section class="tm-section-7" id="tm-section-7">
-                <h2>Nome do Trabalhador</h2>
-                <div class="row mb-3 pl-xl-3">
+<!--Area de Trabalahdor---------------------------------------->
+            <section class="tm-section-9" id="tm-section-9">
+                <h2>Área do Cliente</h2>
+                <nav>
+                    <ul>
+                        <li>
+                            <a id="verificar_marcacoes" href="#tm-section-9">Verificar Marcações</a>
+                        </li>
+                        <li>
+                            <a id="feedback_trabalhador" href="#tm-section-9">Feedback do Trabalhador</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div id="marcacoesdelimpeza" class="row mb-3 pl-xl-3 hidden">
                     <table class="tabela-clientes">
                         <tr>
                             <th>Morada</th>
-                            <th>Data</th> 
+                            <th>Data</th>
                             <th>Hora</th>
                             <th>Tipo Projeto</th>
                             <th>Gestor</th>
@@ -143,13 +151,10 @@
                             <td>05:13</td>
                             <td>Grande</td>
                             <td>Joao</td>
-                        </tr>   
+                        </tr>
                     </table>
                 </div>
-            </section>
-<!-- Feedback-------------------------------------------------->
-            <section class="tm-section-8" id="tm-section-8">
-                <div class="row">
+                <div id="Feedback_do_trabalhador" class="row hidden">
                     <header class="text-center"></header>
                     <h2 class="h2-spaced">Feedback</h2>
                     <div class="col-xl-12">
