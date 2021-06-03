@@ -58,7 +58,7 @@ router.get('/registertrab', (req, res) => res.render('colegas2'));
 // Get marcacoes
 
 router.get('/marcacoesGET/:userId', authControllerMarcacao.getMarcacoes);
-
+router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 
 // Workers
 
