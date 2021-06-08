@@ -233,55 +233,30 @@
           </button>
         </div>
         
+
+
+
         <div class="table-responsive">
           <h2>Clientes</h2>
-          <table class="table tablesorter " id="">
+          <table class="table tablesorter " id="tabelaClientesAdmin">
             <thead class=" text-primary">
               <tr>
                 <th>Client ID</th>
                 <th>Nome</th>
                 <th>Marcações</th>
-                <th>Manager</th>
                 <th>Ver Clientes</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>111114</td>
-                <td>Smith</td>
-                <td>5</td>
-                <td>Em falta</td>
-                <td>
-                  <a href="./ver_cliente">
-                    <button type="button" class="btn btn-primary">Ver Cliente</button>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>111115</td>
-                <td>Jill</td>
-                <td>5</td>
-                <td>Gerido</td>
-                <td>
-    
-                </td>
-              </tr>
-              <tr>
-                <td>111116</td>
-                <td>Artur</td>
-                <td>5</td>
-                <td>Em falta</td>
-                <td>
-                  <a href="./ver_cliente">
-                    <button type="button" class="btn btn-primary">Ver Cliente</button>
-                  </a>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
       <!-- Fim Tabela Clientes -->
       
+
+
+
       <!-- Gráfico -->
       <div class="row">
         <div class="col-lg-4">
@@ -501,6 +476,55 @@
         application: "black-dashboard-free"
       });
   </script>
+
+
+
+  <script>
+
+    let thisArray = [];
+    //let clientId = $('#clientId').val();
+
+    $.ajax({
+
+      method: 'GET',
+      url: '/auth/clientsGET',
+      dataType: 'json',
+      success:function(clients){
+        thisArray = clients
+        buildTable(thisArray);
+        console.log(thisArray);
+      }
+    })
+
+    function buildTable(clients) {
+      let table = document.getElementById('tabelaClientesAdmin')
+
+      for(let i = 0; i < clients.length; i++){
+        let row = `<tr>
+                      <td>${clients[i]._id}</td>
+                      <td>${clients[i].name}</td>
+                      <td>${clients[i].admin}</td>
+                      <td>
+                          <button type="button" class="btn btn-primary" onclick="store()">Ver Cliente</button>
+                      </td>
+                  </tr>`
+        table.innerHTML += row
+      }
+    }
+
+    function store(clients) {
+      
+      let clientId = clients._id;
+
+      sessionStorage.setItem("clientId", clientId);
+      
+      location.href = "./ver_cliente";
+    }
+
+   
+
+  </script>
+
 </body>
 
 </html>
