@@ -85,6 +85,12 @@
             </a>
           </li>
           <li>
+            <a href="./feedbacks">
+              <i class="tim-icons icon-spaceship"></i>
+              <p>Feedbacks</p>
+            </a>
+          </li>
+          <li>
             <a href="./icons">
               <i class="tim-icons icon-atom"></i>
               <p>Icons</p>
@@ -244,7 +250,7 @@
         
         <div class="table-responsive">
           <h2>Marcações</h2>
-          <table class="table tablesorter " id="">
+          <table id="tabelaMarcacoes" class="table tablesorter">
             <thead class=" text-primary">
               <tr>
                 <th>Marcação ID</th>
@@ -257,58 +263,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>111114</td>
-                <td>Rua D. Quixote n3</td>
-                <td>2555</td>
-                <td>Terminado</td>
-                <td>João</td>
-                <td>2</td>
-                <td>
-                  <a href="./ver_projeto">
-                    <button type="button" class="btn btn-primary">Ver Projeto</button>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>111114</td>
-                <td>Rua D. Quixote n3</td>
-                <td>2555</td>
-                <td>Terminado</td>
-                <td>João</td>
-                <td>2</td>
-                <td>
-                  <a href="./ver_projeto">
-                    <button type="button" class="btn btn-primary">Ver Projeto</button>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>111114</td>
-                <td>Rua D. Quixote n3</td>
-                <td>2555</td>
-                <td>Pendente</td>
-                <td>Por Associar</td>
-                <td></td>
-                <td>
-                  <a href="./ver_projeto">
-                    <button type="button" class="btn btn-primary">Ver Projeto</button>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>111114</td>
-                <td>Rua D. Quixote n3</td>
-                <td>2555</td>
-                <td>Pendente</td>
-                <td>João</td>
-                <td>Sem Equipa</td>
-                <td>
-                  <a href="./ver_projeto">
-                    <button type="button" class="btn btn-primary">Ver Projeto</button>
-                  </a>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
@@ -547,6 +502,48 @@
         application: "black-dashboard-free"
       });
   </script>
+
+  <script>
+
+    let thisArray = [];
+
+    $.ajax({
+
+      method: 'GET',
+      url: '/auth/marcacoesGETAll',
+      dataType: 'json',
+      success:function(marcacoes){
+        thisArray = marcacoes
+        buildTable(thisArray);
+        console.log(thisArray)
+      }
+    })
+
+    function buildTable(marcacoes){
+      let table = document.getElementById('tabelaMarcacoes')
+
+      for(let i = 0; i < marcacoes.length; i++){
+        let row = `<tr>
+                      <td>${marcacoes[i]._id}</td>
+                      <td>${marcacoes[i].address}</td>
+                      <td>${marcacoes[i].cliente}</td>
+                      <td>${marcacoes[i].state}</td>
+                      <td>${marcacoes[i].admin}</td>
+                      <td>${marcacoes[i].equipa}</td>
+                      <td>
+                        <a href="./ver_projeto">
+                          <button type="button" class="btn btn-primary">Ver Projeto</button>
+                        </a>
+                      </td>
+
+                  </tr>`
+        table.innerHTML += row
+      }
+    }
+
+  </script>
+
 </body>
 
 </html>
+

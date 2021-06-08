@@ -5,9 +5,10 @@ const router = express.Router();
 const authController = require('../controllers/authController')
 const authControllerAdmin = require('../controllers/authControllerAdmin')
 const authControllerTrab = require('../controllers/authControllerTrab')
-//const authControllerMarc = require('../controllers/authControllerMarc')
 const authControllerMarcacao = require('../controllers/authControllerMarcacao')
 const authControllerFeedback = require('../controllers/authControllerFeedback')
+const ControllerWorker = require('../controllers/ControllerWorker')
+
 
 //------------ Login Route ------------//
 //router.get('/login', (req, res) => res.render('login'));
@@ -57,7 +58,15 @@ router.get('/registertrab', (req, res) => res.render('colegas2'));
 // Get marcacoes
 
 router.get('/marcacoesGET/:userId', authControllerMarcacao.getMarcacoes);
+router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 
+
+router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
+
+// Workers
+
+router.get('/workersGET', ControllerWorker.getWorkers);
+router.delete('/workerFIRE', ControllerWorker.fireWorker);
 
 
 //------------ Register POST Handle ------------//
@@ -115,5 +124,7 @@ router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
 //Feedback
 
 router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
+
+router.post('/apagarfeedback', authControllerFeedback.deleteFeedback);
 
 module.exports = router;

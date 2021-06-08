@@ -48,7 +48,7 @@
               <p>Clientes</p>
             </a>
           </li>
-          <li class="active ">
+          <li>
             <a href="./trabalhadores">
               <i class="tim-icons icon-single-02"></i>
               <p>Trabalhadores</p>
@@ -84,7 +84,7 @@
               <p>Calendário</p>
             </a>
           </li>
-          <li>
+          <li class="active ">
             <a href="./feedbacks">
               <i class="tim-icons icon-spaceship"></i>
               <p>Feedbacks</p>
@@ -218,63 +218,23 @@
         </div>
       </div>
       <!-- End Navbar -->
-      
-      
-      
-      
-      
+
+
       <div class="content">
 
         <div class="row">
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-5 pr-md-1">
-                  <button type="button" class="btn btn-primary">Criar Equipa</button>
-                </div>
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="title">Feedback</h2>
+              </div>
+              <div id="containerFeed" class="card-body">
+                
               </div>
             </div>
+          </div>
         </div>
-
-        <div class="table-responsive">
-            <h2>Trabalhadores sem Equipa</h2>
-            <table class="table tablesorter " id="">
-              <thead class=" text-primary">
-                <tr>
-                  <th>Worker ID</th>
-                  <th>Nome</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>111114</td>
-                  <td>Rodrigo</td>
-                </tr>
-                <tr>
-                  <td>111114</td>
-                  <td>Martim</td>
-                </tr>
-                <tr>
-                  <td>111114</td>
-                  <td>Inês</td>
-                </tr>
-              </tbody>
-            </table>
-        </div>
-          
-
-
-        
       </div>
-
-
-
-
-
-
-
-
-
-
 
       <footer class="footer">
         <div class="container-fluid">
@@ -285,7 +245,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="aboutus.html" class="nav-link">
+              <a href="./aboutus" class="nav-link">
                 About Us
               </a>
             </li>
@@ -487,6 +447,35 @@
         application: "black-dashboard-free"
       });
   </script>
-</body>
+  <script>
+    let thisArray = []
 
+    $.ajax({
+        method:'GET',
+        url:'/auth/getFeedbacks/',
+        dataType: 'json',
+        success:function(feed){
+            thisArray = feed
+            containers(thisArray);
+            console.log(thisArray)      
+        }
+    })
+
+    function containers(feed){
+        let container = document.getElementById('containerFeed') //<button type="submit">x</button>
+        for(let i = 0; i < feed.length; i++){
+            let row = `<p>
+                          <div>Nome do Cliente: ${feed[i].name}</div>
+                          <div>Feedback:</div>
+                          <div>${feed[i].feedback}</div>
+                          <div>
+                            <button type="submit">+</button>
+                            <button onclick="javascript: form.action='/auth/apagarfeedback'" type="submit">Apagar</button>
+                          </div>
+                      </p>`
+            container.innerHTML += row
+        }
+    }
+  </script>
+</body>
 </html>

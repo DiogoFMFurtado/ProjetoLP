@@ -25,7 +25,12 @@ const TrabSchema = new mongoose.Schema({
   resetLink: {
     type: String,
     default: ''
+  },
+  pequipa: {
+    type: String,
+    default: 'Não'
   }
+  
 }, { timestamps: true });
 
 const Trab = mongoose.model('Trab', TrabSchema);
