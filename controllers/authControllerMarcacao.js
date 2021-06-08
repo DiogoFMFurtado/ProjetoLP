@@ -53,4 +53,17 @@ exports.getMarcacoes = async(req, res) => {
 
 }
 
+exports.getAllMarcacoes = async(req, res) => {
+
+    console.log("Getting All of the Appointments...");
+    try {
+        const marcacoes = await Marcacao.find();
+        res.status(200).json(marcacoes);
+    } catch (err) {
+        res.status(400).json({message: err});
+    }
+    console.log("Done!");
+
+}
+
     

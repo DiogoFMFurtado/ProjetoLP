@@ -229,7 +229,9 @@
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-5 pr-md-1">
-                <button type="button" class="btn btn-primary">+ Empregados</button>
+                <a href="./colegas2">
+                  <button type="button" class="btn btn-primary" href="./colegas2">+ Empregados</button>
+                </a>
               </div>
               <div class="col-md-5 pr-md-1">
                 <button type="button" class="btn btn-primary">Despedir Empregado</button>
@@ -256,9 +258,28 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-md-12">
+            <form action="/auth/workerFIRE" method="POST" >
+              <div class="row">
+                <div class="col-sm-2">
+                  <div class="form-group">
+                    <input type="text" name="_id" class="form-control" placeholder="Worker ID">
+                  </div>
+                  <button type="submit" id="btnDespedir" class="btn  btn-primary-smol" onclick="javascript: form.action='/auth/workerFIRE'">Despedir</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        
+
+
+
         <div class="table-responsive">
           <h2>Todos os Trabalhadores</h2>
-          <table class="table tablesorter " id="">
+          <table class="table tablesorter " id="tabelaWorkers">
             <thead class=" text-primary">
               <tr>
                 <th>Worker ID</th>
@@ -267,24 +288,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>111114</td>
-                <td>Rodrigo</td>
-                <td>Sim</td>
-              </tr>
-              <tr>
-                <td>111116</td>
-                <td>Martim</td>
-                <td>Não</td>
-              </tr>
-              <tr>
-                <td>111115</td>
-                <td>Inês</td>
-                <td>Sim</td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
+
+
+
+
 
         <div class="row">
           <div class="col-lg-4">
@@ -526,6 +537,61 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "black-dashboard-free"
       });
+  </script>
+
+
+
+
+
+  <script>
+
+    let thisArray = [];
+    let workerId = $('#workerId').val();
+
+    $.ajax({
+
+      method: 'GET',
+      url: '/auth/workersGET',
+      dataType: 'json',
+      success:function(workers){
+        thisArray = workers
+        buildTable(thisArray);
+        console.log(thisArray)
+      }
+    })
+
+    function buildTable(workers){
+      let table = document.getElementById('tabelaWorkers')
+
+      for(let i = 0; i < workers.length; i++){
+        let row = `<tr>
+                      <td>${workers[i]._id}</td>
+                      <td>${workers[i].name}</td>
+                      <td>${workers[i].pequipa}</td>
+                  </tr>`
+        table.innerHTML += row
+      }
+    }
+
+  </script>
+
+  <script>
+
+    $('form').submit(function(e) {
+      e.preventDefault();
+      let formData = $(this).serialize()
+      let formAction = $(this).attr('action');
+      $.ajax({
+        type: 'DELETE',
+        url: formAction,
+        data: formData,
+        success: function(data){
+          
+        }
+      })
+    })
+
+
   </script>
 </body>
 
