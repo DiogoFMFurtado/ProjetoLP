@@ -264,7 +264,7 @@ exports.forgotTrabPassword = (req, res) => {
                                     'success_msg',
                                     'Password reset link sent to email ID. Please follow the instructions.'
                                 );
-                                res.redirect('/auth/colegas');
+                                res.redirect('/auth/colegas2');
                             }
                         })
                     }
