@@ -60,10 +60,14 @@ router.get('/registertrab', (req, res) => res.render('colegas2'));
 router.get('/marcacoesGET/:userId', authControllerMarcacao.getMarcacoes);
 router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 
+
+router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
+
 // Workers
 
 router.get('/workersGET', ControllerWorker.getWorkers);
 router.delete('/workerFIRE', ControllerWorker.fireWorker);
+
 
 //------------ Register POST Handle ------------//
 //router.post('/register', authController.registerHandle);
@@ -120,5 +124,7 @@ router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
 //Feedback
 
 router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
+
+router.post('/apagarfeedback', authControllerFeedback.deleteFeedback);
 
 module.exports = router;
