@@ -48,6 +48,10 @@ router.get('/colegas2', ensureAuthenticated, (req, res) => res.render('colegas2'
     name: req.user.name
 }));
 
+router.get('/feedbacks', ensureAuthenticated, (req, res) => res.render('feedbacks', {
+    name: req.user.name
+}));
+
 router.get('/icons', ensureAuthenticated, (req, res) => res.render('icons', {
     name: req.user.name
 }));
