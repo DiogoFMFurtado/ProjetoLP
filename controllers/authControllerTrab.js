@@ -31,7 +31,7 @@ exports.registerTrabHandle = (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render('colegas', {
+        res.render('colegas2', {
             errors,
             name,
             email,
@@ -44,7 +44,7 @@ exports.registerTrabHandle = (req, res) => {
             if (trab) {
                 //------------ User already exists ------------//
                 errors.push({ msg: 'Email ID already registered' });
-                res.render('colegas', {
+                res.render('colegas2', {
                     errors,
                     name,
                     email,
@@ -101,7 +101,7 @@ exports.registerTrabHandle = (req, res) => {
                             'error_msg',
                             'Something went wrong on our end. Please register again.'
                         );
-                        res.redirect('/auth/colegas');
+                        res.redirect('/auth/colegas2');
                     }
                     else {
                         console.log('Mail sent : %s', info.response);
@@ -109,7 +109,7 @@ exports.registerTrabHandle = (req, res) => {
                             'success_msg',
                             'Activation link sent to email ID. Please activate to log in.'
                         );
-                        res.redirect('/auth/colegas');
+                        res.redirect('/auth/colegas2');
                     }
                 })
 
@@ -129,7 +129,7 @@ exports.activateTrabHandle = (req, res) => {
                     'error_msg',
                     'Incorrect or expired link! Please register again.'
                 );
-                res.redirect('/auth/colegas');
+                res.redirect('/auth/colegas2');
             }
             else {
                 const { name, email, password } = decodedToken;
@@ -140,7 +140,7 @@ exports.activateTrabHandle = (req, res) => {
                             'error_msg',
                             'Email ID already registered! Please log in.'
                         );
-                        res.redirect('/auth/colegas');
+                        res.redirect('/auth/colegas2');
                     } else {
                         const newTrab = new Trab({
                             name,
@@ -159,7 +159,7 @@ exports.activateTrabHandle = (req, res) => {
                                             'success_msg',
                                             'Account activated. You can now log in.'
                                         );
-                                        res.redirect('/auth/colegas');
+                                        res.redirect('/auth/colegas2');
                                     })
                                     .catch(err => console.log(err));
                             });
@@ -289,3 +289,14 @@ exports.logoutTrabHandle = (req, res) => {
     req.flash('success_msg', 'You are logged out');
     res.redirect('/auth/loginTrab');
 }
+/*
+exports.getTrab = (req, res) => {
+    console.log("Getting all the workers");
+    try {
+        const gettrab = await Trab.find();
+        res.status(200).json(gettrab);
+    } catch (err) {
+        res.status(400).json({message: err});
+    }
+    console.log("Done!");
+}*/
