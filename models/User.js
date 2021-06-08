@@ -26,10 +26,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
+  admin: {
+    type: String,
+    default: 'Não'
+  },
   marcacaoCliente: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Marcacao'
-  }]
+  }],
+  
 }, { timestamps: true });
 
 const User = mongoose.model('User', UserSchema);
