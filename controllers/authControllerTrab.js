@@ -289,14 +289,12 @@ exports.logoutTrabHandle = (req, res) => {
     req.flash('success_msg', 'You are logged out');
     res.redirect('/auth/loginTrab');
 }
-/*
-exports.getTrab = (req, res) => {
-    console.log("Getting all the workers");
+
+exports.getTrab = async (req, res) => {
     try {
         const gettrab = await Trab.find();
         res.status(200).json(gettrab);
     } catch (err) {
         res.status(400).json({message: err});
     }
-    console.log("Done!");
-}*/
+}

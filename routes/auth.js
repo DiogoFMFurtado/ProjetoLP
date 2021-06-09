@@ -63,6 +63,7 @@ router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 
 
 router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
+router.get('/getTrab', authControllerTrab.getTrab);
 
 // Workers Admin Page
 
