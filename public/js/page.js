@@ -48,6 +48,22 @@ $(document).ready(function(){
     })
 })
 
+// Verificar as marcações
+$(document).ready(function(){
+    $('#verificar_marcacoes').on('click', function(){
+        $('#marcacoesdelimpeza').show();
+        $('#Feedback_do_trabalhador').hide();
+    })
+})
+
+// Deixar Feedback na area do trabalhador
+$(document).ready(function(){
+    $('#feedback_trabalhador').on('click', function(){
+        $('#marcacoesdelimpeza').hide();
+        $('#Feedback_do_trabalhador').show();
+    })
+})
+
 function setCarousel() {
     var slider = $('.tm-img-slider');
 

@@ -8,6 +8,7 @@ const authControllerTrab = require('../controllers/authControllerTrab')
 const authControllerMarcacao = require('../controllers/authControllerMarcacao')
 const authControllerFeedback = require('../controllers/authControllerFeedback')
 const ControllerWorker = require('../controllers/ControllerWorker')
+const ControllerClient = require('../controllers/ControllerClient');
 
 
 //------------ Login Route ------------//
@@ -60,10 +61,18 @@ router.get('/registertrab', (req, res) => res.render('colegas2'));
 router.get('/marcacoesGET/:userId', authControllerMarcacao.getMarcacoes);
 router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 
-// Workers
+
+router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
+
+// Workers Admin Page
 
 router.get('/workersGET', ControllerWorker.getWorkers);
 router.delete('/workerFIRE', ControllerWorker.fireWorker);
+
+// Clients Admin Page
+
+router.get('/clientsGET', ControllerClient.getClients);
+
 
 //------------ Register POST Handle ------------//
 //router.post('/register', authController.registerHandle);
@@ -120,5 +129,7 @@ router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
 //Feedback
 
 router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
+
+router.post('/apagarfeedback', authControllerFeedback.deleteFeedback);
 
 module.exports = router;
