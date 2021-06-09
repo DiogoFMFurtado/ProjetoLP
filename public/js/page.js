@@ -53,6 +53,7 @@ $(document).ready(function(){
     $('#verificar_marcacoes').on('click', function(){
         $('#marcacoesdelimpeza').show();
         $('#Feedback_do_trabalhador').hide();
+        $('#nome').show();
     })
 })
 
@@ -60,7 +61,8 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('#feedback_trabalhador').on('click', function(){
         $('#marcacoesdelimpeza').hide();
-        $('#Feedback_do_trabalhador').show();
+        $('#Feedback_do_trabalhador').show()
+        $('#nome').show()
     })
 })
 
