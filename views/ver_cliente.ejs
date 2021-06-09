@@ -248,7 +248,6 @@
                 <th>Marcação ID</th>
                 <th>Morada</th>
                 <th>Equipa</th>
-                <th>Manager</th>
                 <th>Estado</th>
               </tr>
             </thead>
@@ -272,11 +271,6 @@
           </table>
         </div>
       <!-- Fim Tabela Clientes -->
-
-
-
-
-
 
 
       </div>
@@ -485,8 +479,34 @@
 
   <script>
 
-    let thisArray = []
-    let clientId = clients._id;
+    let clientId = sessionStorage.getItem("clientId");
+    console.log(clientId);
+    let newArray = [];
+
+    $.ajax({
+      method:'GET',
+      url: '/auth/clientGET' + '/' + clientId,
+      dataType: 'json',
+      success:function(client){
+        newArray = client
+        buildTable(newArray);
+        console.log(newArray);
+      }
+    })
+
+    function buildTable(client){
+      let table = document.getElementById('tabelaClienteAdmin')
+
+      for(let i = 0; i < client.length; i++){
+        let row = `<tr>
+                        <td>${client[i]._id}</td>
+                        <td>${client[i].address}</td>
+                        <td>${client[i].equipa}</td>
+                        <td>${client[i].state}</td>
+                  </tr>`
+        table.innerHTML += row
+      }
+    }
 
     
 
