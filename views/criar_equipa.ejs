@@ -261,8 +261,18 @@
             </table>
         </div>
           
-
-
+        <div>
+          <label for="slide">Trabalhadores:</label>
+          <select id="slidemenu" name="slide"></select>
+        </div>
+        <div>
+          <label for="slide">Trabalhadores:</label>
+          <select id="slidemenu" name="slide"></select>
+        </div>
+        <div>
+          <label for="slide">Trabalhadores:</label>
+          <select id="slidemenu" name="slide"></select>
+        </div>
         
       </div>
 
@@ -487,6 +497,27 @@
         application: "black-dashboard-free"
       });
   </script>
+
+<script>
+  $.ajax({
+    method:'GET',
+    url:'/auth/getTrab/',
+    dataType: 'json',
+    success:function(trab){
+        thisArray = trab
+        containers(thisArray);
+        console.log(thisArray)      
+    }
+  })
+
+  function containers(trab){
+    let container = document.getElementById('slidemenu')
+    for(let i = 0; i < trab.length; i++){
+        let row = `<option>${trab[i].name}</option>`
+        container.innerHTML += row
+    }
+  }
+</script>
 </body>
 
 </html>
