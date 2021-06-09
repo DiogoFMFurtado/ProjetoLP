@@ -28,12 +28,16 @@ const UserSchema = new mongoose.Schema({
   },
   admin: {
     type: String,
-    default: 'Não'
+    default: 'Sem Manager'
   },
   marcacaoCliente: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Marcacao'
   }],
+  equipa: {
+    type: String,
+    default: 'Não'
+  }
   
 }, { timestamps: true });
 
