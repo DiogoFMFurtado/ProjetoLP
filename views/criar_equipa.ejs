@@ -260,15 +260,14 @@
               </tbody>
             </table>
         </div>
-          
-        <div>
-          <select id="slidemenu1" name="slide">
+        <div id= "selecttrab">
+          <select class= "opcao_certa" id="slidemenu1" name="slide">
             <option selected="selected" value=" " hidden>Primeiro Trabalhador</option>
           </select>     
-          <select id="slidemenu2" name="slide">
-            <option selected="selected" value=" " hidden>Segundo Trabalhador</option>
+          <select class= "opcao_certa" id="slidemenu2" name="slide">
+           <option selected="selected" value=" " hidden>Segundo Trabalhador</option>
           </select>
-          <select id="slidemenu3" name="slide">
+          <select class= "opcao_certa" id="slidemenu3" name="slide">
             <option selected="selected" value=" " hidden>Terceiro Trabalhador</option>
           </select>
         </div>
@@ -526,11 +525,20 @@
       slide3.innerHTML += row
     }
   }
-  
-  $('select').on('change', function(){
-    $('select option').prop("disabled", false);
-    $("select").not(this).find("option[value="+ $(this).val() + "]").prop('disabled', true);
-  });
+
+  $(document).ready(function () {
+    $('#selecttrab').on('change', '.opcao_certa', function () {
+        var allSelected = $(".opcao_certa").map(function () {
+            return $(this).val();
+        }).get();
+        $(".opcao_certa option").removeAttr("disabled");
+        $(".opcao_certa option:not(:selected):not([value='0'])").each(function () {
+            if ($.inArray($(this).val(), allSelected) != -1) {
+                $(this).attr('disabled', true);
+            }
+        });
+    });
+});
 </script>
 </body>
 
