@@ -262,16 +262,15 @@
         </div>
           
         <div>
-          <label for="slide">Trabalhadores:</label>
-          <select id="slidemenu" name="slide"></select>
-        </div>
-        <div>
-          <label for="slide">Trabalhadores:</label>
-          <select id="slidemenu" name="slide"></select>
-        </div>
-        <div>
-          <label for="slide">Trabalhadores:</label>
-          <select id="slidemenu" name="slide"></select>
+          <select id="slidemenu1" name="slide">
+            <option selected="selected" value=" " hidden>Primeiro Trabalhador</option>
+          </select>     
+          <select id="slidemenu2" name="slide">
+            <option selected="selected" value=" " hidden>Segundo Trabalhador</option>
+          </select>
+          <select id="slidemenu3" name="slide">
+            <option selected="selected" value=" " hidden>Terceiro Trabalhador</option>
+          </select>
         </div>
         
       </div>
@@ -505,18 +504,33 @@
     dataType: 'json',
     success:function(trab){
         thisArray = trab
-        containers(thisArray);
+        sliders(thisArray);
         console.log(thisArray)      
     }
   })
 
-  function containers(trab){
-    let container = document.getElementById('slidemenu')
-    for(let i = 0; i < trab.length; i++){
-        let row = `<option>${trab[i].name}</option>`
-        container.innerHTML += row
+  function sliders(trab){
+    let slide1 = document.getElementById('slidemenu1')
+    let slide2 = document.getElementById('slidemenu2')
+    let slide3 = document.getElementById('slidemenu3')
+    for(let x = 0; x < trab.length; x++){
+      let row = `<option value="${trab[x].name}">${trab[x].name}</option>`
+      slide1.innerHTML += row
+    }
+    for(let y = 0; y < trab.length; y++){
+      let row = `<option value="${trab[y].name}">${trab[y].name}</option>`
+      slide2.innerHTML += row
+    }
+    for(let z = 0; z < trab.length; z++){
+      let row = `<option value="${trab[z].name}">${trab[z].name}</option>`
+      slide3.innerHTML += row
     }
   }
+  
+  $('select').on('change', function(){
+    $('select option').prop("disabled", false);
+    $("select").not(this).find("option[value="+ $(this).val() + "]").prop('disabled', true);
+  });
 </script>
 </body>
 
