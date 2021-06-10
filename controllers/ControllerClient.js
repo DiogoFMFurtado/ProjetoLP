@@ -26,9 +26,9 @@ exports.getClient = async(req,res) => {
     
     console.log("Getting the Client...");
     try {
-        const client = await User.findById({_id: clients._id}).populate('marcacaoCliente');
+        const client = await User.findById(req.params.clientId).populate('marcacaoCliente');
         console.log('client', client);
-        res.status(200).json(user.marcacaoCliente);
+        res.status(200).json(client.marcacaoCliente);
     } catch (err) {
         res.json({message:err});
     }

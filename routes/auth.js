@@ -63,6 +63,7 @@ router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 
 
 router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
+router.get('/getTrab', authControllerTrab.getTrab);
 
 // Workers Admin Page
 
@@ -72,6 +73,7 @@ router.delete('/workerFIRE', ControllerWorker.fireWorker);
 // Clients Admin Page
 
 router.get('/clientsGET', ControllerClient.getClients);
+router.get('/clientGET/:clientId', ControllerClient.getClient);
 
 
 //------------ Register POST Handle ------------//
