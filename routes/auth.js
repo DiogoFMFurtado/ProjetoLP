@@ -62,6 +62,7 @@ router.get('/marcacoesGET/:userId', authControllerMarcacao.getMarcacoes);
 router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 
 
+
 router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
 router.get('/getTrab', authControllerTrab.getTrab);
 
@@ -74,6 +75,7 @@ router.delete('/workerFIRE', ControllerWorker.fireWorker);
 
 router.get('/clientsGET', ControllerClient.getClients);
 router.get('/clientGET/:clientId', ControllerClient.getClient);
+router.patch('/adminPUT/:clientId', ControllerClient.hasAdmin);
 
 
 //------------ Register POST Handle ------------//
