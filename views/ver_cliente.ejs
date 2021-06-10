@@ -269,6 +269,7 @@
                 <th>Morada</th>
                 <th>Equipa</th>
                 <th>Estado</th>
+                <th>Ver Projeto</th>
               </tr>
             </thead>
             <tbody>
@@ -525,12 +526,26 @@
                         <td>${client[i].address}</td>
                         <td>${client[i].equipa}</td>
                         <td>${client[i].state}</td>
+                        <td>
+                          <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Projeto</button>
+                        </td>
                   </tr>`
         table.innerHTML += row
       }
     }
 
+    function store(index) {
+
+      console.log("Getting marcacaoId...");
+      let marcacaoId = newArray[index]._id;
+      sessionStorage.setItem("marcacaoId", marcacaoId);
+      location.href = "./ver_projeto";
+
+    }
+
   </script>
+    
+    
 
   <script>
 

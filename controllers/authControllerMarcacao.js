@@ -53,6 +53,19 @@ exports.getMarcacoes = async(req, res) => {
 
 }
 
+exports.getMarcacaoById = async(req, res) => {
+
+    console.log("Getting Project...")
+    try {
+        const marc = await Marcacao.findById(req.params.marcacaoId).populate('cliente');
+        console.log('marcacao', marc);
+        res.status(200).json(marc.cliente);
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+    
+}
+
 exports.getAllMarcacoes = async(req, res) => {
 
     console.log("Getting All of the Appointments...");
