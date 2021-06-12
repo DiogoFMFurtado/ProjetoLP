@@ -61,6 +61,7 @@ router.get('/registertrab', (req, res) => res.render('colegas2'));
 router.get('/marcacoesGET/:userId', authControllerMarcacao.getMarcacoes);
 router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 router.get('/marcGET/:marcacaoId', authControllerMarcacao.getMarcacaoById);
+router.put('/evalPUT/:marcacaoId', authControllerMarcacao.giveAval);
 
 
 

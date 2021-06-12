@@ -57,9 +57,9 @@ exports.getMarcacaoById = async(req, res) => {
 
     console.log("Getting Project...")
     try {
-        const marc = await Marcacao.findById(req.params.marcacaoId).populate('cliente');
+        const marc = await Marcacao.findById(req.params.marcacaoId);
         console.log('marcacao', marc);
-        res.status(200).json(marc.cliente);
+        res.status(200).json(marc);
     } catch (err) {
         res.status(404).json({message: err});
     }
@@ -77,6 +77,19 @@ exports.getAllMarcacoes = async(req, res) => {
     }
     console.log("Done!");
 
+}
+
+exports.giveAval = async (req, res) => {
+    console.log("Giving Evaluation to the Appointment...");
+    console.log(req.params.marcacaoId);
+    try {
+        const eval_admin = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
+        console.log(req.body);
+        res.status(200).json(eval_admin);
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+    console.log("Done!")
 }
 
     

@@ -23,7 +23,12 @@ const MarcacaoSchema = new mongoose.Schema({
     cliente: { 
         type: Schema.Types.ObjectId, 
         ref: 'User'
+    },
+    aval_admin: {
+        type: String,
+        default: "Sem Avaliação pelo Manager"
     }
+
 },
 {collection: 'Marcacao'}
 )

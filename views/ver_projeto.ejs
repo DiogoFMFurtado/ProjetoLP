@@ -231,51 +231,6 @@
             </div>
           </div>
         </div>
-        
-        <!-- POR ACABAR ESTE MODAL -->
-
-        <!-- 
-        <div id="ModalEquipa" class="modal-equipa">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content-equipa">
-              <div class="modal-header">
-                <h3 class="modal-title">Escolha uma equipa</h3>
-                <span class="close">&times;</span>
-              </div>
-              <div class="modal-body">
-                <p>Texto dentro do modal</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Guardar</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
-
-        <!-- Não sei se vamos querer modal -->
-        <!--
-        <div id ="ModalEquipa" class="modal" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content-equipa">
-              <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Modal body text goes here.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
 
       </div>
 
@@ -513,8 +468,12 @@
   <script>
 
     let marcacaoId = sessionStorage.getItem("marcacaoId");
+    let clientId = sessionStorage.getItem("clientId");
     console.log(marcacaoId);
+    console.log(clientId);
     let thisUser;
+    let thisMarcacao;
+
 
     $.ajax({
       method: 'GET',
@@ -527,8 +486,7 @@
       }
     })
 
-    // Foi buscar o userid invés da marcação id
-    // se calhar vai ser preciso fazer um novo ajax, guardar as cenas da marcacao noutra variável, e trazê-las dessa forma
+    
     function buildCard(thisUser){
       let card = document.getElementById('cardProjeto');
 
@@ -586,10 +544,14 @@
                     </div>
                     <div class="row">
                       <div class="col-md-4 pr-md-1">
-                        <div class="form-group">
-                          <label>Avaliação Projeto</label>
-                          <input type="text" class="form-control" placeholder="L1-L5" >
-                        </div>
+                        <form action="/auth/evalPUT" method="POST" class="aval" id="aval1">
+                          <div class="form-group">
+                            <label>Avaliação Projeto</label>
+                            <p>${thisUser.aval_admin}</p>
+                            <input type="text" name="aval_admin" class="form-control" placeholder="L1-L5" >
+                            <button type="submit" class="btn btn-fill btn-primary" onclick="javascript: form.action='/auth/evalPUT'">Submeter Avaliação</button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                     <div class="row">
@@ -611,6 +573,27 @@
       card.innerHTML += cardInfo
     }
 
+    
+    console.log("Isto é o ID da marcacao", marcacaoId);
+    
+    // Não está a funcionar mas está a funcionar no backend através do Postman
+    $('form.aval').submit(function(e) {
+      console.log("??")
+      e.preventDefault();
+      let formData = $(this).serialize();
+      let formAction = $(this).attr('action');
+      console.log("Chega aqui?")
+      $.ajax({
+        method: 'PUT',
+        url: formAction + '/' + marcacaoId,
+        dataType: 'json',
+        data: formData,
+        success: function(data) {
+          console.log(data);
+        }
+      })
+    })
+    
 
 
   </script>
