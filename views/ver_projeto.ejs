@@ -513,8 +513,12 @@
   <script>
 
     let marcacaoId = sessionStorage.getItem("marcacaoId");
+    let clientId = sessionStorage.getItem("clientId");
     console.log(marcacaoId);
+    console.log(clientId);
     let thisUser;
+    let thisMarcacao;
+
 
     $.ajax({
       method: 'GET',
@@ -527,8 +531,7 @@
       }
     })
 
-    // Foi buscar o userid invés da marcação id
-    // se calhar vai ser preciso fazer um novo ajax, guardar as cenas da marcacao noutra variável, e trazê-las dessa forma
+    
     function buildCard(thisUser){
       let card = document.getElementById('cardProjeto');
 
