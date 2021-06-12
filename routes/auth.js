@@ -78,6 +78,7 @@ router.delete('/workerFIRE', ControllerWorker.fireWorker);
 router.get('/clientsGET', ControllerClient.getClients);
 router.get('/clientGET/:clientId', ControllerClient.getClient);
 router.put('/adminPUT/:clientId', ControllerClient.hasAdmin);
+router.get('/clientByIdGET/:clientId', ControllerClient.getClientById);
 
 
 //------------ Register POST Handle ------------//
