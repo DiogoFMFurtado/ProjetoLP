@@ -79,4 +79,17 @@ exports.getAllMarcacoes = async(req, res) => {
 
 }
 
+exports.giveAval = async (req, res) => {
+    console.log("Giving Evaluation to the Appointment...");
+    console.log(req.params.marcacaoId);
+    try {
+        const eval_admin = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
+        console.log(req.body);
+        res.status(200).json(eval_admin);
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+    console.log("Done!")
+}
+
     
