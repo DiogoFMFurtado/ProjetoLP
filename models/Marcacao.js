@@ -23,6 +23,10 @@ const MarcacaoSchema = new mongoose.Schema({
     aval_admin: {
         type: String,
         default: "Sem Avaliação pelo Manager"
+    },
+    descricao: {
+        type: String,
+        default: "Sem Descrição"
     }
 
 },

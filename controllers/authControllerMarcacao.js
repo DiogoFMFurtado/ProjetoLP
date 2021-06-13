@@ -92,4 +92,17 @@ exports.giveAval = async (req, res) => {
     console.log("Done!")
 }
 
-    
+
+exports.giveDescrip = async (req,res) => {
+
+    console.log("Giving Description to the Appointment...");
+    console.log(req.params.marcacaoId);
+    try {
+        const description = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
+        console.log(req.body);
+        res.status(200).json(description);
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+    console.log("Done!")
+}
