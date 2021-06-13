@@ -562,17 +562,16 @@
                     </div>
                     <div class="row">
                       <div class="col-md-8">
-                        <div class="form-group">
-                          <label>About Projeto</label>
-                          <textarea rows="4" cols="80" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
-                        </div>
+                        <form action="/auth/descripPUT" method="POST" class="description">
+                          <div class="form-group">
+                            <label>About Projeto</label>
+                            <p>${thisUser.descricao}</p>
+                            <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload()" onclick="javascript: form.action='/auth/descripPUT'">Submeter Descrição</button>
+                          </div>
+                        </form>
                       </div>
                     </div>
-                </div>
-
-
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-fill btn-primary">Submeter Alterações</button>
                 </div>
       `
       card.innerHTML += cardInfo
@@ -617,6 +616,21 @@
         url: formAction + '/' + marcacaoId,
         dataType: 'json',
         data: formData,
+        success: function(data) {
+          console.log(data);
+        }
+      })
+    })
+
+    $('.card').on('click', '.description', function(e) {
+      e.preventDefault();
+      let formData2 = $(this).serialize();
+      let formAction2 = $(this).attr('action');
+      $.ajax({
+        method: 'PUT',
+        url: formAction2 + '/' + marcacaoId,
+        dataType: 'json',
+        data: formData2,
         success: function(data) {
           console.log(data);
         }
