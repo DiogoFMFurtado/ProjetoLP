@@ -53,6 +53,19 @@ exports.getMarcacoes = async(req, res) => {
 
 }
 
+exports.getMarcacaoById = async(req, res) => {
+
+    console.log("Getting Project...")
+    try {
+        const marc = await Marcacao.findById(req.params.marcacaoId);
+        console.log('marcacao', marc);
+        res.status(200).json(marc);
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+    
+}
+
 exports.getAllMarcacoes = async(req, res) => {
 
     console.log("Getting All of the Appointments...");
@@ -66,4 +79,30 @@ exports.getAllMarcacoes = async(req, res) => {
 
 }
 
-    
+exports.giveAval = async (req, res) => {
+    console.log("Giving Evaluation to the Appointment...");
+    console.log(req.params.marcacaoId);
+    try {
+        const eval_admin = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
+        console.log(req.body);
+        res.status(200).json(eval_admin);
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+    console.log("Done!")
+}
+
+
+exports.giveDescrip = async (req,res) => {
+
+    console.log("Giving Description to the Appointment...");
+    console.log(req.params.marcacaoId);
+    try {
+        const description = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
+        console.log(req.body);
+        res.status(200).json(description);
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+    console.log("Done!")
+}
