@@ -11,10 +11,6 @@ const MarcacaoSchema = new mongoose.Schema({
     address: {type: String, required: true},
     state: {type: String, default: 'Pendente'},
     // admin: { type: Schema.Types.ObjectId, ref:'Admin' },
-    admin: {
-        type: String,
-        default: 'Não'
-    },
     // equipa: { type: Schema.Types.ObjectId, ref: 'Equipa' },
     equipa: {
         type: String,
@@ -23,7 +19,16 @@ const MarcacaoSchema = new mongoose.Schema({
     cliente: { 
         type: Schema.Types.ObjectId, 
         ref: 'User'
+    },
+    aval_admin: {
+        type: String,
+        default: "Sem Avaliação pelo Manager"
+    },
+    descricao: {
+        type: String,
+        default: "Sem Descrição"
     }
+
 },
 {collection: 'Marcacao'}
 )

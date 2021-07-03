@@ -219,8 +219,6 @@
       </div>
       <!-- End Navbar -->
 
-
-      <!-- Tabela Clientes -->
       <div class="content">
         
         <div class="input-group">
@@ -232,9 +230,31 @@
             <i class="fas fa-search"></i>
           </button>
         </div>
+      
 
 
 
+        <div class="row">
+          <div class="col-md-12">
+            <form action="/auth/adminPUT" method="POST" >
+              <div class="row">
+                <div class="col-sm-2">
+                  <div class="form-group hidden" id="procura">
+                    <input type="text" name="admin" class="form-control" placeholder="Manager Name">
+                  </div>
+                  <div class="botao-de-despedir hidden" id="delete">
+                    <button type="submit" id="btnDespedir" class="btn  btn-primary-smol" onClick="window.location.reload()"  onclick="javascript: form.action='/auth/adminPUT'">Associar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+
+
+        <!-- Tabela Clientes -->
         <div class="table-responsive">
           <h2>
             Nome do Cliente
@@ -249,6 +269,7 @@
                 <th>Morada</th>
                 <th>Equipa</th>
                 <th>Estado</th>
+                <th>Ver Projeto</th>
               </tr>
             </thead>
             <tbody>
@@ -274,6 +295,8 @@
 
 
       </div>
+
+
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
@@ -503,12 +526,47 @@
                         <td>${client[i].address}</td>
                         <td>${client[i].equipa}</td>
                         <td>${client[i].state}</td>
+                        <td>
+                          <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Projeto</button>
+                        </td>
                   </tr>`
         table.innerHTML += row
       }
     }
 
+    function store(index) {
+
+      console.log("Getting marcacaoId...");
+      let marcacaoId = newArray[index]._id;
+      sessionStorage.setItem("marcacaoId", marcacaoId);
+      location.href = "./ver_projeto";
+
+    }
+
+  </script>
     
+    
+
+  <script>
+
+    console.log(clientId);
+    
+    $('form').submit(function(e) {
+      e.preventDefault();
+      let formData = $(this).serialize();
+      let formAction = $(this).attr('action');
+      console.log("Chega aqui?")
+      $.ajax({
+        method: 'PUT',
+        url: formAction + '/' + clientId,
+        dataType: 'json',
+        data: formData,
+        success: function(data) {
+          console.log(data);
+        }
+      })
+    })
+
 
   </script>
 

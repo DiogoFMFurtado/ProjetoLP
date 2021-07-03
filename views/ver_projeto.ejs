@@ -48,13 +48,13 @@
               <p>Clientes</p>
             </a>
           </li>
-          <li class="active ">
+          <li>
             <a href="./trabalhadores">
               <i class="tim-icons icon-single-02"></i>
               <p>Trabalhadores</p>
             </a>
           </li>
-          <li>
+          <li class="active">
             <a href="./projmarc">
               <i class="tim-icons icon-bullet-list-67"></i>
               <p>Projetos/Marcações</p>
@@ -223,132 +223,20 @@
 
       <div class="content">
         <div class="row">
+            <div class="col-md-3">
+              <div class="card" id="cardProjeto2">
+                
+  
+              </div>
+            </div>
             <div class="col-md-12">
-              <div class="card">
-                <div class="card-header">
-                  <h2 class="title">Marcação ID </h2>
-                </div>
-
-                <div class="card-body">
-                  <form>
-                    <div class="row">
-                      <div class="col-md-5 pr-md-1">
-                        <div class="form-group">
-                          <label>Nome do Cliente</label>
-                          <p>Nome do Cliente</p>
-                        </div>
-                      </div>
-                      <div class="col-md-3 px-md-1">
-                        <div class="form-group">
-                          <label>Equipa</label>
-                          <p>Sem Equipa</p>
-                          <button type="button" id="ModalBtn" class="btn btn-primary">Adicionar</button>
-                        </div>
-                      </div>
-                      <div class="col-md-4 pl-md-1">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Manager</label>
-                          <p>Sem Manager</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 pr-md-1">
-                        <div class="form-group">
-                          <label>Estado</label>
-                          <p>Pendente</p>
-                        </div>
-                      </div>
-                      <div class="col-md-6 pl-md-1">
-                        <div class="form-group">
-                          <label>Nota do Cliente</label>
-                          <p>5</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label>Morada</label>
-                          <p>Isto é uma morada numero 5000 porta 242323</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 pr-md-1">
-                        <div class="form-group">
-                          <label>Avaliação Projeto</label>
-                          <input type="text" class="form-control" placeholder="L1-L5" >
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-8">
-                        <div class="form-group">
-                          <label>About Projeto</label>
-                          <textarea rows="4" cols="80" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-
-
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-fill btn-primary">Submeter Alterações</button>
-                </div>
-
+              <div class="card" id="cardProjeto">
+                
 
               </div>
             </div>
           </div>
         </div>
-        
-        <!-- POR ACABAR ESTE MODAL -->
-
-        <!-- 
-        <div id="ModalEquipa" class="modal-equipa">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content-equipa">
-              <div class="modal-header">
-                <h3 class="modal-title">Escolha uma equipa</h3>
-                <span class="close">&times;</span>
-              </div>
-              <div class="modal-body">
-                <p>Texto dentro do modal</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Guardar</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
-
-        <div id ="ModalEquipa" class="modal" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content-equipa">
-              <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Modal body text goes here.</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
 
       <footer class="footer">
         <div class="container-fluid">
@@ -576,6 +464,181 @@
         modal.style.display = "none";
       }
     }
+  </script>
+
+
+  <script>
+
+    let marcacaoId = sessionStorage.getItem("marcacaoId");
+    let clientId = sessionStorage.getItem("clientId");
+    console.log(marcacaoId);
+    console.log(clientId);
+    let thisUser;
+    let thisMarcacao;
+
+
+    $.ajax({
+      method: 'GET',
+      url: '/auth/marcGET' + '/' + marcacaoId,
+      dataType: 'json',
+      success:function(marc){
+        thisUser = marc
+        buildCard(thisUser);
+        console.log(thisUser);
+      }
+    })
+
+    $.ajax({
+      method: 'GET',
+      url: '/auth/clientByIdGET' + '/' + clientId,
+      dataType: 'json',
+      success:function(clientById){
+        thisMarcacao = clientById
+        buildCard2(thisMarcacao);
+        console.log(thisMarcacao);
+      }
+    })
+
+    
+    function buildCard(thisUser){
+      let card = document.getElementById('cardProjeto');
+
+      let cardInfo = 
+      `
+      <div class="card-header">
+                  <h2 class="title">ID da Marcação: ${thisUser._id}</h2>
+                </div>
+
+                <!-- Aqui -->
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-5 pr-md-1">
+                        <div class="form-group">
+                          <label>Nome do Cliente</label>
+                          <p>${thisUser.name}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                          <label>Equipa</label>
+                          <p>${thisUser.equipa}</p>
+                          <button type="button" id="ModalBtn" class="btn btn-primary">Adicionar</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <div class="form-group">
+                          <label>Estado</label>
+                          <p>${thisUser.state}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-6 pl-md-1">
+                        <div class="form-group">
+                          <label>Nota do Cliente</label>
+                          <p>5</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Morada</label>
+                          <p>${thisUser.address}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4 pr-md-1">
+                        <form action="/auth/evalPUT" method="POST" class="aval">
+                          <div class="form-group">
+                            <label>Avaliação Projeto</label>
+                            <p>${thisUser.aval_admin}</p>
+                            <input type="text" name="aval_admin" class="form-control" placeholder="L1-L5" >
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload()" onclick="javascript: form.action='/auth/evalPUT'">Submeter Avaliação</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <form action="/auth/descripPUT" method="POST" class="description">
+                          <div class="form-group">
+                            <label>About Projeto</label>
+                            <p>${thisUser.descricao}</p>
+                            <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload()" onclick="javascript: form.action='/auth/descripPUT'">Submeter Descrição</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+      `
+      card.innerHTML += cardInfo
+    }
+
+    function buildCard2(thisMarcacao){
+      let card2 = document.getElementById('cardProjeto2');
+
+      let cardInfo2 = 
+      `
+                <div class="card-header">
+                  <h2 class="title">Manager do Cliente</h2>
+                </div>
+
+                <!-- Aqui -->
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-5 pr-md-1">
+                        <div class="form-group">
+                          <p>${thisMarcacao.admin}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+      `
+      card2.innerHTML += cardInfo2
+    }
+
+    
+    console.log("Isto é o ID da marcacao", marcacaoId);
+    
+    $('.card').on('click', '.aval', function(e) {
+      console.log("??")
+      e.preventDefault();
+      let formData = $(this).serialize();
+      let formAction = $(this).attr('action');
+      console.log("Chega aqui?")
+      $.ajax({
+        method: 'PUT',
+        url: formAction + '/' + marcacaoId,
+        dataType: 'json',
+        data: formData,
+        success: function(data) {
+          console.log(data);
+        }
+      })
+    })
+
+    $('.card').on('click', '.description', function(e) {
+      e.preventDefault();
+      let formData2 = $(this).serialize();
+      let formAction2 = $(this).attr('action');
+      $.ajax({
+        method: 'PUT',
+        url: formAction2 + '/' + marcacaoId,
+        dataType: 'json',
+        data: formData2,
+        success: function(data) {
+          console.log(data);
+        }
+      })
+    })
+    
+
+
   </script>
 </body>
 

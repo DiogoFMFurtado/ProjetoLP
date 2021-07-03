@@ -61,6 +61,10 @@ router.get('/registertrab', (req, res) => res.render('colegas2'));
 
 router.get('/marcacoesGET/:userId', authControllerMarcacao.getMarcacoes);
 router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
+router.get('/marcGET/:marcacaoId', authControllerMarcacao.getMarcacaoById);
+router.put('/evalPUT/:marcacaoId', authControllerMarcacao.giveAval);
+router.put('/descripPUT/:marcacaoId', authControllerMarcacao.giveDescrip);
+
 
 
 router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
@@ -75,6 +79,8 @@ router.delete('/workerFIRE', ControllerWorker.fireWorker);
 
 router.get('/clientsGET', ControllerClient.getClients);
 router.get('/clientGET/:clientId', ControllerClient.getClient);
+router.put('/adminPUT/:clientId', ControllerClient.hasAdmin);
+router.get('/clientByIdGET/:clientId', ControllerClient.getClientById);
 
 
 //------------ Register POST Handle ------------//

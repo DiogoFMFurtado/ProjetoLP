@@ -35,3 +35,27 @@ exports.getClient = async(req,res) => {
     console.log("Done!");
 }
 
+exports.getClientById = async(req,res) => {
+    console.log("Getting Client...")
+    try {
+        const clientById = await User.findById(req.params.clientId);
+        console.log('cliente', clientById);
+        res.status(200).json(clientById);
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+}
+
+exports.hasAdmin = async(req,res) => {
+    console.log("Updating Manager...");
+    console.log(req.params.clientId);
+    try {
+        const assigned = await User.findByIdAndUpdate(req.params.clientId, req.body, {useFindAndModify: false});
+        console.log(req.body);
+        res.status(200).json(assigned);
+    } catch (err) {
+        res.json({message: err})
+    }
+    console.log("Done!")
+}
+
