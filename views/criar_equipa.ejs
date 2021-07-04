@@ -268,15 +268,16 @@
         <div>Selecionar Trabalhadores</div>
         <div id= "selecttrab">
           <select class= "opcao_certa" id="slidemenu1" name="slide">
-            <option selected="selected" value=" " hidden>Primeiro Trabalhador</option>
+            <option class="option1" selected="selected" value="nop" hidden>Primeiro Trabalhador</option>
           </select>     
           <select class= "opcao_certa" id="slidemenu2" name="slide">
-           <option selected="selected" value=" " hidden>Segundo Trabalhador</option>
+            <option class="option2" selected="selected" value="nop" hidden>Segundo Trabalhador</option>
           </select>
           <select class= "opcao_certa" id="slidemenu3" name="slide">
-            <option selected="selected" value=" " hidden>Terceiro Trabalhador</option>
+            <option class="option3" selected="selected" value="nop" hidden>Terceiro Trabalhador</option>
           </select>
-          <button onclick="javascript: form.action='/auth/equipa'" type="submit">Criar Equipa</button>
+          <button onclick="criarequipa()" type="submit">Criar Equipa</button>
+          <p id="print"></p>
         </div>
       </div>
       <footer class="footer">
@@ -524,19 +525,19 @@
     let slide3 = document.getElementById('slidemenu3')
     for(let x = 0; x < trab.length; x++){
       if(trab[x].pequipa == 'Não'){
-        let row = `<option value="${trab[x].name}">${trab[x].name}</option>`
+        let row = `<option class="option1" value="${trab[x].name}">${trab[x].name}</option>`
         slide1.innerHTML += row
         }
     }
     for(let y = 0; y < trab.length; y++){
       if(trab[y].pequipa == 'Não'){
-      let row = `<option value="${trab[y].name}">${trab[y].name}</option>`
+      let row = `<option class="option2" value="${trab[y].name}">${trab[y].name}</option>`
       slide2.innerHTML += row
       }
     }
     for(let z = 0; z < trab.length; z++){
       if(trab[z].pequipa == 'Não'){
-      let row = `<option value="${trab[z].name}">${trab[z].name}</option>`
+      let row = `<option class="option3" value="${trab[z].name}">${trab[z].name}</option>`
       slide3.innerHTML += row
       }
     }
@@ -555,6 +556,30 @@
         });
     });
 });
+
+function criarequipa() {
+  var x = document.getElementById('slidemenu1').selectedIndex;
+  var text1 = document.getElementsByClassName('option1')[x].text;
+  var y = document.getElementById('slidemenu2').selectedIndex;
+  var text2 = document.getElementsByClassName('option2')[y].text;
+  var z = document.getElementById('slidemenu3').selectedIndex;
+  var text3 = document.getElementsByClassName('option3')[z].text;
+  if (document.getElementsByClassName('option1')[x].value != "nop") {
+	  if (document.getElementsByClassName('option2')[y].value != "nop") {
+		  if (document.getElementsByClassName('option3')[z].value != "nop") {
+			  document.getElementById("print").innerHTML = [text1, text2, text3];
+        //Aqui o código para a guardar os 3 trabalhadores
+        //javascript: form.action='/auth/equipa'
+		  }else{
+			  document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
+		  }
+	  }else{
+		  document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
+	  }
+  }else{
+	  document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
+  }
+}
 </script>
 </body>
 
