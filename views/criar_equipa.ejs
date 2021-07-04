@@ -225,16 +225,7 @@
       
       <div class="content">
 
-        <div class="row">
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-5 pr-md-1">
-                  <button type="button" class="btn btn-primary">Criar Equipa</button>
-                </div>
-              </div>
-            </div>
-        </div>
-
+     <!--
         <div class="table-responsive">
             <h2>Trabalhadores sem Equipa</h2>
             <table class="table tablesorter " id="">
@@ -259,33 +250,35 @@
                 </tr>
               </tbody>
             </table>
+        </div>-->
+        <div class="table-responsive">
+          <h2>Trabalhadores Disponiveis:</h2>
+          <table class="table tablesorter " id="tabelaWorkersdisp">
+            <thead class=" text-primary">
+              <tr>
+                <th>Worker ID</th>
+                <th>Nome</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
         </div>
-          
-        <div>
-          <label for="slide">Trabalhadores:</label>
-          <select id="slidemenu" name="slide"></select>
+        <div>Selecionar Trabalhadores</div>
+        <div id= "selecttrab">
+          <select class= "opcao_certa" id="slidemenu1" name="slide">
+            <option selected="selected" value=" " hidden>Primeiro Trabalhador</option>
+          </select>     
+          <select class= "opcao_certa" id="slidemenu2" name="slide">
+           <option selected="selected" value=" " hidden>Segundo Trabalhador</option>
+          </select>
+          <select class= "opcao_certa" id="slidemenu3" name="slide">
+            <option selected="selected" value=" " hidden>Terceiro Trabalhador</option>
+          </select>
+          <button onclick="javascript: form.action='/auth/equipa'" type="submit">Criar Equipa</button>
         </div>
-        <div>
-          <label for="slide">Trabalhadores:</label>
-          <select id="slidemenu" name="slide"></select>
-        </div>
-        <div>
-          <label for="slide">Trabalhadores:</label>
-          <select id="slidemenu" name="slide"></select>
-        </div>
-        
       </div>
-
-
-
-
-
-
-
-
-
-
-
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
@@ -501,22 +494,67 @@
 <script>
   $.ajax({
     method:'GET',
-    url:'/auth/getTrab/',
+    url:'/auth/workersGET/',
     dataType: 'json',
     success:function(trab){
         thisArray = trab
-        containers(thisArray);
+        sliders(thisArray);
+        tabela(thisArray);
         console.log(thisArray)      
     }
   })
 
-  function containers(trab){
-    let container = document.getElementById('slidemenu')
-    for(let i = 0; i < trab.length; i++){
-        let row = `<option>${trab[i].name}</option>`
-        container.innerHTML += row
+  function tabela(trab){
+  let table = document.getElementById('tabelaWorkersdisp')
+
+  for(let i = 0; i < trab.length; i++){
+    if(trab[i].pequipa == 'Não'){
+      let row = `<tr>
+                    <td>${trab[i]._id}</td>
+                    <td>${trab[i].name}</td>
+                </tr>`
+      table.innerHTML += row
     }
   }
+  }
+
+  function sliders(trab){
+    let slide1 = document.getElementById('slidemenu1')
+    let slide2 = document.getElementById('slidemenu2')
+    let slide3 = document.getElementById('slidemenu3')
+    for(let x = 0; x < trab.length; x++){
+      if(trab[x].pequipa == 'Não'){
+        let row = `<option value="${trab[x].name}">${trab[x].name}</option>`
+        slide1.innerHTML += row
+        }
+    }
+    for(let y = 0; y < trab.length; y++){
+      if(trab[y].pequipa == 'Não'){
+      let row = `<option value="${trab[y].name}">${trab[y].name}</option>`
+      slide2.innerHTML += row
+      }
+    }
+    for(let z = 0; z < trab.length; z++){
+      if(trab[z].pequipa == 'Não'){
+      let row = `<option value="${trab[z].name}">${trab[z].name}</option>`
+      slide3.innerHTML += row
+      }
+    }
+  }
+
+  $(document).ready(function () {
+    $('#selecttrab').on('change', '.opcao_certa', function () {
+        var allSelected = $(".opcao_certa").map(function () {
+            return $(this).val();
+        }).get();
+        $(".opcao_certa option").removeAttr("disabled");
+        $(".opcao_certa option:not(:selected):not([value='0'])").each(function () {
+            if ($.inArray($(this).val(), allSelected) != -1) {
+                $(this).attr('disabled', true);
+            }
+        });
+    });
+});
 </script>
 </body>
 

@@ -9,6 +9,7 @@ const authControllerMarcacao = require('../controllers/authControllerMarcacao')
 const authControllerFeedback = require('../controllers/authControllerFeedback')
 const ControllerWorker = require('../controllers/ControllerWorker')
 const ControllerClient = require('../controllers/ControllerClient');
+const authControllerEquipa = require('../controllers/authControllerEquipa')
 
 
 //------------ Login Route ------------//
@@ -139,5 +140,7 @@ router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
 router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
 
 router.post('/apagarfeedback', authControllerFeedback.deleteFeedback);
+
+router.post('/equipa', authControllerEquipa.registerEquipaHandle);
 
 module.exports = router;
