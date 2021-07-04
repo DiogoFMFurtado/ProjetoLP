@@ -2,9 +2,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const EquipaSchema = new mongoose.Schema({
-    trab1: { type: Schema.Types.ObjectId, ref: 'Trab' },
-    trab2: { type: Schema.Types.ObjectId, ref: 'Trab' },
-    trab3: { type: Schema.Types.ObjectId, ref: 'Trab' },
+
+    trab1: { 
+        type: String,
+        required: true
+    },
+    trab2: { 
+        type: String,
+        required: true
+    },
+    trab3: { 
+        type: String,
+        required: true
+    },
+    teamName: {
+        type: String,
+        default: "Alpha"
+    }
+    
 },
 {collection: 'Equipas'})
 

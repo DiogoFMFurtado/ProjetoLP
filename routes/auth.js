@@ -141,6 +141,8 @@ router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
 
 router.post('/apagarfeedback', authControllerFeedback.deleteFeedback);
 
+
+//Equipa
 router.post('/equipa', authControllerEquipa.registerEquipaHandle);
 
 module.exports = router;

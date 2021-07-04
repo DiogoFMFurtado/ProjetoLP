@@ -1,11 +1,10 @@
 const Equipas = require('../models/Equipas');
 const Trab = require('../models/Trab');
-var mongodb = require('mongodb');
 
 exports.registerEquipaHandle = async (req, res) => {
     
     const { trab1, trab2, trab3 } = req.body;
-
+    console.log("Posting Team...");
     try {
         console.log(req.body);
         const equipa = new Equipas({
@@ -13,14 +12,13 @@ exports.registerEquipaHandle = async (req, res) => {
             trab2,
             trab3
         });
-        const trab = await Trab.findById(req.trab);
-        equipa.cliente = trab;
         await equipa.save();
-        trab.equipaTrab.push(equipa);
-        await trab.save();
-        res.status(201).json()
-        
-    } catch (err) {}
+        res.status(201).json();
+        console.log("Done!");
+
+    } catch (err) {
+        res.json({message: err});
+    }
 }
 
 /*exports.getFeedbacks = async(req, res) => {
