@@ -180,10 +180,10 @@
                             <th>Hora</th>
                             <th>Tipo Projeto</th>
                             <th>Estado</th>
-                            <th></th>
+                            <th>Avaliar</th>
                         </tr>
 
-                        <tbody>
+                        <tbody class="bodyMarcacoes">
 
                         </tbody>
                     </table>
@@ -220,6 +220,8 @@
                 </p>
             </footer>
         </div>
+
+
 <!--Scripts-->
 
         <script type="text/javascript" src="/public/js/jquery-1.11.3.min.js"></script>
@@ -232,6 +234,8 @@
         <script>
             let thisArray = []
             let userId = $('#userId').val();
+            let marcacaoId = sessionStorage.getItem("marcacaoId");
+            console.log(marcacaoId);
 
             $.ajax({
                 method:'GET',
@@ -249,18 +253,74 @@
 
             function buildTable(marcacao){
                 let table = document.getElementById('tabelaCliente')
-
+                
                 for(let i = 0; i < marcacao.length; i++){
-                    let row = `<tr>
+                    
+                    if(marcacao[i].state == "Pendente"){
+                        let row = `<tr>
                                     <td>${marcacao[i].address}</td>
                                     <td>${marcacao[i].date}</td>
                                     <td>${marcacao[i].hour}</td>
                                     <td>${marcacao[i].type}</td>
                                     <td>${marcacao[i].state}</td>
                                </tr>`
-                    table.innerHTML += row
+                        table.innerHTML += row
+                    }else {
+                        let row = `<tr>
+                                    <td>${marcacao[i].address}</td>
+                                    <td>${marcacao[i].date}</td>
+                                    <td>${marcacao[i].hour}</td>
+                                    <td>${marcacao[i].type}</td>
+                                    <td>${marcacao[i].state}</td>
+                                    <td>
+                                        
+                                        <div class="form-group col-xs-12 pl-lg-3">
+                                            <form action="/auth/avaliacaoPUT" method="POST" class="avaliacao">
+
+                                                <div class="form-group">
+                                                    <select id="projeto" name="aval_client" class="form-control-select">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                    <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload()" onclick="javascript: form.action='/auth/avaliacaoPUT'">Submeter</button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                    </td>
+                               </tr>`
+                        table.innerHTML += row
+                        
+                        $('.tabela-clientes').on('submit', '.avaliacao', function(e) {
+                            e.preventDefault();
+                            let formData2 = $(this).serialize();
+                            let formAction2 = $(this).attr('action');
+                            $.ajax({
+                                method: 'PUT',
+                                url: formAction2 + '/' + marcacao[i]._id,
+                                dataType: 'json',
+                                data: formData2,
+                                success: function(data) {
+                                console.log(data);
+                                }
+                            })
+                        })
+                    }
+                    
                 }
+                
             }
+
+            
+
+            
+
+            
+
         </script>
     </body>
 </html>
