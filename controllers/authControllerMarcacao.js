@@ -92,6 +92,20 @@ exports.giveAval = async (req, res) => {
     console.log("Done!")
 }
 
+exports.clientAval = async (req, res) => {
+    console.log("Client is giving rating to appointement...");
+    console.log(req.params.marcacaoId);
+    try {
+        const aval_client = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
+        console.log(req.body);
+        await aval_client.save();
+        res.status(200).json(aval_client);
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+    console.log("Done!")
+}
+
 
 exports.giveDescrip = async (req,res) => {
 

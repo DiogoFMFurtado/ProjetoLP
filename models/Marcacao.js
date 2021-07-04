@@ -27,6 +27,10 @@ const MarcacaoSchema = new mongoose.Schema({
     descricao: {
         type: String,
         default: "Sem Descrição"
+    },
+    aval_client: {
+        type: String,
+        default: "Sem Avaliação do Cliente"
     }
 
 },
