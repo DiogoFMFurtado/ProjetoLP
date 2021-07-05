@@ -133,7 +133,7 @@ router.get('/logoutTrab', authControllerTrab.logoutTrabHandle);
 // Post Marcacao
 
 router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
-router.put('/avaliacaoPUT/:marcacaoId', authControllerMarcacao.clientAval);
+router.put('/avaliacaoPUT/:_id', authControllerMarcacao.clientAval);
 
 //Feedback
 
