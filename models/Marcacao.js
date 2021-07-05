@@ -31,6 +31,10 @@ const MarcacaoSchema = new mongoose.Schema({
     aval_client: {
         type: String,
         default: "Sem Avaliação do Cliente"
+    },
+    avaliado: {
+        type: Boolean,
+        default: false
     }
 
 },
