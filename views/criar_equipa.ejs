@@ -266,19 +266,21 @@
           </table>
         </div>
         <div>Selecionar Trabalhadores</div>
-        <div id= "selecttrab">
-          <select class= "opcao_certa" id="slidemenu1" name="slide">
-            <option class="option1" selected="selected" value="nop" hidden>Primeiro Trabalhador</option>
-          </select>     
-          <select class= "opcao_certa" id="slidemenu2" name="slide">
-            <option class="option2" selected="selected" value="nop" hidden>Segundo Trabalhador</option>
-          </select>
-          <select class= "opcao_certa" id="slidemenu3" name="slide">
-            <option class="option3" selected="selected" value="nop" hidden>Terceiro Trabalhador</option>
-          </select>
-          <button onclick="criarequipa()" type="submit">Criar Equipa</button>
-          <p id="print"></p>
-        </div>
+          <form action="/auth/equipa" method="POST" class="formEquipa">
+            <div id= "selecttrab">
+              <select class= "opcao_certa" id="slidemenu1" name="trab1">
+                <option class="option1" selected="selected" value="nop" hidden>Primeiro Trabalhador</option>
+              </select>     
+              <select class= "opcao_certa" id="slidemenu2" name="trab2">
+                <option class="option2" selected="selected" value="nop" hidden>Segundo Trabalhador</option>
+              </select>
+              <select class= "opcao_certa" id="slidemenu3" name="trab3">
+                <option class="option3" selected="selected" value="nop" hidden>Terceiro Trabalhador</option>
+              </select>
+              <button onclick="criarequipa()" type="submit">Criar Equipa</button>
+              <p id="print"></p>
+            </div>
+          </form>
       </div>
       <footer class="footer">
         <div class="container-fluid">
@@ -492,7 +494,7 @@
       });
   </script>
 
-<script>
+  <script>
   $.ajax({
     method:'GET',
     url:'/auth/workersGET/',
@@ -555,32 +557,48 @@
             }
         });
     });
-});
+  });
 
-function criarequipa() {
-  var x = document.getElementById('slidemenu1').selectedIndex;
-  var text1 = document.getElementsByClassName('option1')[x].text;
-  var y = document.getElementById('slidemenu2').selectedIndex;
-  var text2 = document.getElementsByClassName('option2')[y].text;
-  var z = document.getElementById('slidemenu3').selectedIndex;
-  var text3 = document.getElementsByClassName('option3')[z].text;
-  if (document.getElementsByClassName('option1')[x].value != "nop") {
-	  if (document.getElementsByClassName('option2')[y].value != "nop") {
-		  if (document.getElementsByClassName('option3')[z].value != "nop") {
-			  document.getElementById("print").innerHTML = [text1, text2, text3];
-        //Aqui o código para a guardar os 3 trabalhadores
-        //javascript: form.action='/auth/equipa'
-		  }else{
-			  document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
-		  }
-	  }else{
-		  document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
-	  }
-  }else{
-	  document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
+  function criarequipa() {
+    var x = document.getElementById('slidemenu1').selectedIndex;
+    var text1 = document.getElementsByClassName('option1')[x].text;
+    var y = document.getElementById('slidemenu2').selectedIndex;
+    var text2 = document.getElementsByClassName('option2')[y].text;
+    var z = document.getElementById('slidemenu3').selectedIndex;
+    var text3 = document.getElementsByClassName('option3')[z].text;
+    if (document.getElementsByClassName('option1')[x].value != "nop") {
+      if (document.getElementsByClassName('option2')[y].value != "nop") {
+        if (document.getElementsByClassName('option3')[z].value != "nop") {
+          document.getElementById("print").innerHTML = [text1, text2, text3];
+
+          $('formEquipa').submit(function(e) {
+            e.preventDefault();
+            console.log('Here');
+            let formData = $(this).serialize();
+            $.ajax({
+              method: 'POST',
+              url: '/auth/equipa',
+              dataType: 'json',
+              data: formData,
+              success: function(data) {
+                console.log(data);
+              }
+            })  
+          })
+          
+          
+        }else{
+          document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
+        }
+      }else{
+        document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
+      }
+    }else{
+      document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
+    }
   }
-}
-</script>
+
+  </script>
 </body>
 
 </html>

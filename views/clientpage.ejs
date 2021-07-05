@@ -234,8 +234,7 @@
         <script>
             let thisArray = []
             let userId = $('#userId').val();
-            let marcacaoId = sessionStorage.getItem("marcacaoId");
-            console.log(marcacaoId);
+
 
             $.ajax({
                 method:'GET',
@@ -275,7 +274,7 @@
                                     <td>
                                         
                                         <div class="form-group col-xs-12 pl-lg-3">
-                                            <form action="/auth/avaliacaoPUT" method="POST" class="avaliacao">
+                                            <form action="/auth/avaliacaoPUT/${marcacao[i]._id}" method="POST" class="avaliacao">
 
                                                 <div class="form-group">
                                                     <select id="projeto" name="aval_client" class="form-control-select">
@@ -285,7 +284,7 @@
                                                         <option value="4">4</option>
                                                         <option value="5">5</option>
                                                     </select>
-                                                    <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload()" onclick="javascript: form.action='/auth/avaliacaoPUT'">Submeter</button>
+                                                    <button type="submit" class="btn btn-fill btn-primary">Submeter</button>
                                                 </div>
 
                                             </form>
@@ -295,25 +294,29 @@
                                </tr>`
                         table.innerHTML += row
                         
-                        $('.tabela-clientes').on('submit', '.avaliacao', function(e) {
-                            e.preventDefault();
-                            let formData2 = $(this).serialize();
-                            let formAction2 = $(this).attr('action');
-                            $.ajax({
-                                method: 'PUT',
-                                url: formAction2 + '/' + marcacao[i]._id,
-                                dataType: 'json',
-                                data: formData2,
-                                success: function(data) {
-                                console.log(data);
-                                }
-                            })
-                        })
+                        
                     }
                     
                 }
                 
             }
+
+            $('.tabela-clientes').on('submit', '.avaliacao', function(e) {
+                e.preventDefault();
+
+                const $form = $(e.target);
+                const formData = $form.serialize();
+                const action = $form.attr('action');
+                $.ajax({
+                    method: 'PUT',
+                    url: action,
+                    dataType: 'json',
+                    data: formData,
+                    success: function(data) {
+                    console.log(data);
+                    }
+                })
+            })
 
             
 
