@@ -22,6 +22,7 @@ exports.registerFeedbackHandle = async (req, res) => {
     } catch (err) {}
 }
 
+//Funciona
 exports.getFeedbacks = async(req, res) => {
 
     console.log("Getting all feedbacks...");
@@ -34,28 +35,20 @@ exports.getFeedbacks = async(req, res) => {
     console.log("Done!");
 }
 
-exports.deleteFeedback = async(req, res) => {
-    console.log("teste");
-    db.collection('posts', function(err, collection) {
-        collection.deleteOne({_id: new mongodb.ObjectID('userId')},
-            function(err, results) {
-                if (err){
-                    console.log("failed");
-                    throw err;
-                }
-                console.log("success");
-            }
-        );
-     });
-    //const userId = req.body.userId || req.query.userId;
-    //FeedbackSchema.remove({userId},
-    /*FeedbackSchema.deleteOne({_id: new mongodb.ObjectID('userId')}, 
-        function(err, res) {
-            if (err) {
-                res.json({"err": err});
-            } else {
-                res.json({success: true});
-            };
-        }
-    );*/
+
+exports.deleteFeedback = async(req,res) => {
+
+    console.log("Deleting Feedback..");
+    console.log(req.params._id);
+    try{
+        
+        const deletedFeed = await Feedback.deleteOne({_id: req.params._id});
+        console.log(req.body);
+        res.status(200).json(deletedFeed);
+        console.log("Feedback Deleted");
+
+    }catch(err) {
+        res.status(400).json({message: err});
+    }
+
 }

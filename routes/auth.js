@@ -141,7 +141,7 @@ router.put('/avaliacaoPUT/:_id', authControllerMarcacao.clientAval);
 
 router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
 
-router.post('/apagarfeedback', authControllerFeedback.deleteFeedback);
+router.delete('/apagarfeedback/:_id', authControllerFeedback.deleteFeedback);
 
 
 //Equipa
