@@ -391,22 +391,3 @@ exports.logoutAdminHandle = (req, res) => {
     req.flash('success_msg', 'You are logged out');
     res.redirect('/auth/loginAdmin');
 }
-
-/*
-Preciso ter os roles a funcionar pq o req.user está só a ir buscar ao User e não Admin.
-
-exports.getAdminById = async (req,res) => {
-
-    console.log("Getting Admin...");
-    try{
-
-        const adminById = await User.findById(req.user);
-        console.log('Admin', adminById);
-        res.status(200).json(adminById);
-
-    }catch (err) {
-        res.status(404).json({message: err});
-    }
-
-}
-*/

@@ -99,17 +99,3 @@ exports.hasAdmin = async(req,res) => {
     }
 }
 
-/*
-exports.dissAss = async(req,res) => {
-    
-    console.log(req.body);
-    try{
-
-        
-
-    }catch(err) {
-
-    }
-
-}
-*/
