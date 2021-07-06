@@ -82,6 +82,8 @@ router.get('/clientGET/:clientId', ControllerClient.getClient);
 router.put('/adminPUT/:clientId', ControllerClient.hasAdmin);
 router.get('/clientByIdGET/:clientId', ControllerClient.getClientById);
 
+//router.put('/adminDiss/:clientId', ControllerClient.dissAss);
+
 
 //------------ Register POST Handle ------------//
 //router.post('/register', authController.registerHandle);
@@ -144,5 +146,10 @@ router.post('/apagarfeedback', authControllerFeedback.deleteFeedback);
 
 //Equipa
 router.post('/equipa', authControllerEquipa.registerEquipaHandle);
+
+// Admin
+//router.get('/adminGET/:adminId', authControllerAdmin.getAdminById); Preciso ter os roles a funcionar
+
+
 
 module.exports = router;

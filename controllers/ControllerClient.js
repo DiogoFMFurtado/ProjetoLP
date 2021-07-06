@@ -98,3 +98,18 @@ exports.hasAdmin = async(req,res) => {
         res.json({message: err})
     }
 }
+
+/*
+exports.dissAss = async(req,res) => {
+    
+    console.log(req.body);
+    try{
+
+        
+
+    }catch(err) {
+
+    }
+
+}
+*/
