@@ -1,3 +1,4 @@
+const { Schema } = require('mongoose');
 const mongoose = require('mongoose');
 
 //------------ User Schema ------------//
@@ -29,7 +30,11 @@ const AdminSchema = new mongoose.Schema({
   resetLink: {
     type: String,
     default: ''
-  }
+  },
+  clients: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 }, { timestamps: true });
 
 const Admin = mongoose.model('Admin', AdminSchema);

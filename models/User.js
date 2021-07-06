@@ -30,6 +30,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'Sem Manager'
   },
+  hasAdmin: {
+    type: Boolean,
+    default: false
+  },
   marcacaoCliente: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Marcacao'
