@@ -150,4 +150,5 @@ router.post('/equipa', authControllerEquipa.registerEquipaHandle);
 
 
 
+
 module.exports = router;
