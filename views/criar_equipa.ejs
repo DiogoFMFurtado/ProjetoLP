@@ -219,38 +219,7 @@
       </div>
       <!-- End Navbar -->
       
-      
-      
-      
-      
       <div class="content">
-
-     <!--
-        <div class="table-responsive">
-            <h2>Trabalhadores sem Equipa</h2>
-            <table class="table tablesorter " id="">
-              <thead class=" text-primary">
-                <tr>
-                  <th>Worker ID</th>
-                  <th>Nome</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>111114</td>
-                  <td>Rodrigo</td>
-                </tr>
-                <tr>
-                  <td>111114</td>
-                  <td>Martim</td>
-                </tr>
-                <tr>
-                  <td>111114</td>
-                  <td>Inês</td>
-                </tr>
-              </tbody>
-            </table>
-        </div>-->
         <div class="table-responsive">
           <h2>Trabalhadores Disponiveis:</h2>
           <table class="table tablesorter " id="tabelaWorkersdisp">
@@ -265,22 +234,25 @@
             </tbody>
           </table>
         </div>
-        <div>Selecionar Trabalhadores</div>
-          <form action="/auth/equipa" method="POST" class="formEquipa">
-            <div id= "selecttrab">
-              <select class= "opcao_certa" id="slidemenu1" name="trab1">
-                <option class="option1" selected="selected" value="nop" hidden>Primeiro Trabalhador</option>
-              </select>     
-              <select class= "opcao_certa" id="slidemenu2" name="trab2">
-                <option class="option2" selected="selected" value="nop" hidden>Segundo Trabalhador</option>
-              </select>
-              <select class= "opcao_certa" id="slidemenu3" name="trab3">
-                <option class="option3" selected="selected" value="nop" hidden>Terceiro Trabalhador</option>
-              </select>
-              <button onclick="criarequipa()" type="submit">Criar Equipa</button>
-              <p id="print"></p>
-            </div>
-          </form>
+        <form action="/auth/equipa" method="POST" class="formEquipa">
+          <div>Nome da Equipa</div>
+          <input type="name" id="teamName" name="teamName" class="form-control" 
+          value="<%= typeof teamName != 'undefined' ? teamName : '' %>" placeholder="Nome:" >
+          <div>Selecionar Trabalhadores</div>
+          <div id= "selecttrab">
+            <select class= "opcao_certa" id="slidemenu1" name="trab1">
+              <option class="option1" selected="selected" hidden>Primeiro Trabalhador</option>
+            </select>     
+            <select class= "opcao_certa" id="slidemenu2" name="trab2">
+              <option class="option2" selected="selected" hidden>Segundo Trabalhador</option>
+            </select>
+            <select class= "opcao_certa" id="slidemenu3" name="trab3">
+              <option class="option3" selected="selected" hidden>Terceiro Trabalhador</option>
+            </select>
+            <button onclick="javascript: form.action='/auth/equipa'" type="submit">Criar Equipa</button>
+            <div id="mensagem"><%- include ("./messages") %></div>
+          </div>
+        </form>
       </div>
       <footer class="footer">
         <div class="container-fluid">
@@ -533,14 +505,14 @@
     }
     for(let y = 0; y < trab.length; y++){
       if(trab[y].pequipa == 'Não'){
-      let row = `<option class="option2" value="${trab[y].name}">${trab[y].name}</option>`
-      slide2.innerHTML += row
+        let row = `<option class="option2" value="${trab[y].name}">${trab[y].name}</option>`
+        slide2.innerHTML += row
       }
     }
     for(let z = 0; z < trab.length; z++){
       if(trab[z].pequipa == 'Não'){
-      let row = `<option class="option3" value="${trab[z].name}">${trab[z].name}</option>`
-      slide3.innerHTML += row
+        let row = `<option class="option3" value="${trab[z].name}">${trab[z].name}</option>`
+        slide3.innerHTML += row
       }
     }
   }
@@ -558,45 +530,6 @@
         });
     });
   });
-
-  function criarequipa() {
-    var x = document.getElementById('slidemenu1').selectedIndex;
-    var text1 = document.getElementsByClassName('option1')[x].text;
-    var y = document.getElementById('slidemenu2').selectedIndex;
-    var text2 = document.getElementsByClassName('option2')[y].text;
-    var z = document.getElementById('slidemenu3').selectedIndex;
-    var text3 = document.getElementsByClassName('option3')[z].text;
-    if (document.getElementsByClassName('option1')[x].value != "nop") {
-      if (document.getElementsByClassName('option2')[y].value != "nop") {
-        if (document.getElementsByClassName('option3')[z].value != "nop") {
-          document.getElementById("print").innerHTML = [text1, text2, text3];
-
-          $('formEquipa').submit(function(e) {
-            e.preventDefault();
-            console.log('Here');
-            let formData = $(this).serialize();
-            $.ajax({
-              method: 'POST',
-              url: '/auth/equipa',
-              dataType: 'json',
-              data: formData,
-              success: function(data) {
-                console.log(data);
-              }
-            })  
-          })
-          
-          
-        }else{
-          document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
-        }
-      }else{
-        document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
-      }
-    }else{
-      document.getElementById("print").innerHTML = "Selecione todos os trabalhadores";
-    }
-  }
 
   </script>
 </body>

@@ -17,7 +17,7 @@ const EquipaSchema = new mongoose.Schema({
     },
     teamName: {
         type: String,
-        default: "Alpha"
+        required: true
     }
     
 },

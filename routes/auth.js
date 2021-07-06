@@ -49,6 +49,8 @@ router.get('/resetAdmin/:id', (req, res) => {
 
 router.get('/login_registar_user', (req, res) => res.render('login_registar_user'));
 
+router.get('/criar_equipa', (req, res) => res.render('criar_equipa'));
+
 router.get('/loginAdmin', (req, res) => res.render('loginAdmin'));
 
 router.get('/loginTrab', (req, res) => res.render('loginTrab'));
