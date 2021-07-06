@@ -83,6 +83,8 @@ router.put('/adminPUT/:clientId', ControllerClient.hasAdmin);
 router.get('/clientByIdGET/:clientId', ControllerClient.getClientById);
 
 
+
+
 //------------ Register POST Handle ------------//
 //router.post('/register', authController.registerHandle);
 
@@ -144,5 +146,8 @@ router.post('/apagarfeedback', authControllerFeedback.deleteFeedback);
 
 //Equipa
 router.post('/equipa', authControllerEquipa.registerEquipaHandle);
+
+
+
 
 module.exports = router;

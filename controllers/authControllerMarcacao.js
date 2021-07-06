@@ -85,6 +85,7 @@ exports.giveAval = async (req, res) => {
     try {
         const eval_admin = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
         console.log(req.body);
+        await eval_admin.save();
         res.status(200).json(eval_admin);
     } catch (err) {
         res.status(404).json({message: err})

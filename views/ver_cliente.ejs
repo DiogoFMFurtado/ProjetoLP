@@ -234,21 +234,8 @@
 
 
 
-        <div class="row">
-          <div class="col-md-12">
-            <form action="/auth/adminPUT" method="POST" >
-              <div class="row">
-                <div class="col-sm-2">
-                  <div class="form-group hidden" id="procura">
-                    <input type="text" name="admin" class="form-control" placeholder="Manager Name">
-                  </div>
-                  <div class="botao-de-despedir hidden" id="delete">
-                    <button type="submit" id="btnDespedir" class="btn  btn-primary-smol" onClick="window.location.reload()"  onclick="javascript: form.action='/auth/adminPUT'">Associar</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
+        <div class="col-md-4 pl-md-1" id="divRetirar" >
+          
         </div>
 
 
@@ -256,7 +243,7 @@
 
         <!-- Tabela Clientes -->
         <div class="table-responsive">
-          <h2>
+          <h2 id="nomeCliente">
             Nome do Cliente
           </h2>
           <h2>
@@ -543,31 +530,78 @@
 
     }
 
-  </script>
-    
-    
-
-  <script>
-
     console.log(clientId);
-    
-    $('form').submit(function(e) {
+
+    $.ajax({
+      method: 'GET',
+      url: '/auth/clientByIdGET/' + clientId,
+      dataType: 'json',
+      success: function(clientById) {
+        console.log(clientById);
+        removeDiv(clientById);
+      }
+    })
+
+    function removeDiv(clientById) {
+
+      let divRetirar = document.getElementById('divRetirar');
+
+      if (clientById.hasAdmin == false){
+        let divis = `
+          <div class="col-md-12">
+            <form action="/auth/adminPUT" method="POST" class="formAdmin" >
+              <div class="row">
+                <div class="col-sm-2">
+                  <div class="form-group hidden" id="procura">
+                    <input type="text" name="admin" class="form-control" placeholder="Manager Name">
+                  </div>
+                  <div class="botao-de-despedir hidden" id="associar">
+                    <button type="submit" id="btnDespedir" class="btn  btn-primary-smol">Associar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>`
+        divRetirar.innerHTML += divis
+      } else {
+        let divis = `
+          <div class="card" id="cardProjeto">
+            <div class="card-header">
+              <h3>Manager Associado: ${clientById.admin}</h2>
+            </div>
+            <div class="card-body">
+              <p>Confirme com o Manager neste momento associado, para poder associar-se:</p> 
+            </div>
+            <div class="card-footer">
+              <button type="submit" id="btnDiss" class="btn  btn-primary-smol">Desassociar</button>
+            </div>
+
+          </div>
+        `
+        divRetirar.innerHTML += divis
+      }
+
+    }
+
+    $('#divRetirar').on('submit', '.formAdmin' ,function(e) {
       e.preventDefault();
-      let formData = $(this).serialize();
-      let formAction = $(this).attr('action');
-      console.log("Chega aqui?")
+      
+      const $form = $(e.target);
+      let formData = $form.serialize();
+      let action = $form.attr('action');
+
       $.ajax({
         method: 'PUT',
-        url: formAction + '/' + clientId,
+        url: action + '/' + clientId,
         dataType: 'json',
         data: formData,
         success: function(data) {
           console.log(data);
+          $('#divRetirar').replaceWith('<h3>Manager Associado!</h3>')
         }
       })
     })
-
-
+    
   </script>
 
 

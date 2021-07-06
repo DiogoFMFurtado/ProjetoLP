@@ -8,6 +8,7 @@ const JWT_KEY = "jwtactive987";
 const JWT_RESET_KEY = "jwtreset987";
 
 const Admin = require('../models/Admin');
+const User = require('../models/User');
 
 //------------ Register Handle ------------//
 
