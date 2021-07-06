@@ -602,22 +602,41 @@
       })
     })
 
+    /* Preciso ter os roles a funcionar 
+    let adminId = $('#adminId').val();
 
-    /* BTN DESASSOCIAR POR ACABAR
-  
-    $('#btnDiss').on('submit', function(e) {
+    $.ajax({
+      method: 'GET',
+      url: '/auth/adminGET/' + adminId,
+      dataType: 'json',
+      data: {
+        adminId: adminId
+      },
+      success: function(adminById) {
+        console.log(adminById);
+      }
+    })
+    */
+    
+    /* Solução 2 
+    $('#divRetirar').on('submit', '#btnDiss' ,function(e) {
       e.preventDefault();
-      const $btnDiss = $(e.target);
 
       $.ajax({
         method: 'PUT',
-        url: ''
+        url: '/auth/adminDiss/' + clientId,
+        dataType: 'json',
+        data: {
+          admin: 'Sem Manager'
+        },
+        success: function(data) {
+          console.log(data);
+          $('#divRetirar').replaceWith('<h3>Manager Disassociado!</h3>')
+        }
       })
-
     })
+
     */
-
-
     
   </script>
 

@@ -112,6 +112,10 @@ exports.clientAval = async (req, res) => {
 }
 
 
+
+/*
+É preciso pôr os roles a funcionar
+
 exports.giveDescrip = async (req,res) => {
 
     console.log("Giving Description to the Appointment...");
@@ -125,3 +129,4 @@ exports.giveDescrip = async (req,res) => {
     }
     console.log("Done!")
 }
+*/
