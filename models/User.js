@@ -41,7 +41,11 @@ const UserSchema = new mongoose.Schema({
   equipa: {
     type: String,
     default: 'Não'
-  }
+  },
+  feedbacks: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Feedbacks'
+  }]
   
 }, { timestamps: true });
 

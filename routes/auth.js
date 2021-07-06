@@ -140,7 +140,7 @@ router.put('/avaliacaoPUT/:_id', authControllerMarcacao.clientAval);
 //Feedback
 
 router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
-
+router.get('/getUserFeedback/:_id', authControllerFeedback.getFeedBacksById);
 router.delete('/apagarfeedback/:_id', authControllerFeedback.deleteFeedback);
 
 
