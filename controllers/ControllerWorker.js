@@ -25,8 +25,6 @@ exports.getWorkers = async(req, res) => {
 exports.fireWorker = async(req,res) => {
 
     console.log("Removing Worker..");
-    
-    // Slava se quiseres já podes tratar da função hidden
 
     try {
         const firedWorker = await Trab.deleteOne({_id: req.body._id});

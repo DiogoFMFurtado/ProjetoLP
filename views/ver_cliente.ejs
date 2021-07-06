@@ -244,10 +244,10 @@
         <!-- Tabela Clientes -->
         <div class="table-responsive">
           <h2 id="nomeCliente">
-            Nome do Cliente
+            
           </h2>
-          <h2>
-              ID Cliente
+          <h2 id="idCliente">
+              
             </h2>
           <table class="table tablesorter " id="tabelaClienteAdmin">
             <thead class=" text-primary">
@@ -260,20 +260,6 @@
               </tr>
             </thead>
             <tbody>
-              
-              <!-- 
-              <tr>
-                <td>111114</td>
-                <td>Rua D. Quixote</td>
-                <td>1</td>
-                <td>Em falta</td>
-                <td>Pendente</td>
-                <td>
-                  <button type="button" class="btn btn-primary">Associar</button>
-                </td>
-              </tr>
-              -->
-
 
             </tbody>
           </table>
@@ -539,6 +525,8 @@
       success: function(clientById) {
         console.log(clientById);
         removeDiv(clientById);
+        buildH2(clientById);
+        buildH2two(clientById);
       }
     })
 
@@ -601,6 +589,26 @@
         }
       })
     })
+
+    function buildH2(clientById){
+      
+      let h2 = document.getElementById('nomeCliente')
+      let p = `
+              Nome do Cliente: ${clientById.name}
+              `
+      h2.innerHTML += p
+
+    }
+
+    function buildH2two(clientById){
+    
+      let h2two = document.getElementById('idCliente');
+      let p2 = `
+              ID do Cliente: ${clientById._id}
+                `
+      h2two.innerHTML += p2
+
+    }
     
   </script>
 
