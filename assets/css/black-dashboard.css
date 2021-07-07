@@ -15328,6 +15328,8 @@ img {
   color: rgba(255, 255, 255, 0.8);
 }
 
+
+
 .modal.modal-warning .form-control::-moz-placeholder {
   color: rgba(255, 255, 255, 0.4);
   opacity: 1;
@@ -20477,6 +20479,10 @@ Copyright (c) 2015 Daniel Eden
 .card-plain:not(.card-subcategories).card-body {
   padding-left: 0;
   padding-right: 0;
+}
+
+#paraDireita {
+  margin-left: 270px;
 }
 
 /*# sourceMappingURL=dashboard-free.css.map */
