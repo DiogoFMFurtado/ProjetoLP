@@ -148,6 +148,8 @@ router.delete('/apagarfeedback/:_id', authControllerFeedback.deleteFeedback);
 
 //Equipa
 router.post('/equipa', authControllerEquipa.registerEquipaHandle);
+router.get('/equipasGET', authControllerEquipa.getEquipas);
+router.get('/equipaGET/:_id', authControllerEquipa.getEquipaById);
 
 
 
