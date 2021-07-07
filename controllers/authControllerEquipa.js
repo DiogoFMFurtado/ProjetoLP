@@ -86,3 +86,28 @@ exports.registerEquipaHandle = async (req, res) => {
         }
     }
 }
+
+exports.getEquipas = async(req,res) => {
+    
+    console.log("Getting Teams...");
+    try {
+        const equipas = await Equipas.find();
+        res.status(200).json(equipas);
+    } catch (err) {
+        res.status(400).json({message: err});
+    }
+    console.log("Done!");
+
+}
+
+exports.getEquipaById = async(req, res) => {
+    console.log("Getting Equipa...")
+    try {
+        const equipaById = await Equipas.findById(req.params);
+        console.log('Equipa', equipaById);
+        res.status(200).json(equipaById);
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+    console.log("Done!");
+}
