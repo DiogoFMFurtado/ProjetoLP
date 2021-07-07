@@ -4,22 +4,24 @@ const Schema = mongoose.Schema;
 const EquipaSchema = new mongoose.Schema({
 
     trab1: { 
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'Trab'
     },
     trab2: { 
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'Trab'
     },
     trab3: { 
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'Trab'
     },
     teamName: {
         type: String,
         required: true
-    }
-    
+    },
 },
 {collection: 'Equipas'})
 

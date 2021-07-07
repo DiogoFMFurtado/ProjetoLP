@@ -499,19 +499,19 @@
     let slide3 = document.getElementById('slidemenu3')
     for(let x = 0; x < trab.length; x++){
       if(trab[x].pequipa == 'Não'){
-        let row = `<option class="option1" value="${trab[x].name}">${trab[x].name}</option>`
+        let row = `<option class="option1" value="${trab[x]._id}">${trab[x].name}</option>`
         slide1.innerHTML += row
         }
     }
     for(let y = 0; y < trab.length; y++){
       if(trab[y].pequipa == 'Não'){
-        let row = `<option class="option2" value="${trab[y].name}">${trab[y].name}</option>`
+        let row = `<option class="option2" value="${trab[y]._id}">${trab[y].name}</option>`
         slide2.innerHTML += row
       }
     }
     for(let z = 0; z < trab.length; z++){
       if(trab[z].pequipa == 'Não'){
-        let row = `<option class="option3" value="${trab[z].name}">${trab[z].name}</option>`
+        let row = `<option class="option3" value="${trab[z]._id}">${trab[z].name}</option>`
         slide3.innerHTML += row
       }
     }
