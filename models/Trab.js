@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 
 //------------ User Schema ------------//
 const TrabSchema = new mongoose.Schema({
@@ -29,6 +31,10 @@ const TrabSchema = new mongoose.Schema({
   pequipa: {
     type: String,
     default: 'Não'
+  },
+  equipa: {
+    type: Schema.Types.ObjectId,
+    ref: 'Equipas'
   }
   
 }, { timestamps: true });
