@@ -64,7 +64,14 @@ exports.registerEquipaHandle = async (req, res) => {
                         trabalhador3.equipa = equipa;
                         await trabalhador3.save();
 
-                        console.log('Equipa atribuida.')
+                        console.log('Equipa atribuida.');
+
+                        const worker1 = await Trab.findByIdAndUpdate(trab1, {pequipa: "Sim"}, {useFindAndModify: false});
+                        await worker1.save();
+                        const worker2 = await Trab.findByIdAndUpdate(trab2, {pequipa: "Sim"}, {useFindAndModify: false});
+                        await worker2.save();
+                        const worker3 = await Trab.findByIdAndUpdate(trab3, {pequipa: "Sim"}, {useFindAndModify: false});
+                        await worker3.save();
 
                         res.redirect('/auth/criar_equipa');
                         res.status(201).json();
