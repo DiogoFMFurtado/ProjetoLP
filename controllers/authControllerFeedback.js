@@ -35,13 +35,15 @@ exports.getFeedbacks = async(req, res) => {
     console.log("Done!");
 }
 
-//Não está funcionando
+
 exports.getFeedBacksById = async(req,res) => {
 
     console.log("Getting feedbacks of client...");
-    console.log(req.params);
+    console.log(req.params, '1');
+
     try{
-        const userFeed = await User.findById(req.params._id).populate('feedbacks');
+        console.log(req.params, '2');
+        const userFeed = await User.findById(req.params).populate('feedbacks');
         console.log('Feedbacks User', userFeed);
         res.status(200).json(userFeed.feedbacks);
     }catch (err) {
