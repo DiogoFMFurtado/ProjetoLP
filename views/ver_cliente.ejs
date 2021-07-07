@@ -270,6 +270,33 @@
       </div>
 
 
+      <!-- Tabela Feedbacks-->
+      <div class="row" id="paraDireita">
+        <div class="col-lg-10 col-md-12">
+          <div class="card card-tasks">
+
+            <div class="card-header ">
+              <h6 class="title d-inline">Feedbacks</h6>
+            </div>
+            
+            <div class="card-body ">
+              <div class="table-full-width table-responsive">
+                <table class="table" id="tabelaFeeds">
+                  <tbody>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
@@ -609,6 +636,61 @@
       h2two.innerHTML += p2
 
     }
+
+
+    $.ajax({
+      method: 'GET',
+      url: '/auth/getUserFeedback/' + clientId,
+      dataType: 'json',
+      success: function(userFeed) {
+        arrayFeed = userFeed;
+        console.log(arrayFeed);
+        buildFeedbacks(arrayFeed)
+      }
+    })
+
+    function buildFeedbacks(userFeed){
+      let tabela = document.getElementById('tabelaFeeds')
+
+      for(let i = 0; i < userFeed.length; i++){
+        let row = `
+                  <tr>
+                    <td>
+                      <p class="text-muted">${userFeed[i].feedback}</p>
+                    </td>
+                    <td class="td-actions text-right">
+                      <form action="/auth/apagarfeedback/${userFeed[i]._id}" method="POST" id="feedDel">
+                        <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <i class="tim-icons icon-trash-simple"></i>
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                  `
+        tabela.innerHTML += row
+      }
+    }
+
+    $('#tabelaFeeds').on('submit', '#feedDel', function(e) {
+      e.preventDefault();
+
+      const $form = $(e.target);
+      const action = $form.attr('action');
+
+      $.ajax({
+        method: 'DELETE',
+        url: action,
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          $('#feedDel').replaceWith(
+            '<p>Apagado!</p>')
+        }
+      })
+
+    })
+
+
     
   </script>
 
