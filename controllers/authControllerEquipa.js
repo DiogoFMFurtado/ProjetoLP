@@ -1,9 +1,9 @@
+const { compareSync } = require('bcryptjs');
 const Equipas = require('../models/Equipas');
 const Trab = require('../models/Trab');
 
 exports.registerEquipaHandle = async (req, res) => {
     const { teamName, trab1, trab2, trab3 } = req.body;
-    let errors = [];
 
     if (trab1 == "Primeiro Trabalhador") {
         req.flash(
@@ -38,22 +38,42 @@ exports.registerEquipaHandle = async (req, res) => {
                         console.log(req.body);
                         const equipa = new Equipas({
                             teamName,
-                            trab1,
-                            trab2,
-                            trab3
                         });
+                        const trabalhador1 = await Trab.findOne({_id: trab1});
+                        equipa.trab1 = trabalhador1;
+                        const trabalhador2 = await Trab.findOne({_id: trab2});
+                        equipa.trab2 = trabalhador2;
+                        const trabalhador3 = await Trab.findOne({_id: trab3});
+                        equipa.trab3 = trabalhador3;
+
                         await equipa.save();
+
                         req.flash(
                             'success_msg',
                             'Equipa Criada'
                         );
+
+                        console.log('Atribuindo Equipa a trabalhador...');
+
+                        trabalhador1.equipa = equipa;
+                        await trabalhador1.save();
+
+                        trabalhador2.equipa = equipa;
+                        await trabalhador2.save();
+
+                        trabalhador3.equipa = equipa;
+                        await trabalhador3.save();
+
+                        console.log('Equipa atribuida.')
+
+                        res.redirect('/auth/criar_equipa');
                         res.status(201).json();
                         console.log("Done!");
+
 
                     } catch (err) {
                         res.json({message: err});
                     }
-                    res.redirect('/auth/criar_equipa');
                 }
             }         
         }
