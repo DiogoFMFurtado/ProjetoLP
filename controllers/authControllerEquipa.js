@@ -111,3 +111,18 @@ exports.getEquipaById = async(req, res) => {
     }
     console.log("Done!");
 }
+
+
+exports.delEquipa = async(req,res) => {
+
+    console.log("Deleting Team..");
+    
+    try{
+        const deletedTeam = await Equipas.deleteOne({_id: req.params._id});
+        res.status(200).json(deletedTeam);
+        console.log("Team Deleted!");
+    }catch(err) {
+        res.status(404).json({message: err});
+    }
+
+}
