@@ -506,8 +506,10 @@
                       </div>
                       <div class="col-md-3 px-md-1">
                         <div class="form-group">
-                          <label>Equipa</label>
-                          <p>${thisMarcacao.team}</p>
+                          <label>Equipa:</label>
+                          <select id="slidemenu" name="team">
+                            <option selected="selected" hidden>Selecione:</option>
+                          </select>  
                           <button type="button" id="ModalBtn" class="btn btn-primary">Adicionar</button>
                         </div>
                       </div>
@@ -628,6 +630,27 @@
 
 
   </script>
+
+  <script>
+    $.ajax({
+      method:'GET',
+      url:'/auth/equipasGET/',
+      dataType: 'json',
+      success:function(equipa){
+          thisArray = equipa
+          slider(thisArray);
+          console.log(thisArray)      
+      }
+    })
+
+    function slider(equipa){
+      let slide1 = document.getElementById('slidemenu')
+      for(let i = 0; i < equipa.length; i++){
+        let row = `<option value="${equipa[i]._id}">${equipa[i].teamName}</option>`
+        slide1.innerHTML += row
+      }
+    }
+    </script>
 </body>
 
 </html>
