@@ -54,7 +54,7 @@
               <p>Trabalhadores</p>
             </a>
           </li>
-          <li class="active ">
+          <li class="active">
             <a href="./projmarc">
               <i class="tim-icons icon-bullet-list-67"></i>
               <p>Projetos/Marcações</p>
@@ -141,8 +141,6 @@
         </ul>
       </div>
     </div>
-
-
     <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
@@ -224,72 +222,21 @@
 
 
       <div class="content">
-
         <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-5 pr-md-1">
-                <div class="input-group">
-                  <div class="form-outline">
-                    <input type="search" id="form1" class="form-control" />
-                    <label class="form-label" for="form1">Search</label>
-                  </div>
-                  <button type="button" class="btn  btn-primary-smol">
-                    <i class="fas fa-search"></i>
-                  </button>
-                </div>
+            <div class="col-md-3">
+              <div class="card" id="cardProjeto2">
+                
+  
               </div>
-              <div class="col-md-5 pr-md-1">
-                <a href="./calendario">
-                  <button type="button" class="btn btn-primary">Ver Calendário</button>
-                </a>
+            </div>
+            <div class="col-md-12">
+              <div class="card" id="cardProjeto">
+                
+
               </div>
             </div>
           </div>
         </div>
-        
-        <div class="table-responsive">
-          <h2>Marcações</h2>
-          <table id="tabelaMarcacoes" class="table tablesorter">
-            <thead class=" text-primary">
-              <tr>
-                <th>Marcação ID</th>
-                <th>Morada</th>
-                <th>Client ID</th>
-                <th>Estado</th>
-                <th>Equipa</th>
-                <th>Ver Projeto</th>
-                <th>Apagar Projeto</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            </tbody>
-          </table>
-        </div>
-        <!-- Fim Tabela Clientes -->
-      
-        <!-- Gráfico -->
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Tabela Projetos Com Informação</h5>
-                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartLinePurple"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        
-      </div>
-
-
 
       <footer class="footer">
         <div class="container-fluid">
@@ -502,83 +449,185 @@
         application: "black-dashboard-free"
       });
   </script>
+  <script>
+    let modal = document.getElementById("ModalEquipa");
+    let btn = document.getElementById("ModalBtn");
+    let span = document.getElementsByClassName("close");
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) { 
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
 
   <script>
 
-    let thisArray = [];
+    let marcId = sessionStorage.getItem("marcId");
+    console.log(marcId);
+    let thisMarcacao;
+
 
     $.ajax({
-
       method: 'GET',
-      url: '/auth/marcacoesGETAll',
+      url: '/auth/marcGET' + '/' + marcId,
       dataType: 'json',
-      success:function(marcacoes){
-        thisArray = marcacoes
-        buildTable(thisArray);
-        console.log(thisArray)
+      success:function(marc){
+        thisMarcacao = marc
+        buildCard(thisMarcacao);
+        console.log(thisMarcacao);
       }
     })
 
-    function buildTable(marcacoes){
-      let table = document.getElementById('tabelaMarcacoes')
+    
+    function buildCard(thisMarcacao){
+      let card = document.getElementById('cardProjeto');
 
-      for(let i = 0; i < marcacoes.length; i++){
-        let row = `<tr>
-                      <td>${marcacoes[i]._id}</td>
-                      <td>${marcacoes[i].address}</td>
-                      <td>${marcacoes[i].cliente}</td>
-                      <td>${marcacoes[i].state}</td>
-                      <td>${marcacoes[i].equipa}</td>
-                      <td>
-                        <a href="./ver_projeto_marcacoes">
-                          <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Projeto</button>
-                        </a>
-                      </td>
-                      <td>
-                        <form action="/auth/projDEL/${marcacoes[i]._id}" method="POST" class="projetoDEL">
-                          <div class="projDelete">
-                            <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                              <i class="tim-icons icon-trash-simple"></i>
-                            </button>
+      let cardInfo = 
+      `
+      <div class="card-header">
+                  <h2 class="title">ID da Marcação: ${thisMarcacao._id}</h2>
+                </div>
+
+                <!-- Aqui -->
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-5 pr-md-1">
+                        <div class="form-group">
+                          <label>Nome do Cliente</label>
+                          <p>${thisMarcacao.name}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                          <label>Equipa</label>
+                          <p></p>
+                          <button type="button" id="ModalBtn" class="btn btn-primary">Adicionar</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <div class="form-group">
+                          <label>Estado</label>
+                          <p>${thisMarcacao.state}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-6 pl-md-1">
+                        <div class="form-group">
+                          <label>Nota do Cliente</label>
+                          <p>${thisMarcacao.aval_client}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Morada</label>
+                          <p>${thisMarcacao.address}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4 pr-md-1">
+                        <form action="/auth/evalPUT/${thisMarcacao._id}" method="POST" class="aval">
+                          <div class="form-group">
+                            <label>Avaliação Projeto</label>
+                            <p>${thisMarcacao.aval_admin}</p>
+                            <input type="text" name="aval_admin" class="form-control" placeholder="L1-L5" >
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Avaliação</button>
                           </div>
                         </form>
-                      </td>
-
-                  </tr>`
-        table.innerHTML += row
-      }
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <form action="/auth/descripPUT/${thisMarcacao._id}" method="POST" class="description">
+                          <div class="form-group">
+                            <label>About Projeto</label>
+                            <p>${thisMarcacao.descricao}</p>
+                            <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+      `
+      card.innerHTML += cardInfo
     }
 
-    function store(index) {
+    function buildCard2(thisMarcacao){
+      let card2 = document.getElementById('cardProjeto2');
 
-      let marcId = thisArray[index]._id;
+      let cardInfo2 = 
+      `
+                <div class="card-header">
+                  <h2 class="title">Manager do Cliente</h2>
+                </div>
 
-      sessionStorage.setItem("marcId", marcId);
-
-      location.href = "./ver_projeto_marcacoes";
+                <!-- Aqui -->
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-5 pr-md-1">
+                        <div class="form-group">
+                          <p>${thisMarcacao.admin}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+      `
+      card2.innerHTML += cardInfo2
     }
 
-    $('#tabelaMarcacoes').on('submit', '.projetoDEL', function(e) {
+    
+    console.log("Isto é o ID da marcacao", marcId);
+    
+    $('.card').on('submit', '.aval', function(e) {
       e.preventDefault();
 
-      const $form = $(e.target);
-      const action = $form.attr('action');
+      let formData = $(this).serialize();
+      let formAction = $(this).attr('action');
+      
 
       $.ajax({
-        method: 'DELETE',
-        url: action,
+        method: 'PUT',
+        url: formAction,
         dataType: 'json',
+        data: formData,
         success: function(data) {
           console.log(data);
-          $form.replaceWith('<p>Apagado!</p>');
         }
       })
-
     })
 
-  </script>
+    $('.card').on('click', '.description', function(e) {
+      e.preventDefault();
 
+      let formData2 = $(this).serialize();
+      let formAction2 = $(this).attr('action');
+      $.ajax({
+        method: 'PUT',
+        url: formAction2,
+        dataType: 'json',
+        data: formData2,
+        success: function(data) {
+          console.log(data);
+        }
+      })
+    })
+    
+
+
+  </script>
 </body>
 
 </html>
-

@@ -262,50 +262,17 @@
 
         <div class="table-responsive">
           <h2>Equipas de Trabalhadores</h2>
-          <table class="table tablesorter " id="">
+          <table class="table tablesorter " id="tabelaEquipas">
             <thead class=" text-primary">
               <tr>
                 <th>Equipa ID</th>
-                <th>Número da Equipa</th>
-                <th>Marcações Ativas</th>
-                <th>Rating Equipa</th>
+                <th>Nome da Equipa</th>
+                <!--<th>Marcações Ativas</th> -->
                 <th>Ver Equipa</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>111114</td>
-                <td>1</td>
-                <td>10</td>
-                <td>5</td>
-                <td>
-                  <a href="./ver_equipa">
-                    <button type="button" class="btn btn-primary">Ver Equipa</button>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>111115</td>
-                <td>2</td>
-                <td>10</td>
-                <td>5</td>
-                <td>
-                  <a href="./ver_equipa">
-                    <button type="button" class="btn btn-primary">Ver Equipa</button>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>111116</td>
-                <td>3</td>
-                <td>7</td>
-                <td>5</td>
-                <td>
-                  <a href="./ver_equipa">
-                    <button type="button" class="btn btn-primary">Ver Equipa</button>
-                  </a>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
@@ -553,6 +520,56 @@
         application: "black-dashboard-free"
       });
   </script>
+
+  <script>
+
+    $.ajax({
+      method:'GET',
+      url:'/auth/equipasGET',
+      dataType: 'json',
+      success:function(equipas){
+          thisArray = equipas;
+          buildTable(thisArray);
+          console.log(thisArray);      
+      }
+    })
+
+    function buildTable(equipas){
+      let table = document.getElementById('tabelaEquipas');
+
+      for(let i = 0; i < equipas.length; i++){
+
+        let row = `<tr>
+                      <td>${equipas[i]._id}</td>
+                      <td>${equipas[i].teamName}</td>
+                      <td>
+                        <a href="./ver_equipa">
+                          <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Equipa</button>
+                        </a>
+                      </td>
+                  </tr>`
+        table.innerHTML += row
+
+      }
+    }
+
+    function store(index) {
+
+      console.log("Trying to get Team ID....");
+
+      let teamId = thisArray[index]._id;
+
+      sessionStorage.setItem("teamId", teamId);
+
+      location.href = "./ver_equipa";
+
+      console.log("Done!");
+    }
+
+  </script>
+
+
+
 </body>
 
 </html>

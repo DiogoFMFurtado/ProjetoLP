@@ -66,6 +66,7 @@ router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 router.get('/marcGET/:marcacaoId', authControllerMarcacao.getMarcacaoById);
 router.put('/evalPUT/:marcacaoId', authControllerMarcacao.giveAval);
 router.put('/descripPUT/:marcacaoId', authControllerMarcacao.giveDescrip);
+router.delete('/projDEL/:_id', authControllerMarcacao.deleteMarc);
 
 
 
@@ -150,7 +151,7 @@ router.delete('/apagarfeedback/:_id', authControllerFeedback.deleteFeedback);
 router.post('/equipa', authControllerEquipa.registerEquipaHandle);
 router.get('/equipasGET', authControllerEquipa.getEquipas);
 router.get('/equipaGET/:_id', authControllerEquipa.getEquipaById);
-
+router.delete('/deleteTeam/:_id', authControllerEquipa.delEquipa);
 
 
 

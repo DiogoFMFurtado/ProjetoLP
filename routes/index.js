@@ -96,6 +96,10 @@ router.get('/ver_projeto', ensureAuthenticated, (req, res) => res.render('ver_pr
     name: req.user.name
 }));
 
+router.get('/ver_projeto_marcacoes', ensureAuthenticated, (req, res) => res.render('ver_projeto_marcacoes', {
+    name: req.user.name
+}));
+
 router.get('/ver_equipa', ensureAuthenticated, (req, res) => res.render('ver_equipa', {
     name: req.user.name
 }));
