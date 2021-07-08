@@ -485,17 +485,17 @@
       }
     })
 
-    
+
     function buildCard(thisMarcacao){
       let card = document.getElementById('cardProjeto');
 
-      let cardInfo = 
+      let cardInfo =
       `
       <div class="card-header">
                   <h2 class="title">ID da Marcação: ${thisMarcacao._id}</h2>
                 </div>
 
-                <!-- Aqui -->
+
                 <div class="card-body">
                     <div class="row">
                       <div class="col-md-5 pr-md-1">
@@ -566,13 +566,13 @@
     function buildCard2(thisMarcacao){
       let card2 = document.getElementById('cardProjeto2');
 
-      let cardInfo2 = 
+      let cardInfo2 =
       `
                 <div class="card-header">
                   <h2 class="title">Manager do Cliente</h2>
                 </div>
 
-                <!-- Aqui -->
+
                 <div class="card-body">
                   <form>
                     <div class="row">
@@ -588,15 +588,15 @@
       card2.innerHTML += cardInfo2
     }
 
-    
+
     console.log("Isto é o ID da marcacao", marcId);
-    
+
     $('.card').on('submit', '.aval', function(e) {
       e.preventDefault();
 
       let formData = $(this).serialize();
       let formAction = $(this).attr('action');
-      
+
 
       $.ajax({
         method: 'PUT',
@@ -624,7 +624,7 @@
         }
       })
     })
-    
+
 
 
   </script>
