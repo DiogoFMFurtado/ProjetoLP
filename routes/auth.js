@@ -66,6 +66,7 @@ router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 router.get('/marcGET/:marcacaoId', authControllerMarcacao.getMarcacaoById);
 router.put('/evalPUT/:marcacaoId', authControllerMarcacao.giveAval);
 router.put('/descripPUT/:marcacaoId', authControllerMarcacao.giveDescrip);
+router.delete('/projDEL/:_id', authControllerMarcacao.deleteMarc);
 
 
 

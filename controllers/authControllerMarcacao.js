@@ -125,3 +125,21 @@ exports.giveDescrip = async (req,res) => {
     }
     console.log("Done!")
 }
+
+
+exports.deleteMarc = async (req,res) => {
+
+    console.log("Deleting Project..");
+    console.log(req.params._id);
+    try{
+        
+        const deletedProj = await Marcacao.deleteOne({_id: req.params._id});
+        console.log(req.body);
+        res.status(200).json(deletedProj);
+        console.log("Project Deleted");
+
+    }catch(err) {
+        res.status(400).json({message: err});
+    }
+
+}
