@@ -116,11 +116,25 @@ exports.getEquipaById = async(req, res) => {
 exports.delEquipa = async(req,res) => {
 
     console.log("Deleting Team..");
+    console.log(req.params._id);
+    console.log(req.params.trab1);
+    console.log(req.params.trab2);
+    console.log(req.params.trab3);
     
     try{
         const deletedTeam = await Equipas.deleteOne({_id: req.params._id});
+        
+        const trabalhador1 = await Trab.findByIdAndUpdate(req.params.trab1, {pequipa: "Não"}, {useFindAndModify: false});
+        await trabalhador1.save();
+        const trabalhador2 = await Trab.findByIdAndUpdate(req.params.trab2, {pequipa: "Não"}, {useFindAndModify: false});
+        await trabalhador2.save();
+        const trabalhador3 = await Trab.findByIdAndUpdate(req.params.trab3, {pequipa: "Não"}, {useFindAndModify: false});
+        await trabalhador3.save();
+        
         res.status(200).json(deletedTeam);
         console.log("Team Deleted!");
+
+
     }catch(err) {
         res.status(404).json({message: err});
     }
