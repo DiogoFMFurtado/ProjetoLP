@@ -9,6 +9,7 @@ const JWT_RESET_KEY = "jwtreset987";
 
 const Marcacao = require('../models/Marcacao');
 const User = require('../models/User');
+const Equipas = require('../models/Equipas');
 
 
 exports.registerMarcHandle = async (req, res) => {
@@ -142,4 +143,29 @@ exports.deleteMarc = async (req,res) => {
         res.status(400).json({message: err});
     }
 
+}
+
+exports.atribTeam = async(req,res) => {
+
+    console.log("Attributing Team for Project....");
+    console.log(req.params._id1);
+    console.log(req.params._id2);
+
+    try{
+
+        const equipa = await Equipas.findById(req.params._id1);
+        const proj = await Marcacao.findById(req.params._id2);
+
+        proj.team = equipa;
+        await proj.save();
+        equipa.marcsEquipa.push(proj);
+        await equipa.save();
+        res.status(201).json()
+        
+
+    } catch(err) {
+        res.status(404).json({message: err})
+    }
+
+    console.log("Done!");
 }

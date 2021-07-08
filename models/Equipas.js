@@ -22,6 +22,10 @@ const EquipaSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    marcsEquipa: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Marcacao'
+    }]
 },
 {collection: 'Equipas'})
 
