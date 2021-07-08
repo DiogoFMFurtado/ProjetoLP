@@ -280,7 +280,7 @@
                                         <div class="form-group col-xs-12 pl-lg-3">
                                             <form action="/auth/avaliacaoPUT/${marcacao[i]._id}" method="POST" class="avaliacao">
 
-                                                <div class="form-group" id="div1">
+                                                <div class="form-group" class="div1">
                                                     <select id="projeto" name="aval_client" class="form-control-select">
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -337,7 +337,7 @@
                     data: formData,
                     success: function(data) {
                         console.log(data);
-                        $('#div1').replaceWith('<p>Avaliado!</p>')
+                        $form.replaceWith("<p>Avaliado!</p>");
                     }
                 })
             })

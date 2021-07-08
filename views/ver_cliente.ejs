@@ -660,9 +660,11 @@
                     </td>
                     <td class="td-actions text-right" id="feedDel">
                       <form action="/auth/apagarfeedback/${userFeed[i]._id}" method="POST">
-                        <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                          <i class="tim-icons icon-trash-simple"></i>
-                        </button>
+                        <div class="feedDelete">
+                          <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                            <i class="tim-icons icon-trash-simple"></i>
+                          </button>
+                        </div>
                       </form>
                     </td>
                   </tr>
@@ -683,8 +685,7 @@
         dataType: 'json',
         success: function(data) {
           console.log(data);
-          $('#feedDel').replaceWith(
-            '<p>Apagado!</p>')
+          $form.replaceWith('<p>Apagado!</p>');
         }
       })
 
