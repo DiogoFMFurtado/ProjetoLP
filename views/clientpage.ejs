@@ -122,7 +122,7 @@
                             <a id="marcacoes" href="#tm-section-9">Verificar Marcações</a>
                         </li>
                         <li>
-                            <a id="feedback" href="#tm-section-9">Feedback do Trabalhador</a>
+                            <a id="feedback" href="#tm-section-9">Feedback sobre as suas Limpezas</a>
                         </li>
                     </ul>
                 </nav>
@@ -180,24 +180,27 @@
                             <th>Hora</th>
                             <th>Tipo Projeto</th>
                             <th>Estado</th>
-                            <th></th>
+                            <th>Avaliar</th>
                         </tr>
 
-                        <tbody>
+                        <tbody class="bodyMarcacoes">
 
                         </tbody>
                     </table>
                     
                 </div>
                 <div id="feedbackdotrabalhador" class="feedback-do-trabalhador row hidden">
-                    <header class="text-center"></header>
-                    <h3 class="h3-spaced">Feedback sobre o Trabalhador</h3>
+                    <header class="text-center">
+                        <h3 class="h3-spaced">Feedback sobre as suas Limpezas</h3>
+                        <p>Por favor, não hesite em nos enviar o seu feedback após as limpezas. Seja específico sobre a sua marcação.</p>
+                    </header>
+                    
                     <div class="col-xl-12">
                         <div class="contact_message">
                             <form action="/auth/feedback" method="POST" class="contact-form">
                                 <div class="row mb-3">
                                     <div class="form-group col-xs-12 pl-lg-3">
-                                        <input type="name" id="name" name="name" class="form-control" placeholder="Username"/> 
+                                        <input type="name" id="name" name="name" class="form-control" placeholder="Nome"/> 
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -205,7 +208,7 @@
                                         <input type="text" id="feedback" name="feedback" class="form-control" rows="6" placeholder="Feedback">
                                     </div>
                                     <div id="fback-btn" class="form-group col-xl-2 pl-xl-4">
-                                        <button onclick="javascript: form.action='/auth/feedback'" type="submit">Enviar</button>
+                                        <button onclick="javascript: form.action='/auth/feedback'" type="submit" class="btn  tm-btn-submit float-right btn-marcar">Enviar</button>
                                     </div>
                                 </div>
                             </form>
@@ -220,6 +223,8 @@
                 </p>
             </footer>
         </div>
+
+
 <!--Scripts-->
 
         <script type="text/javascript" src="/public/js/jquery-1.11.3.min.js"></script>
@@ -232,6 +237,7 @@
         <script>
             let thisArray = []
             let userId = $('#userId').val();
+
 
             $.ajax({
                 method:'GET',
@@ -249,18 +255,95 @@
 
             function buildTable(marcacao){
                 let table = document.getElementById('tabelaCliente')
-
+                
                 for(let i = 0; i < marcacao.length; i++){
-                    let row = `<tr>
+                    
+                    if(marcacao[i].state == "Pendente"){
+                        let row = `<tr>
                                     <td>${marcacao[i].address}</td>
                                     <td>${marcacao[i].date}</td>
                                     <td>${marcacao[i].hour}</td>
                                     <td>${marcacao[i].type}</td>
                                     <td>${marcacao[i].state}</td>
                                </tr>`
-                    table.innerHTML += row
+                        table.innerHTML += row
+                    }else {
+                        if(marcacao[i].avaliado == false) {
+                            let row = `<tr>
+                                    <td>${marcacao[i].address}</td>
+                                    <td>${marcacao[i].date}</td>
+                                    <td>${marcacao[i].hour}</td>
+                                    <td>${marcacao[i].type}</td>
+                                    <td>${marcacao[i].state}</td>
+                                    <td>
+                                        
+                                        <div class="form-group col-xs-12 pl-lg-3">
+                                            <form action="/auth/avaliacaoPUT/${marcacao[i]._id}" method="POST" class="avaliacao">
+
+                                                <div class="form-group" class="div1">
+                                                    <select id="projeto" name="aval_client" class="form-control-select">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                    <button type="submit" class="btn btn-fill btn-primary">Submeter</button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                    </td>
+                               </tr>`
+                        table.innerHTML += row
+
+                        } else {
+                            let row = `<tr>
+                                    <td>${marcacao[i].address}</td>
+                                    <td>${marcacao[i].date}</td>
+                                    <td>${marcacao[i].hour}</td>
+                                    <td>${marcacao[i].type}</td>
+                                    <td>${marcacao[i].state}</td>
+                                    <td>
+                                        
+                                        <div class="form-group col-xs-12 pl-lg-3">
+                                            <p>Avaliado!</p>
+                                        </div>
+
+                                    </td>
+                               </tr>`
+                        table.innerHTML += row
+                        }
+                        
+                        
+                        
+                    }
+                    
                 }
+                
             }
+
+            $('.tabela-clientes').on('submit', '.avaliacao', function(e) {
+                e.preventDefault();
+
+                const $form = $(e.target);
+                const formData = $form.serialize();
+                const action = $form.attr('action');
+                $.ajax({
+                    method: 'PUT',
+                    url: action,
+                    dataType: 'json',
+                    data: formData,
+                    success: function(data) {
+                        console.log(data);
+                        $form.replaceWith("<p>Avaliado!</p>");
+                    }
+                })
+            })
+
+            
+
         </script>
     </body>
 </html>

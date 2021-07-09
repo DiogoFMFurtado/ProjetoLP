@@ -257,9 +257,9 @@
                 <th>Morada</th>
                 <th>Client ID</th>
                 <th>Estado</th>
-                <th>Manager</th>
                 <th>Equipa</th>
                 <th>Ver Projeto</th>
+                <th>Apagar Projeto</th>
               </tr>
             </thead>
             <tbody>
@@ -528,18 +528,53 @@
                       <td>${marcacoes[i].address}</td>
                       <td>${marcacoes[i].cliente}</td>
                       <td>${marcacoes[i].state}</td>
-                      <td>${marcacoes[i].admin}</td>
                       <td>${marcacoes[i].equipa}</td>
                       <td>
-                        <a href="./ver_projeto">
-                          <button type="button" class="btn btn-primary">Ver Projeto</button>
+                        <a href="./ver_projeto_marcacoes">
+                          <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Projeto</button>
                         </a>
+                      </td>
+                      <td>
+                        <form action="/auth/projDEL/${marcacoes[i]._id}" method="POST" class="projetoDEL">
+                          <div class="projDelete">
+                            <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                              <i class="tim-icons icon-trash-simple"></i>
+                            </button>
+                          </div>
+                        </form>
                       </td>
 
                   </tr>`
         table.innerHTML += row
       }
     }
+
+    function store(index) {
+
+      let marcId = thisArray[index]._id;
+
+      sessionStorage.setItem("marcId", marcId);
+
+      location.href = "./ver_projeto_marcacoes";
+    }
+
+    $('#tabelaMarcacoes').on('submit', '.projetoDEL', function(e) {
+      e.preventDefault();
+
+      const $form = $(e.target);
+      const action = $form.attr('action');
+
+      $.ajax({
+        method: 'DELETE',
+        url: action,
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          $form.replaceWith('<p>Apagado!</p>');
+        }
+      })
+
+    })
 
   </script>
 

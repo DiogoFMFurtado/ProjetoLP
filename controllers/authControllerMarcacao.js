@@ -9,6 +9,7 @@ const JWT_RESET_KEY = "jwtreset987";
 
 const Marcacao = require('../models/Marcacao');
 const User = require('../models/User');
+const Equipas = require('../models/Equipas');
 
 
 exports.registerMarcHandle = async (req, res) => {
@@ -85,7 +86,26 @@ exports.giveAval = async (req, res) => {
     try {
         const eval_admin = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
         console.log(req.body);
+        await eval_admin.save();
         res.status(200).json(eval_admin);
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+    console.log("Done!")
+}
+
+exports.clientAval = async (req, res) => {
+    console.log("Client is giving rating to appointement...");
+    console.log(req.params._id);
+    try {
+        const aval_client = await Marcacao.findByIdAndUpdate(req.params._id, req.body, {useFindAndModify: false});
+        console.log(req.body);
+        await aval_client.save();
+        const isAvaliado = await Marcacao.findByIdAndUpdate(req.params._id, {$set: { avaliado: true }}, {useFindAndModify: false});
+        await isAvaliado.save();
+        
+        res.status(200).json(aval_client);
+        
     } catch (err) {
         res.status(404).json({message: err})
     }
@@ -99,10 +119,54 @@ exports.giveDescrip = async (req,res) => {
     console.log(req.params.marcacaoId);
     try {
         const description = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
+        description.save();
         console.log(req.body);
         res.status(200).json(description);
     } catch (err) {
         res.status(404).json({message: err})
     }
     console.log("Done!")
+}
+
+
+exports.deleteMarc = async (req,res) => {
+
+    console.log("Deleting Project..");
+    console.log(req.params._id);
+    try{
+        
+        const deletedProj = await Marcacao.deleteOne({_id: req.params._id});
+        console.log(req.body);
+        res.status(200).json(deletedProj);
+        console.log("Project Deleted");
+
+    }catch(err) {
+        res.status(400).json({message: err});
+    }
+
+}
+
+exports.atribTeam = async(req,res) => {
+
+    console.log("Attributing Team for Project....");
+    console.log(req.params._id1);
+    console.log(req.params._id2);
+
+    try{
+
+        const equipa = await Equipas.findById(req.params._id1);
+        const proj = await Marcacao.findById(req.params._id2);
+
+        proj.team = equipa;
+        await proj.save();
+        equipa.marcsEquipa.push(proj);
+        await equipa.save();
+        res.status(201).json()
+        
+
+    } catch(err) {
+        res.status(404).json({message: err})
+    }
+
+    console.log("Done!");
 }

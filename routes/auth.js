@@ -49,6 +49,8 @@ router.get('/resetAdmin/:id', (req, res) => {
 
 router.get('/login_registar_user', (req, res) => res.render('login_registar_user'));
 
+router.get('/criar_equipa', (req, res) => res.render('criar_equipa'));
+
 router.get('/loginAdmin', (req, res) => res.render('loginAdmin'));
 
 router.get('/loginTrab', (req, res) => res.render('loginTrab'));
@@ -64,6 +66,8 @@ router.get('/marcacoesGETAll', authControllerMarcacao.getAllMarcacoes);
 router.get('/marcGET/:marcacaoId', authControllerMarcacao.getMarcacaoById);
 router.put('/evalPUT/:marcacaoId', authControllerMarcacao.giveAval);
 router.put('/descripPUT/:marcacaoId', authControllerMarcacao.giveDescrip);
+router.delete('/projDEL/:_id', authControllerMarcacao.deleteMarc);
+router.put('/teamAttr/:_id1/:_id2', authControllerMarcacao.atribTeam);
 
 
 
@@ -81,6 +85,8 @@ router.get('/clientsGET', ControllerClient.getClients);
 router.get('/clientGET/:clientId', ControllerClient.getClient);
 router.put('/adminPUT/:clientId', ControllerClient.hasAdmin);
 router.get('/clientByIdGET/:clientId', ControllerClient.getClientById);
+
+
 
 
 //------------ Register POST Handle ------------//
@@ -133,14 +139,22 @@ router.get('/logoutTrab', authControllerTrab.logoutTrabHandle);
 // Post Marcacao
 
 router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
-//router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
+router.put('/avaliacaoPUT/:_id', authControllerMarcacao.clientAval);
 
 //Feedback
 
 router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
+router.get('/getUserFeedback/:_id', authControllerFeedback.getFeedBacksById);
+router.delete('/apagarfeedback/:_id', authControllerFeedback.deleteFeedback);
 
-router.post('/apagarfeedback', authControllerFeedback.deleteFeedback);
 
+//Equipa
 router.post('/equipa', authControllerEquipa.registerEquipaHandle);
+router.get('/equipasGET', authControllerEquipa.getEquipas);
+router.get('/equipaGET/:_id', authControllerEquipa.getEquipaById);
+router.delete('/deleteTeam/:trab1/:trab2/:trab3/:_id', authControllerEquipa.delEquipa);
+
+
+
 
 module.exports = router;

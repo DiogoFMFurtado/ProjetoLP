@@ -223,60 +223,7 @@
       
       
       
-      <div class="content">
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-5 pr-md-1">
-                <button type="button" class="btn btn-primary">Adicionar à Equipa</button>
-              </div>
-              <div class="col-md-5 pr-md-1">
-                <button type="button" class="btn btn-primary">Retirar da Equipa</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="table-responsive">
-          <h2>Equipas de Trabalhadores</h2>
-          <table class="table tablesorter " id="">
-            <thead class=" text-primary">
-              <tr>
-                <th>Worker ID</th>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Feedback</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>111114</td>
-                <td>Rodrigo</td>
-                <td>Líder</td>
-                <td>
-                  <button type="button" class="btn btn-primary">Feedback</button>
-                </td>
-              </tr>
-              <tr>
-                <td>111114</td>
-                <td>Martim</td>
-                <td>Normal</td>
-                <td>
-                  <button type="button" class="btn btn-primary">Feedback</button>
-                </td>
-              </tr>
-              <tr>
-                <td>111114</td>
-                <td>Inês</td>
-                <td>Normal</td>
-                <td>
-                  <button type="button" class="btn btn-primary">Feedback</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="content" id="divTeamDelete">
 
 
 
@@ -503,6 +450,108 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "black-dashboard-free"
       });
+  </script>
+
+
+
+
+
+  <script>
+
+    let teamId = sessionStorage.getItem("teamId");
+    console.log(teamId);
+    let newArray = [];
+
+    $.ajax({
+      method:'GET',
+      url: '/auth/equipaGET/' + teamId,
+      dataType: 'json',
+      success:function(equipaById){
+        newArray = equipaById
+        buildTable(newArray);
+        console.log(newArray);
+      }
+    })
+
+    //não funciona
+    function buildTable(equipaById){
+      let table = document.getElementById('divTeamDelete');
+
+      let row = 
+      ` 
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-5 pr-md-1" id="eqDel">
+                <form action="/auth/deleteTeam/${equipaById.trab1}/${equipaById.trab2}/${equipaById.trab3}/" method="POST" class="formAdmin">
+                  <button type="submit" class="btn btn-primary">Apagar Equipa</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row" id="">
+          <div class="col-lg-10 col-md-12">
+            <div class="card card-tasks">
+
+              <div class="card-header ">
+                <h6 class="title d-inline">Equipa</h6>
+              </div>
+
+              <div class="card-body ">
+                <div class="table-full-width table-responsive">
+                  <table class="table" id="tableEquipa">
+                    <tr>
+                      <td>
+                        <p class="text-muted">${equipaById.teamName}</p>
+                      </td>
+                      <td>
+                        <p class="text-muted">${equipaById.trab1}</p>
+                      </td>
+                      <td>
+                        <p class="text-muted">${equipaById.trab2}</p>
+                      </td>
+                      <td>
+                        <p class="text-muted">${equipaById.trab3}</p>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `
+      table.innerHTML += row
+
+      
+
+    }
+
+    // Funciona
+    $('#divTeamDelete').on('submit', '.formAdmin' ,function(e) {
+
+      e.preventDefault();
+
+      const $form = $(e.target);
+      const action = $form.attr('action');
+
+      $.ajax({
+        method: 'DELETE',
+        url: action + teamId,
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          $('#eqDel').replaceWith('<p>Apagado!</p>')
+        }
+      })
+
+    })
+    
+
+
   </script>
 </body>
 

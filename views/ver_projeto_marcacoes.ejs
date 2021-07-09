@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    Black Dashboard by Creative Tim
+    Marcações
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -48,13 +48,13 @@
               <p>Clientes</p>
             </a>
           </li>
-          <li class="active ">
+          <li>
             <a href="./trabalhadores">
               <i class="tim-icons icon-single-02"></i>
               <p>Trabalhadores</p>
             </a>
           </li>
-          <li>
+          <li class="active">
             <a href="./projmarc">
               <i class="tim-icons icon-bullet-list-67"></i>
               <p>Projetos/Marcações</p>
@@ -218,42 +218,26 @@
         </div>
       </div>
       <!-- End Navbar -->
-      
+
+
+
       <div class="content">
-        <div class="table-responsive">
-          <h2>Trabalhadores Disponiveis:</h2>
-          <table class="table tablesorter " id="tabelaWorkersdisp">
-            <thead class=" text-primary">
-              <tr>
-                <th>Worker ID</th>
-                <th>Nome</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            </tbody>
-          </table>
-        </div>
-        <form action="/auth/equipa" method="POST" class="formEquipa">
-          <div>Nome da Equipa</div>
-          <input type="name" id="teamName" name="teamName" class="form-control" 
-          value="<%= typeof teamName != 'undefined' ? teamName : '' %>" placeholder="Nome:" >
-          <div>Selecionar Trabalhadores</div>
-          <div id= "selecttrab">
-            <select class= "opcao_certa" id="slidemenu1" name="trab1">
-              <option class="option1" selected="selected" hidden>Primeiro Trabalhador</option>
-            </select>     
-            <select class= "opcao_certa" id="slidemenu2" name="trab2">
-              <option class="option2" selected="selected" hidden>Segundo Trabalhador</option>
-            </select>
-            <select class= "opcao_certa" id="slidemenu3" name="trab3">
-              <option class="option3" selected="selected" hidden>Terceiro Trabalhador</option>
-            </select>
-            <button onclick="javascript: form.action='/auth/equipa'" type="submit" class="btn btn-primary">Criar Equipa</button>
-            <div id="mensagem"><%- include ("./messages") %></div>
+        <div class="row">
+            <div class="col-md-3">
+              <div class="card" id="cardProjeto2">
+                
+  
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card" id="cardProjeto">
+                
+
+              </div>
+            </div>
           </div>
-        </form>
-      </div>
+        </div>
+
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
@@ -263,7 +247,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="aboutus.html" class="nav-link">
+              <a href="./aboutus" class="nav-link">
                 About Us
               </a>
             </li>
@@ -465,71 +449,196 @@
         application: "black-dashboard-free"
       });
   </script>
+  <script>
+    let modal = document.getElementById("ModalEquipa");
+    let btn = document.getElementById("ModalBtn");
+    let span = document.getElementsByClassName("close");
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) { 
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
 
   <script>
-  $.ajax({
-    method:'GET',
-    url:'/auth/workersGET/',
-    dataType: 'json',
-    success:function(trab){
-        thisArray = trab
-        sliders(thisArray);
-        tabela(thisArray);
-        console.log(thisArray)      
-    }
-  })
 
-  function tabela(trab){
-  let table = document.getElementById('tabelaWorkersdisp')
+    let marcId = sessionStorage.getItem("marcId");
+    console.log(marcId);
+    let thisMarcacao;
 
-  for(let i = 0; i < trab.length; i++){
-    if(trab[i].pequipa == 'Não'){
-      let row = `<tr>
-                    <td>${trab[i]._id}</td>
-                    <td>${trab[i].name}</td>
-                </tr>`
-      table.innerHTML += row
-    }
-  }
-  }
 
-  function sliders(trab){
-    let slide1 = document.getElementById('slidemenu1')
-    let slide2 = document.getElementById('slidemenu2')
-    let slide3 = document.getElementById('slidemenu3')
-    for(let x = 0; x < trab.length; x++){
-      if(trab[x].pequipa == 'Não'){
-        let row = `<option class="option1" value="${trab[x]._id}">${trab[x].name}</option>`
-        slide1.innerHTML += row
+    $.ajax({
+      method: 'GET',
+      url: '/auth/marcGET' + '/' + marcId,
+      dataType: 'json',
+      success:function(marc){
+        thisMarcacao = marc
+        buildCard(thisMarcacao);
+        console.log(thisMarcacao);
+      }
+    })
+    async function get_equipas(){
+      const equipas = await fetch('/auth/equipasGET/')
+      const data_equipas = await equipas.json()
+      const nome = []
+      for (let i=0;i<data_equipas.length; i++){
+        if (data_equipas[i].id === thisMarcacao.team.objectId){
+          nome.push(data_equipas[i])
         }
-    }
-    for(let y = 0; y < trab.length; y++){
-      if(trab[y].pequipa == 'Não'){
-        let row = `<option class="option2" value="${trab[y]._id}">${trab[y].name}</option>`
-        slide2.innerHTML += row
       }
+      const name = nome[0].teamName
+      return {name}
     }
-    for(let z = 0; z < trab.length; z++){
-      if(trab[z].pequipa == 'Não'){
-        let row = `<option class="option3" value="${trab[z]._id}">${trab[z].name}</option>`
-        slide3.innerHTML += row
-      }
-    }
-  }
 
-  $(document).ready(function () {
-    $('#selecttrab').on('change', '.opcao_certa', function () {
-        var allSelected = $(".opcao_certa").map(function () {
-            return $(this).val();
-        }).get();
-        $(".opcao_certa option").removeAttr("disabled");
-        $(".opcao_certa option:not(:selected):not([value='0'])").each(function () {
-            if ($.inArray($(this).val(), allSelected) != -1) {
-                $(this).attr('disabled', true);
-            }
-        });
-    });
-  });
+    async function buildCard(thisMarcacao){
+      let data = await get_equipas();
+      let card = document.getElementById('cardProjeto');
+
+      console.log(data)
+      let cardInfo =
+      `
+      <div class="card-header">
+                  <h2 class="title">ID da Marcação: ${thisMarcacao._id}</h2>
+                </div>
+
+
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-5 pr-md-1">
+                        <div class="form-group">
+                          <label>Nome do Cliente</label>
+                          <p>${thisMarcacao.name}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                          <label>Equipa</label>
+                          <p>${data.name}</p>
+                          <button type="button" id="ModalBtn" class="btn btn-primary">Adicionar</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <div class="form-group">
+                          <label>Estado</label>
+                          <p>${thisMarcacao.state}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-6 pl-md-1">
+                        <div class="form-group">
+                          <label>Nota do Cliente</label>
+                          <p>${thisMarcacao.aval_client}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Morada</label>
+                          <p>${thisMarcacao.address}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4 pr-md-1">
+                        <form action="/auth/evalPUT/${thisMarcacao._id}" method="POST" class="aval">
+                          <div class="form-group">
+                            <label>Avaliação Projeto</label>
+                            <p>${thisMarcacao.aval_admin}</p>
+                            <input type="text" name="aval_admin" class="form-control" placeholder="L1-L5" >
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Avaliação</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <form action="/auth/descripPUT/${thisMarcacao._id}" method="POST" class="description">
+                          <div class="form-group">
+                            <label>About Projeto</label>
+                            <p>${thisMarcacao.descricao}</p>
+                            <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+      `
+      card.innerHTML += cardInfo
+    }
+
+    function buildCard2(thisMarcacao){
+      let card2 = document.getElementById('cardProjeto2');
+
+      let cardInfo2 =
+      `
+                <div class="card-header">
+                  <h2 class="title">Manager do Cliente</h2>
+                </div>
+
+
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-5 pr-md-1">
+                        <div class="form-group">
+                          <p>${thisMarcacao.admin}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+      `
+      card2.innerHTML += cardInfo2
+    }
+
+
+    console.log("Isto é o ID da marcacao", marcId);
+
+    $('.card').on('submit', '.aval', function(e) {
+      e.preventDefault();
+
+      let formData = $(this).serialize();
+      let formAction = $(this).attr('action');
+
+
+      $.ajax({
+        method: 'PUT',
+        url: formAction,
+        dataType: 'json',
+        data: formData,
+        success: function(data) {
+          console.log(data);
+        }
+      })
+    })
+
+    $('.card').on('click', '.description', function(e) {
+      e.preventDefault();
+
+      let formData2 = $(this).serialize();
+      let formAction2 = $(this).attr('action');
+      $.ajax({
+        method: 'PUT',
+        url: formAction2,
+        dataType: 'json',
+        data: formData2,
+        success: function(data) {
+          console.log(data);
+        }
+      })
+    })
+
+
 
   </script>
 </body>
