@@ -229,7 +229,7 @@
               </div>
 
               <div class="card-body">
-                <form action="/auth/registertrab" method="POST">
+                <form target="_blank" action="/auth/registertrab" method="POST">
                   <%- include ("./messages") %>
                   <div class="row">
                     <div class="col-md-5 pr-md-1">
@@ -262,7 +262,7 @@
                     </div>
                   </div>
                   <div class="card-footer">
-                    <button onclick="javascript: form.action='/auth/registertrab'" type="submit" class="btn btn-fill btn-primary" >Adicionar Trabalhador</button>
+                    <button onclick="window.location.href = './colegas2';" type="submit" class="btn btn-fill btn-primary" >Adicionar Trabalhador</button>
                   </div>
                 </form>
               </div>

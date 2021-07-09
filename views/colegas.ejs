@@ -230,7 +230,7 @@
               </div>
 
               <div class="card-body">
-                <form action="/auth/registeradmin" method="POST">
+                <form target="_blank" action="/auth/registeradmin" method="POST">
                   <%- include ("./messages") %>
                   <div class="row">
                     <div class="col-md-5 pr-md-1">
@@ -269,7 +269,7 @@
                     </div>
                   </div>
                   <div class="card-footer">
-                    <button onclick="javascript: form.action='/auth/registeradmin'" type="submit" class="btn btn-fill btn-primary" >Adicionar Admnistrador</button>
+                    <button onclick="window.location.href = './colegas';" type="submit" class="btn btn-fill btn-primary" >Adicionar Admnistrador</button>
                   </div>
                 </form>
               </div>
