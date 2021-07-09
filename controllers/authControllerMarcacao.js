@@ -133,12 +133,28 @@ exports.deleteMarc = async (req,res) => {
 
     console.log("Deleting Project..");
     console.log(req.params._id);
+    console.log(req.params.equipa);
+
     try{
-        
-        const deletedProj = await Marcacao.deleteOne({_id: req.params._id});
-        console.log(req.body);
-        res.status(200).json(deletedProj);
-        console.log("Project Deleted");
+        console.log("1");
+        Equipas.findById(req.params.equipa).populate('marcsEquipa').exec(async function (err, equipa) {
+            
+            if(err) {
+                console.log("Something went wrong!");
+                res.json(err);
+            }else{
+                await Marcacao.deleteOne({
+                    _id: {
+                        $in: equipa.marcsEquipa
+                    }
+                });
+                console.log('marcsEquipa', equipa.marcsEquipa);
+                //const deletedProj = await Marcacao.deleteOne({_id: req.params._id});
+                res.status(200).json();
+
+                console.log("Project Deleted");
+            }
+        });
 
     }catch(err) {
         res.status(400).json({message: err});
