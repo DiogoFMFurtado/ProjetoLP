@@ -484,11 +484,24 @@
         console.log(thisMarcacao);
       }
     })
+    async function get_equipas(){
+      const equipas = await fetch('/auth/equipasGET/')
+      const data_equipas = await equipas.json()
+      const nome = []
+      for (let i=0;i<data_equipas.length; i++){
+        if (data_equipas[i].id === thisMarcacao.team.objectId){
+          nome.push(data_equipas[i])
+        }
+      }
+      const name = nome[0].teamName
+      return {name}
+    }
 
-
-    function buildCard(thisMarcacao){
+    async function buildCard(thisMarcacao){
+      let data = await get_equipas();
       let card = document.getElementById('cardProjeto');
 
+      console.log(data)
       let cardInfo =
       `
       <div class="card-header">
@@ -507,7 +520,7 @@
                       <div class="col-md-3 px-md-1">
                         <div class="form-group">
                           <label>Equipa</label>
-                          <p>${thisMarcacao.team}</p>
+                          <p>${data.name}</p>
                           <button type="button" id="ModalBtn" class="btn btn-primary">Adicionar</button>
                         </div>
                       </div>
