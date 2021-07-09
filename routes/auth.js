@@ -152,7 +152,7 @@ router.delete('/apagarfeedback/:_id', authControllerFeedback.deleteFeedback);
 router.post('/equipa', authControllerEquipa.registerEquipaHandle);
 router.get('/equipasGET', authControllerEquipa.getEquipas);
 router.get('/equipaGET/:_id', authControllerEquipa.getEquipaById);
-router.delete('/deleteTeam/:_id/:trab1/:trab2/:trab3', authControllerEquipa.delEquipa);
+router.delete('/deleteTeam/:trab1/:trab2/:trab3/:_id', authControllerEquipa.delEquipa);
 
 
 
