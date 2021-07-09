@@ -223,40 +223,7 @@
       
       
       
-      <div class="content">
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-5 pr-md-1" id="eqDel">
-                <form action="/auth/deleteTeam/" method="POST" class="formAdmin" id="deleteTeam">
-                  <button type="submit" class="btn btn-primary">Apagar Equipa</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row" id="">
-          <div class="col-lg-10 col-md-12">
-            <div class="card card-tasks">
-  
-              <div class="card-header ">
-                <h6 class="title d-inline">Equipa</h6>
-              </div>
-              
-              <div class="card-body ">
-                <div class="table-full-width table-responsive">
-                  <table class="table" id="tableEquipa">
-                    <tbody>
-                      
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="content" id="divTeamDelete">
 
 
 
@@ -508,24 +475,54 @@
 
     //não funciona
     function buildTable(equipaById){
-      let table = document.getElementById('tableEquipa');
+      let table = document.getElementById('divTeamDelete');
 
       let row = 
-      `<tr>
-          <td>
-            <p class="text-muted">${equipaById.teamName}</p>
-          </td>
-          <td>
-            <p class="text-muted">${equipaById.trab1}</p>
-          </td>
-          <td>
-            <p class="text-muted">${equipaById.trab2}</p>
-          </td>
-          <td>
-            <p class="text-muted">${equipaById.trab3}</p>
-          </td>
-        </tr>
-      
+      ` 
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-5 pr-md-1" id="eqDel">
+                <form action="/auth/deleteTeam/${equipaById.trab1}/${equipaById.trab2}/${equipaById.trab3}/" method="POST" class="formAdmin">
+                  <button type="submit" class="btn btn-primary">Apagar Equipa</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row" id="">
+          <div class="col-lg-10 col-md-12">
+            <div class="card card-tasks">
+
+              <div class="card-header ">
+                <h6 class="title d-inline">Equipa</h6>
+              </div>
+
+              <div class="card-body ">
+                <div class="table-full-width table-responsive">
+                  <table class="table" id="tableEquipa">
+                    <tr>
+                      <td>
+                        <p class="text-muted">${equipaById.teamName}</p>
+                      </td>
+                      <td>
+                        <p class="text-muted">${equipaById.trab1}</p>
+                      </td>
+                      <td>
+                        <p class="text-muted">${equipaById.trab2}</p>
+                      </td>
+                      <td>
+                        <p class="text-muted">${equipaById.trab3}</p>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       `
       table.innerHTML += row
 
@@ -534,7 +531,8 @@
     }
 
     // Funciona
-    $('#deleteTeam').on('submit', function(e) {
+    $('#divTeamDelete').on('submit', '.formAdmin' ,function(e) {
+
       e.preventDefault();
 
       const $form = $(e.target);
