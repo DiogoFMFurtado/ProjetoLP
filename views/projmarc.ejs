@@ -225,31 +225,40 @@
 
       <div class="content">
 
-        <div class="row">
-          <div class="col-md-12">
+        <!-- END GRAFICOS-->
+        <div class="table-responsive">
+          <h2>Marcações</h2>
+          <!-- Gráfico -->
+          <div class="content">
             <div class="row">
-              <div class="col-md-5 pr-md-1">
-                <div class="input-group">
-                  <div class="form-outline">
-                    <input type="search" id="form1" class="form-control" />
-                    <label class="form-label" for="form1">Search</label>
+              <div class="col-lg-4">
+                <div class="card card-chart">
+                  <div class="card-header">
+                    <h5 class="card-category">Avaliações</h5>
+                    <h3 class="card-title"><i id="avaliacoes_total" ></i></h3>
                   </div>
-                  <button type="button" class="btn  btn-primary-smol">
-                    <i class="fas fa-search"></i>
-                  </button>
+                  <div class="card-body">
+                    <div class="chart-area">
+                      <canvas id="chart_avaliacoes_canvas" height="0"></canvas>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-5 pr-md-1">
-                <a href="./calendario">
-                  <button type="button" class="btn btn-primary">Ver Calendário</button>
-                </a>
+              <div class="col-lg-4">
+                <div class="card card-chart">
+                  <div class="card-header">
+                    <h5 class="card-category">Avaliações</h5>
+                    <h3 class="card-title"><i id="total_aval" ></i></h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-area">
+                      <canvas id="chart_avaliacoes2_canvas" height="0"></canvas>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        
-        <div class="table-responsive">
-          <h2>Marcações</h2>
           <table id="tabelaMarcacoes" class="table tablesorter">
             <thead class=" text-primary">
               <tr>
@@ -268,25 +277,6 @@
           </table>
         </div>
         <!-- Fim Tabela Clientes -->
-      
-        <!-- Gráfico -->
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Tabela Projetos Com Informação</h5>
-                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartLinePurple"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        
       </div>
 
 
@@ -577,7 +567,144 @@
     })
 
   </script>
-
+  <script>
+    async function get_avaliacoes(){
+      const notas_de_avaliacoes = []
+      const avaliacoes = await fetch('/auth/marcacoesGETAll/')
+      const data_avaliacoes = await avaliacoes.json()
+      const uma_estrela = []
+      const duas_estrela = []
+      const tres_estrela = []
+      const quatro_estrela = []
+      const cinco_estrela = []
+      const total_sem_avaliacao = []
+      for (let i=0; i<data_avaliacoes.length;i++){
+        if (data_avaliacoes[i].aval_client ==="Sem Avaliação do Cliente"){
+          total_sem_avaliacao.push(data_avaliacoes[i])
+        }
+      }
+      for (let i=0; i<data_avaliacoes.length;i++){
+        if(data_avaliacoes[i].aval_client === "1"){
+          uma_estrela.push(data_avaliacoes[i])
+        }else if(data_avaliacoes[i].aval_client === "2"){
+          duas_estrela.push(data_avaliacoes[i])
+        }else if(data_avaliacoes[i].aval_client === "3"){
+          tres_estrela.push(data_avaliacoes[i])
+        }else if(data_avaliacoes[i].aval_client === "4"){
+          quatro_estrela.push(data_avaliacoes[i])
+        }else if(data_avaliacoes[i].aval_client === "5"){
+          cinco_estrela.push(data_avaliacoes[i])
+        }
+      }
+      const total_com_aval = data_avaliacoes.length - total_sem_avaliacao.length
+      notas_de_avaliacoes.push(uma_estrela.length, duas_estrela.length, tres_estrela.length,quatro_estrela.length,cinco_estrela.length)
+      console.log(notas_de_avaliacoes)
+      document.getElementById("avaliacoes_total").innerHTML = "Avaliados: " + total_com_aval
+      return {notas_de_avaliacoes};
+    }
+    async function get_avaliacoes_chart() {
+      const data_avaliacoes = await get_avaliacoes();
+      const ctx = document.getElementById('chart_avaliacoes_canvas').getContext('2d');
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["1", "2","3","4","5"],
+          datasets: [{
+            //grouped: true,
+            label: ['Trabalhadores' || 'Equipas'],
+            data: data_avaliacoes.notas_de_avaliacoes,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+          }]
+        },
+        options: {
+          legend:false,
+          scales: {
+            yAxes: [{
+              ticks:{
+                beginAtZero: true,
+              }
+            }]
+          }
+        }
+      });
+    }
+    get_avaliacoes_chart();
+  </script>
+  <script>
+    async function get_avaliacoes2(){
+      const avaliacoes = await fetch('/auth/marcacoesGETAll/')
+      const data_avaliacoes = await avaliacoes.json()
+      const total_sem_avaliacao = []
+      for (let i=0; i<data_avaliacoes.length;i++){
+        if (data_avaliacoes[i].aval_client ==="Sem Avaliação do Cliente"){
+          total_sem_avaliacao.push(data_avaliacoes[i])
+        }
+      }
+      const total_com_aval = data_avaliacoes.length - total_sem_avaliacao.length
+      const total_sem_aval = total_sem_avaliacao.length
+      document.getElementById("total_aval").innerHTML = "Total de marcações: " + data_avaliacoes.length
+      return {total_sem_aval, total_com_aval};
+    }
+    async function get_avaliacoes_chart2() {
+      const data_avaliacoes2 = await get_avaliacoes2();
+      console.log(data_avaliacoes2)
+      const ctx = document.getElementById('chart_avaliacoes2_canvas').getContext('2d');
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["Terminados", "Em progresso"],
+          datasets: [{
+            label: ['Avaliações'],
+            data: [data_avaliacoes2.total_com_aval,data_avaliacoes2.total_sem_aval],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+          }]
+        },
+        options: {
+          legend:false,
+          scales: {
+            yAxes: [{
+              ticks:{
+                beginAtZero: true,
+              }
+            }]
+          }
+        }
+      });
+    }
+    get_avaliacoes_chart2();
+  </script>
 </body>
 
 </html>

@@ -222,22 +222,29 @@
 
       <!-- Tabela Clientes -->
       <div class="content">
-        
-        <div class="input-group">
-          <div class="form-outline">
-            <input type="search" id="form1" class="form-control" />
-            <label class="form-label" for="form1">Search</label>
-          </div>
-          <button type="button" class="btn  btn-primary-smol">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
+
         
 
 
 
         <div class="table-responsive">
           <h2>Clientes</h2>
+          <!-- Gráfico -->
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Clientes</h5>
+                <h3 class="card-title"><i id="clientes_total" ></i></h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chart_clientes_canvas"  height="0"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END GRAFICO -->
           <table class="table tablesorter " id="tabelaClientesAdmin">
             <thead class=" text-primary">
               <tr>
@@ -257,22 +264,6 @@
 
 
 
-      <!-- Gráfico -->
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="card card-chart">
-            <div class="card-header">
-              <h5 class="card-category">Tabela Clientes Com Informação</h5>
-              <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
-            </div>
-            <div class="card-body">
-              <div class="chart-area">
-                <canvas id="chartLinePurple"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       </div>
       <footer class="footer">
@@ -526,7 +517,70 @@
    
 
   </script>
-
+  <script>
+    async function get_clientes(){
+      const clientes_label = []
+      const response = await fetch('/auth/clientsGET/')
+      const data = await response.json()
+      const valores_true = []
+      const valores_false = []
+      for (i=0; i<data.length;i++){
+        if(data[i].hasAdmin === true){
+          valores_true.push(data[i])
+        }
+      }
+      for (i=0; i<data.length;i++){
+        if(data[i].hasAdmin === false){
+          valores_false.push(data[i])
+        }
+      }
+      clientes_label.push(valores_true.length,valores_false.length)
+      document.getElementById("clientes_total").innerHTML = "Total de clientes: " + data.length
+      return {clientes_label};
+    }
+    async function get_clientes_chart() {
+      const data = await get_clientes();
+      const ctx = document.getElementById('chart_clientes_canvas').getContext('2d');
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["Clientes com manager", "Clientes sem manager"],
+          datasets: [{
+            label: 'Clientes',
+            data: data.clientes_label,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              //'rgba(255, 206, 86, 0.2)',
+              //'rgba(75, 192, 192, 0.2)',
+              //'rgba(153, 102, 255, 0.2)',
+              //'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              //'rgba(255, 206, 86, 1)',
+              //'rgba(75, 192, 192, 1)',
+              //'rgba(153, 102, 255, 1)',
+              //'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+          }]
+        },
+        options: {
+          legend:false,
+          scales: {
+            yAxes: [{
+              ticks:{
+                beginAtZero: true,
+              }
+            }]
+          }
+        }
+      });
+    }
+    get_clientes_chart();
+  </script>
 </body>
 
 </html>

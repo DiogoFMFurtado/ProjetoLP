@@ -242,26 +242,22 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-5 pr-md-1">
-                <div class="input-group">
-                  <div class="form-outline">
-                    <input type="search" id="form1" class="form-control" />
-                    <label class="form-label" for="form1">Search</label>
-                  </div>
-                  <button type="button" class="btn  btn-primary-smol">
-                    <i class="fas fa-search"></i>
-                  </button>
+
+        <div class="table-responsive">
+          <h2>Equipas de Trabalhadores</h2>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Trabalhadores</h5>
+                <h3 class="card-title"><i id="trabalhadores_total" ></i></h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chart_trabalhadores_canvas" height="0"></canvas>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="table-responsive">
-          <h2>Equipas de Trabalhadores</h2>
           <table class="table tablesorter " id="tabelaEquipas">
             <thead class=" text-primary">
               <tr>
@@ -277,21 +273,7 @@
           </table>
         </div>
 
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Tabela Trabalhadores Com Informação</h5>
-                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartLinePurple"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
 
 
 
@@ -568,7 +550,70 @@
 
   </script>
 
-
+  <script>
+    async function get_trabalhadores(){
+      const trabalhadores = await fetch('/auth/workersGET/')
+      const data_trabalhadores = await trabalhadores.json()
+      const valores_solo = []
+      for (i=0; i<data_trabalhadores.length;i++){
+        if(data_trabalhadores[i].pequipa === "Não"){
+          valores_solo.push(data_trabalhadores[i])
+        }
+      }
+      document.getElementById("trabalhadores_total").innerHTML = "Total de trabalhadores: " + data_trabalhadores.length
+      const trabalhadores_size = valores_solo.length
+      return {trabalhadores_size};
+    }
+    async function get_equipas(){
+      const equipas = await fetch('/auth/equipasGET/')
+      const data_equipas = await equipas.json()
+      const equipas_size = data_equipas.length
+      return {equipas_size};
+    }
+    async function get_trabalhadores_chart() {
+      const data_equipas = await get_equipas();
+      const data_trabalhador = await get_trabalhadores();
+      const ctx = document.getElementById('chart_trabalhadores_canvas').getContext('2d');
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["Trabalhadores soltos", "Equipas"],
+          datasets: [{
+            label: ['Trabalhadores' || 'Equipas'],
+            data: [data_trabalhador.trabalhadores_size,data_equipas.equipas_size],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              //'rgba(255, 206, 86, 0.2)',
+              //'rgba(75, 192, 192, 0.2)',
+              //'rgba(153, 102, 255, 0.2)',
+              //'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              //'rgba(255, 206, 86, 1)',
+              //'rgba(75, 192, 192, 1)',
+              //'rgba(153, 102, 255, 1)',
+              //'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+          }]
+        },
+        options: {
+          legend:false,
+          scales: {
+            yAxes: [{
+              ticks:{
+                beginAtZero: true,
+              }
+            }]
+          }
+        }
+      });
+    }
+    get_trabalhadores_chart();
+  </script>
 
 </body>
 
