@@ -124,9 +124,8 @@ exports.delEquipa = async(req,res) => {
     
     try{
 
-        
+        await Marcacao.updateMany({team: req.params._id}, {equipa: "Não"});
         await Marcacao.updateMany({team: req.params._id}, {team: null});
-        console.log("2");
         
 
         const staff1 = await Trab.findByIdAndUpdate(req.params.trab1, {equipa: null}, {useFindAndModify: false});

@@ -161,6 +161,12 @@ exports.atribTeam = async(req,res) => {
         await proj.save();
         equipa.marcsEquipa.push(proj);
         await equipa.save();
+
+        const equipaTrue = await Marcacao.findByIdAndUpdate(req.params._id2, {equipa: "Sim"}, {useFindAndModify: false});
+        equipaTrue.save();
+        
+
+
         res.status(201).json()
         
 
