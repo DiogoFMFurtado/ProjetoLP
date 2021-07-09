@@ -134,27 +134,30 @@ exports.deleteMarc = async (req,res) => {
     console.log("Deleting Project..");
     console.log(req.params._id);
     console.log(req.params.equipa);
+    console.log(req.params.clientId);
+    
 
     try{
-        console.log("1");
-        Equipas.findById(req.params.equipa).populate('marcsEquipa').exec(async function (err, equipa) {
-            
-            if(err) {
-                console.log("Something went wrong!");
-                res.json(err);
-            }else{
-                await Marcacao.deleteOne({
-                    _id: {
-                        $in: equipa.marcsEquipa
-                    }
-                });
-                console.log('marcsEquipa', equipa.marcsEquipa);
-                //const deletedProj = await Marcacao.deleteOne({_id: req.params._id});
-                res.status(200).json();
+        
+        // Remove a marcação do array da Equipa
+        const removeProj = await Equipas.findByIdAndUpdate(req.params.equipa,
+            { $pull: {
+                marcsEquipa: req.params._id }
+            });
+        await removeProj.save();
 
-                console.log("Project Deleted");
-            }
-        });
+        // Remove a marcação do array do User
+        const delProj = await User.findByIdAndUpdate(req.params.clientId,
+            { $pull: {
+                marcacaoCliente: req.params._id
+            }});
+        await delProj.save();
+        
+
+        await Marcacao.deleteOne({_id: req.params._id});
+        res.status(200).json();
+            
+        console.log("1");
 
     }catch(err) {
         res.status(400).json({message: err});
