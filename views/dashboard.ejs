@@ -33,10 +33,220 @@
   <link href="/assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/assets/demo/demo.css" rel="stylesheet" />
-
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"></script>
 </head>
 
 <body class="">
+<!-- MEU CODIOGO DE GRAFICOS -->
+<!-- MEU CODIOGO DE GRAFICOS -->
+<!-- MEU CODIOGO DE GRAFICOS -->
+<!-- MEU CODIOGO DE GRAFICOS -->
+<!-- MEU CODIOGO DE GRAFICOS -->
+<!--<canvas id="chart_clientes_canvas" width="400" height="400"></canvas>-->
+<!-- GRAICO DOS CLIENTES -->
+<script>
+  async function get_clientes(){
+    const clientes_label = []
+    const response = await fetch('/auth/clientsGET/')
+    const data = await response.json()
+    const valores_true = []
+    const valores_false = []
+    for (i=0; i<data.length;i++){
+      if(data[i].hasAdmin === true){
+        valores_true.push(data[i])
+      }
+    }
+    for (i=0; i<data.length;i++){
+      if(data[i].hasAdmin === false){
+        valores_false.push(data[i])
+      }
+    }
+    clientes_label.push(valores_true.length,valores_false.length,0)
+    document.getElementById("clientes_total").innerHTML = "Total de clientes: " + data.length
+    return {clientes_label};
+  }
+  async function get_clientes_chart() {
+    const data = await get_clientes();
+    const ctx = document.getElementById('chart_clientes_canvas').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ["Clientes com manager", "Clientes sem manager"],
+        datasets: [{
+          label: 'Clientes',
+          data: data.clientes_label,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            //'rgba(255, 206, 86, 0.2)',
+            //'rgba(75, 192, 192, 0.2)',
+            //'rgba(153, 102, 255, 0.2)',
+            //'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            //'rgba(255, 206, 86, 1)',
+            //'rgba(75, 192, 192, 1)',
+            //'rgba(153, 102, 255, 1)',
+            //'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1,
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+  get_clientes_chart();
+</script>
+<!-- GRAICO DOS TRABALHADORES -->
+<!--<canvas id="chart_trabalhadores_canvas" width="400" height="400"></canvas>-->
+<script>
+  async function get_trabalhadores(){
+    const trabalhadores = await fetch('/auth/workersGET/')
+    const data_trabalhadores = await trabalhadores.json()
+    const valores_solo = []
+    for (i=0; i<data_trabalhadores.length;i++){
+      if(data_trabalhadores[i].pequipa === "Não"){
+        valores_solo.push(data_trabalhadores[i])
+      }
+    }
+    document.getElementById("trabalhadores_total").innerHTML = "Total de trabalhadores: " + data_trabalhadores.length
+    const trabalhadores_size = valores_solo.length
+    return {trabalhadores_size};
+  }
+  async function get_equipas(){
+    const equipas = await fetch('/auth/equipasGET/')
+    const data_equipas = await equipas.json()
+    const equipas_size = data_equipas.length
+    return {equipas_size};
+  }
+  async function get_trabalhadores_chart() {
+    const data_equipas = await get_equipas();
+    const data_trabalhador = await get_trabalhadores();
+    const ctx = document.getElementById('chart_trabalhadores_canvas').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ["Trabalhadores soltos", "Equipas"],
+        datasets: [{
+          label: ['Trabalhadores' || 'Equipas'],
+          data: [data_trabalhador.trabalhadores_size,data_equipas.equipas_size,0],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            //'rgba(255, 206, 86, 0.2)',
+            //'rgba(75, 192, 192, 0.2)',
+            //'rgba(153, 102, 255, 0.2)',
+            //'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            //'rgba(255, 206, 86, 1)',
+            //'rgba(75, 192, 192, 1)',
+            //'rgba(153, 102, 255, 1)',
+            //'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1,
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+  get_trabalhadores_chart();
+</script>
+<!--<canvas id="chart_avaliacoes_canvas" width="400" height="400"></canvas>-->
+<script>
+  async function get_avaliacoes(){
+    const notas_de_avaliacoes = []
+    const avaliacoes = await fetch('/auth/marcacoesGETAll/')
+    const data_avaliacoes = await avaliacoes.json()
+    const uma_estrela = []
+    const duas_estrela = []
+    const tres_estrela = []
+    const quatro_estrela = []
+    const cinco_estrela = []
+    const total_sem_avaliacao = []
+    for (let i=0; i<data_avaliacoes.length;i++){
+      if (data_avaliacoes[i].aval_client ==="Sem Avaliação do Cliente"){
+        total_sem_avaliacao.push(data_avaliacoes[i])
+      }
+    }
+    for (let i=0; i<data_avaliacoes.length;i++){
+      if(data_avaliacoes[i].aval_client === "1"){
+        uma_estrela.push(data_avaliacoes[i])
+      }else if(data_avaliacoes[i].aval_client === "2"){
+        duas_estrela.push(data_avaliacoes[i])
+      }else if(data_avaliacoes[i].aval_client === "3"){
+        tres_estrela.push(data_avaliacoes[i])
+      }else if(data_avaliacoes[i].aval_client === "4"){
+        quatro_estrela.push(data_avaliacoes[i])
+      }else if(data_avaliacoes[i].aval_client === "5"){
+        cinco_estrela.push(data_avaliacoes[i])
+      }
+    }
+    const total_com_aval = data_avaliacoes.length - total_sem_avaliacao.length
+    notas_de_avaliacoes.push(uma_estrela.length, duas_estrela.length, tres_estrela.length,quatro_estrela.length,cinco_estrela.length)
+    console.log(notas_de_avaliacoes)
+    document.getElementById("avaliacoes_total").innerHTML = "Total de avaliações: " + total_com_aval +" | "+"Por avaliar: " + total_sem_avaliacao.length
+    return {notas_de_avaliacoes};
+  }
+ async function get_avaliacoes_chart() {
+   const data_avaliacoes = await get_avaliacoes();
+   const ctx = document.getElementById('chart_avaliacoes_canvas').getContext('2d');
+   const myChart = new Chart(ctx, {
+     type: 'bar',
+     data: {
+       labels: ["1", "2","3","4","5"],
+       datasets: [{
+         //grouped: true,
+         label: ['Trabalhadores' || 'Equipas'],
+         data: data_avaliacoes.notas_de_avaliacoes,
+         backgroundColor: [
+           'rgba(255, 99, 132, 0.2)',
+           'rgba(54, 162, 235, 0.2)',
+           'rgba(255, 206, 86, 0.2)',
+           'rgba(75, 192, 192, 0.2)',
+           'rgba(153, 102, 255, 0.2)',
+           'rgba(255, 159, 64, 0.2)'
+         ],
+         borderColor: [
+           'rgba(255, 99, 132, 1)',
+           'rgba(54, 162, 235, 1)',
+           'rgba(255, 206, 86, 1)',
+           'rgba(75, 192, 192, 1)',
+           'rgba(153, 102, 255, 1)',
+           'rgba(255, 159, 64, 1)'
+         ],
+         borderWidth: 1,
+       }]
+     },
+     options: {
+       scales: {
+         y: {
+           beginAtZero: true
+         }
+       }
+     }
+   });
+ }
+ get_avaliacoes_chart();
+</script>
+
   <div class="wrapper">
     <div class="sidebar">
       <!--
@@ -242,44 +452,41 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="row">
-          <div class="col-12">
+          <div class="col-lg-4">
             <div class="card card-chart">
-              <div class="card-header ">
-                <div class="row">
-                  <div class="col-sm-6 text-left">
-                    <h5 class="card-category">Total Shipments</h5>
-                    <h2 class="card-title">Performance</h2>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                      <label class="btn btn-sm btn-primary btn-simple active" id="0">
-                        <input type="radio" name="options" checked>
-                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Accounts</span>
-                        <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-single-02"></i>
-                        </span>
-                      </label>
-                      <label class="btn btn-sm btn-primary btn-simple" id="1">
-                        <input type="radio" class="d-none d-sm-none" name="options">
-                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Purchases</span>
-                        <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-gift-2"></i>
-                        </span>
-                      </label>
-                      <label class="btn btn-sm btn-primary btn-simple" id="2">
-                        <input type="radio" class="d-none" name="options">
-                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Sessions</span>
-                        <span class="d-block d-sm-none">
-                          <i class="tim-icons icon-tap-02"></i>
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
+              <div class="card-header">
+                <h5 class="card-category">Avaliações</h5>
+                <h3 class="card-title"><i id="avaliacoes_total" ></i></h3>
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="chartBig1"></canvas>
+                  <canvas id="chart_avaliacoes_canvas" height="0"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Trabalhadores</h5>
+                <h3 class="card-title"><i id="trabalhadores_total" ></i></h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chart_trabalhadores_canvas" height="0"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Clientes</h5>
+                <h3 class="card-title"><i id="clientes_total" ></i></h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chart_clientes_canvas"  height="0"></canvas>
                 </div>
               </div>
             </div>
@@ -290,11 +497,11 @@
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Total Shipments</h5>
-                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+                <h3 class="card-title"><i id="avaliacoes_total" ></i></h3>
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="chartLinePurple"></canvas>
+                  <canvas id="chart_avaliacoes_canvas" height="0"></canvas>
                 </div>
               </div>
             </div>
@@ -303,11 +510,11 @@
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Daily Sales</h5>
-                <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 3,500€</h3>
+                <h3 class="card-title"><i id="trabalhadores_total" ></i></h3>
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="CountryChart"></canvas>
+                  <canvas id="chart_trabalhadores_canvas" height="0"></canvas>
                 </div>
               </div>
             </div>
@@ -315,18 +522,18 @@
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Completed Tasks</h5>
-                <h3 class="card-title"><i class="tim-icons icon-send text-success"></i> 12,100K</h3>
+                <h5 class="card-category">Grafico dos clientes</h5>
+                <h3 class="card-title"><i id="clientes_total" ></i></h3>
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="chartLineGreen"></canvas>
+                  <canvas id="chart_clientes_canvas"  height="0"></canvas>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
           <div class="col-lg-6 col-md-12">
             <div class="card card-tasks">
               <div class="card-header ">
@@ -608,7 +815,21 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
       <footer class="footer">
         <div class="container-fluid">
