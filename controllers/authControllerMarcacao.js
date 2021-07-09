@@ -119,6 +119,7 @@ exports.giveDescrip = async (req,res) => {
     console.log(req.params.marcacaoId);
     try {
         const description = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
+        description.save();
         console.log(req.body);
         res.status(200).json(description);
     } catch (err) {
