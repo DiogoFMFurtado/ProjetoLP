@@ -524,6 +524,9 @@
                         <div class="form-group">
                           <label>Equipa</label>
                           <p>${data.name}</p>
+                          <select id="slidemenu">
+                            <option selected="selected" hidden>Selecione a Equipa</option>
+                          </select>
                           <button type="button" id="ModalBtn" class="btn btn-primary">Adicionar</button>
                         </div>
                       </div>
@@ -644,6 +647,29 @@
 
 
   </script>
+
+<script>
+
+  $.ajax({
+  method:'GET',
+  url:'/auth/equipasGET/',
+  dataType: 'json',
+  success:function(equipa){
+      thisArray = equipa
+      slider(thisArray);
+      console.log(thisArray)      
+  }
+})
+
+function slider(equipa){
+  let slide = document.getElementById('slidemenu')
+  for(let i = 0; i < equipa.length; i++){
+    let row = `<option value="${equipa[i]._id}">${equipa[i].teamName}</option>`
+    slide.innerHTML += row
+  }
+}
+
+</script>
 </body>
 
 </html>
