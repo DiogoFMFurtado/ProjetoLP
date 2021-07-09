@@ -10,7 +10,6 @@ const MarcacaoSchema = new mongoose.Schema({
     type: { type: String, required: true},
     address: {type: String, required: true},
     state: {type: String, default: 'Pendente'},
-    // equipa: { type: Schema.Types.ObjectId, ref: 'Equipa' },
     equipa: {
         type: String,
         default: 'Não'
