@@ -10,6 +10,7 @@ const JWT_RESET_KEY = "jwtreset987";
 const Marcacao = require('../models/Marcacao');
 const User = require('../models/User');
 const Equipas = require('../models/Equipas');
+const Trab = require('../models/Trab');
 
 
 exports.registerMarcHandle = async (req, res) => {
@@ -133,18 +134,10 @@ exports.deleteMarc = async (req,res) => {
 
     console.log("Deleting Project..");
     console.log(req.params._id);
-    console.log(req.params.equipa);
     console.log(req.params.clientId);
     
 
     try{
-        
-        // Remove a marcação do array da Equipa
-        const removeProj = await Equipas.findByIdAndUpdate(req.params.equipa,
-            { $pull: {
-                marcsEquipa: req.params._id }
-            });
-        await removeProj.save();
 
         // Remove a marcação do array do User
         const delProj = await User.findByIdAndUpdate(req.params.clientId,
@@ -176,16 +169,27 @@ exports.atribTeam = async(req,res) => {
         const equipa = await Equipas.findById(req.params._id1);
         const proj = await Marcacao.findById(req.params._id2);
 
+        //Associação Equipa a Projeto
         proj.team = equipa;
         await proj.save();
         equipa.marcsEquipa.push(proj);
         await equipa.save();
 
+        // Associação Projeto a cada Trabalhador
+        const worker1 = await Trab.findOne({_id: equipa.trab1});
+        worker1.marcTrab.push(proj);
+        await worker1.save();
+        const worker2 = await Trab.findOne({_id: equipa.trab2});
+        worker2.marcTrab.push(proj);
+        await worker2.save();
+        const worker3 = await Trab.findOne({_id: equipa.trab3});
+        worker3.marcTrab.push(proj);
+        await worker3.save();
+
+
         const equipaTrue = await Marcacao.findByIdAndUpdate(req.params._id2, {equipa: "Sim"}, {useFindAndModify: false});
         equipaTrue.save();
         
-
-
         res.status(201).json()
         
 
