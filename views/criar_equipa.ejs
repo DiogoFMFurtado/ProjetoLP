@@ -18,6 +18,7 @@
   <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body class="">
@@ -234,7 +235,7 @@
             </tbody>
           </table>
         </div>
-        <form target="_blank" action="/auth/equipa" method="POST" class="formEquipa">
+        <form  action="/auth/equipa" method="POST" class="formEquipa" id="criar_equipa_form" >
           <div>Nome da Equipa</div>
           <input type="name" id="teamName" name="teamName" class="form-control"
           value="<%= typeof teamName != 'undefined' ? teamName : '' %>" placeholder="Nome:" >
@@ -249,11 +250,26 @@
             <select class= "opcao_certa" id="slidemenu3" name="trab3">
               <option class="option3" selected="selected" hidden>Terceiro Trabalhador</option>
             </select>
-            <button onclick="window.location.href = './criar_equipa';" type="submit" class="btn btn-primary">Criar Equipa</button>
-            <div id="mensagem"><%- include ("./messages") %></div>
+            <button type="submit" class="btn btn-primary">Criar Equipa</button>
+
           </div>
         </form>
       </div>
+      <script>
+        $("#criar_equipa_form").submit(function(e) {
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+          var form = $(this);
+          $.ajax({
+            type: "POST",
+            url: '/auth/equipa',
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+              window.location.href = "./criar_equipa";
+            }
+          });
+        });
+      </script>
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
