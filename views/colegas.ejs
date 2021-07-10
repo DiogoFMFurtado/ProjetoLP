@@ -18,6 +18,8 @@
   <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body class="">
@@ -230,7 +232,7 @@
               </div>
 
               <div class="card-body">
-                <form target="_blank" action="/auth/registeradmin" method="POST">
+                <form action="/auth/registeradmin" method="POST" id="registar_um_novo_admin_">
                   <%- include ("./messages") %>
                   <div class="row">
                     <div class="col-md-5 pr-md-1">
@@ -269,20 +271,29 @@
                     </div>
                   </div>
                   <div class="card-footer">
-                    <button onclick="window.location.href = './colegas';" type="submit" class="btn btn-fill btn-primary" >Adicionar Admnistrador</button>
+                    <button type="submit" class="btn btn-fill btn-primary" >Adicionar Admnistrador</button>
                   </div>
                 </form>
               </div>
-
-
-              
-
-
             </div>
           </div>
         </div>
       </div>
-
+      <script>
+        $("#registar_um_novo_admin_").submit(function(e) {
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+          var form = $(this);
+          $.ajax({
+            type: "POST",
+            url: '/auth/registertrab',
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+              window.location.href = "./colegas";
+            }
+          });
+        });
+      </script>
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
