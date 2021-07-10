@@ -1,6 +1,7 @@
 const { compareSync } = require('bcryptjs');
 const Equipas = require('../models/Equipas');
 const Trab = require('../models/Trab');
+const Marcacao = require('../models/Marcacao');
 
 exports.registerEquipaHandle = async (req, res) => {
     const { teamName, trab1, trab2, trab3 } = req.body;
@@ -123,13 +124,17 @@ exports.delEquipa = async(req,res) => {
     
     try{
 
+        await Marcacao.updateMany({team: req.params._id}, {equipa: "Não"});
+        await Marcacao.updateMany({team: req.params._id}, {team: null});
+        
+
         const staff1 = await Trab.findByIdAndUpdate(req.params.trab1, {equipa: null}, {useFindAndModify: false});
         await staff1.save();
         const staff2 = await Trab.findByIdAndUpdate(req.params.trab2, {equipa: null}, {useFindAndModify: false});
         await staff2.save();
         const staff3 = await Trab.findByIdAndUpdate(req.params.trab3, {equipa: null}, {useFindAndModify: false});
         await staff3.save();
-        
+
         const deletedTeam = await Equipas.deleteOne({_id: req.params._id});
         
         const trabalhador1 = await Trab.findByIdAndUpdate(req.params.trab1, {pequipa: "Não"}, {useFindAndModify: false});

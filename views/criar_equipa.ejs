@@ -234,9 +234,9 @@
             </tbody>
           </table>
         </div>
-        <form action="/auth/equipa" method="POST" class="formEquipa">
+        <form target="_blank" action="/auth/equipa" method="POST" class="formEquipa">
           <div>Nome da Equipa</div>
-          <input type="name" id="teamName" name="teamName" class="form-control" 
+          <input type="name" id="teamName" name="teamName" class="form-control"
           value="<%= typeof teamName != 'undefined' ? teamName : '' %>" placeholder="Nome:" >
           <div>Selecionar Trabalhadores</div>
           <div id= "selecttrab">
@@ -249,7 +249,7 @@
             <select class= "opcao_certa" id="slidemenu3" name="trab3">
               <option class="option3" selected="selected" hidden>Terceiro Trabalhador</option>
             </select>
-            <button onclick="javascript: form.action='/auth/equipa'" type="submit" class="btn btn-primary">Criar Equipa</button>
+            <button onclick="window.location.href = './criar_equipa';" type="submit" class="btn btn-primary">Criar Equipa</button>
             <div id="mensagem"><%- include ("./messages") %></div>
           </div>
         </form>

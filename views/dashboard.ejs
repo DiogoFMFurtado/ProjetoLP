@@ -62,7 +62,7 @@
         valores_false.push(data[i])
       }
     }
-    clientes_label.push(valores_true.length,valores_false.length,0)
+    clientes_label.push(valores_true.length,valores_false.length)
     document.getElementById("clientes_total").innerHTML = "Total de clientes: " + data.length
     return {clientes_label};
   }
@@ -96,10 +96,13 @@
         }]
       },
       options: {
+        legend:false,
         scales: {
-          y: {
-            beginAtZero: true
-          }
+          yAxes: [{
+            ticks:{
+              beginAtZero: true,
+            }
+          }]
         }
       }
     });
@@ -138,7 +141,7 @@
         labels: ["Trabalhadores soltos", "Equipas"],
         datasets: [{
           label: ['Trabalhadores' || 'Equipas'],
-          data: [data_trabalhador.trabalhadores_size,data_equipas.equipas_size,0],
+          data: [data_trabalhador.trabalhadores_size,data_equipas.equipas_size],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -159,10 +162,13 @@
         }]
       },
       options: {
+        legend:false,
         scales: {
-          y: {
-            beginAtZero: true
-          }
+          yAxes: [{
+            ticks:{
+              beginAtZero: true,
+            }
+          }]
         }
       }
     });
@@ -201,8 +207,8 @@
     }
     const total_com_aval = data_avaliacoes.length - total_sem_avaliacao.length
     notas_de_avaliacoes.push(uma_estrela.length, duas_estrela.length, tres_estrela.length,quatro_estrela.length,cinco_estrela.length)
-    console.log(notas_de_avaliacoes)
-    document.getElementById("avaliacoes_total").innerHTML = "Total de avaliações: " + total_com_aval +" | "+"Por avaliar: " + total_sem_avaliacao.length
+    //console.log(notas_de_avaliacoes)
+    document.getElementById("avaliacoes_total").innerHTML = "Avaliados: " + total_com_aval
     return {notas_de_avaliacoes};
   }
  async function get_avaliacoes_chart() {
@@ -214,7 +220,7 @@
        labels: ["1", "2","3","4","5"],
        datasets: [{
          //grouped: true,
-         label: ['Trabalhadores' || 'Equipas'],
+         label: 'Clientes',
          data: data_avaliacoes.notas_de_avaliacoes,
          backgroundColor: [
            'rgba(255, 99, 132, 0.2)',
@@ -236,17 +242,78 @@
        }]
      },
      options: {
+       legend:false,
        scales: {
-         y: {
-           beginAtZero: true
-         }
+         yAxes: [{
+           ticks:{
+             beginAtZero: true,
+           }
+         }]
        }
      }
    });
  }
  get_avaliacoes_chart();
 </script>
-
+  <script>
+    async function get_avaliacoes2(){
+      const avaliacoes = await fetch('/auth/marcacoesGETAll/')
+      const data_avaliacoes = await avaliacoes.json()
+      const total_sem_avaliacao = []
+      for (let i=0; i<data_avaliacoes.length;i++){
+        if (data_avaliacoes[i].aval_client ==="Sem Avaliação do Cliente"){
+          total_sem_avaliacao.push(data_avaliacoes[i])
+        }
+      }
+      const total_com_aval = data_avaliacoes.length - total_sem_avaliacao.length
+      const total_sem_aval = total_sem_avaliacao.length
+      document.getElementById("total_aval").innerHTML = "Total de marcações: " + data_avaliacoes.length
+      return {total_sem_aval, total_com_aval};
+    }
+    async function get_avaliacoes_chart2() {
+      const data_avaliacoes2 = await get_avaliacoes2();
+      console.log(data_avaliacoes2)
+      const ctx = document.getElementById('chart_avaliacoes2_canvas').getContext('2d');
+      const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["Terminados", "Em progresso"],
+          datasets: [{
+            label: ['Avaliações'],
+            data: [data_avaliacoes2.total_com_aval,data_avaliacoes2.total_sem_aval],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+          }]
+        },
+        options: {
+          legend:false,
+          scales: {
+            yAxes: [{
+              ticks:{
+                beginAtZero: true,
+              }
+            }]
+          }
+        }
+      });
+    }
+    get_avaliacoes_chart2();
+  </script>
   <div class="wrapper">
     <div class="sidebar">
       <!--
@@ -496,12 +563,12 @@
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Total Shipments</h5>
-                <h3 class="card-title"><i id="avaliacoes_total" ></i></h3>
+                <h5 class="card-category">Avaliações</h5>
+                <h3 class="card-title"><i id="total_aval" ></i></h3>
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="chart_avaliacoes_canvas" height="0"></canvas>
+                  <canvas id="chart_avaliacoes2_canvas" height="0"></canvas>
                 </div>
               </div>
             </div>

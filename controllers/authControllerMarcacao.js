@@ -133,12 +133,31 @@ exports.deleteMarc = async (req,res) => {
 
     console.log("Deleting Project..");
     console.log(req.params._id);
+    console.log(req.params.equipa);
+    console.log(req.params.clientId);
+    
+
     try{
         
-        const deletedProj = await Marcacao.deleteOne({_id: req.params._id});
-        console.log(req.body);
-        res.status(200).json(deletedProj);
-        console.log("Project Deleted");
+        // Remove a marcação do array da Equipa
+        const removeProj = await Equipas.findByIdAndUpdate(req.params.equipa,
+            { $pull: {
+                marcsEquipa: req.params._id }
+            });
+        await removeProj.save();
+
+        // Remove a marcação do array do User
+        const delProj = await User.findByIdAndUpdate(req.params.clientId,
+            { $pull: {
+                marcacaoCliente: req.params._id
+            }});
+        await delProj.save();
+        
+
+        await Marcacao.deleteOne({_id: req.params._id});
+        res.status(200).json();
+            
+        console.log("1");
 
     }catch(err) {
         res.status(400).json({message: err});
@@ -161,6 +180,12 @@ exports.atribTeam = async(req,res) => {
         await proj.save();
         equipa.marcsEquipa.push(proj);
         await equipa.save();
+
+        const equipaTrue = await Marcacao.findByIdAndUpdate(req.params._id2, {equipa: "Sim"}, {useFindAndModify: false});
+        equipaTrue.save();
+        
+
+
         res.status(201).json()
         
 
