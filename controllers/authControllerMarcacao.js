@@ -133,18 +133,10 @@ exports.deleteMarc = async (req,res) => {
 
     console.log("Deleting Project..");
     console.log(req.params._id);
-    console.log(req.params.equipa);
     console.log(req.params.clientId);
     
 
     try{
-        
-        // Remove a marcação do array da Equipa
-        const removeProj = await Equipas.findByIdAndUpdate(req.params.equipa,
-            { $pull: {
-                marcsEquipa: req.params._id }
-            });
-        await removeProj.save();
 
         // Remove a marcação do array do User
         const delProj = await User.findByIdAndUpdate(req.params.clientId,
