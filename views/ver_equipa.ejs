@@ -626,6 +626,27 @@
             </tr>   
           `
           table.innerHTML += row
+        } else if(marcsEquipa[i].state == "Terminado" && marcsEquipa[i].avaliado_admin == "Não"){
+          let row = 
+          ` 
+            <tr>
+              <td>${marcsEquipa[i]._id}</td>
+              <td>${marcsEquipa[i].cliente}</td>
+              <td>${marcsEquipa[i].address}</td>
+              <td>${marcsEquipa[i].state}</td>
+              <td>${marcsEquipa[i].date}</td>
+              <td>${marcsEquipa[i].hour}</td>
+              <td>${marcsEquipa[i].avaliado_admin}</td>
+              <td>
+                <form>
+                  <div class="projDelete">
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='/auth/projmarc'">Avaliar</button>
+                  </div>
+                </form>
+              </td>
+            </tr>   
+          `
+          table.innerHTML += row
         }
       }
     }
