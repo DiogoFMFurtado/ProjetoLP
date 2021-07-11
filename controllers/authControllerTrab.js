@@ -298,3 +298,15 @@ exports.getTrab = async (req, res) => {
         res.status(400).json({message: err});
     }
 }
+
+exports.getMarcacoesTrab = async(req, res) => {
+    
+    try {
+        const marcacoes = await Trab.findById(req.user).populate('marcTrab');
+        console.log('Marcações do Trabalhador', marcacoes);
+        res.status(200).json(marcacoes.marcTrab);
+    } catch (err) {
+        res.json({message:err});
+    }    
+
+}
