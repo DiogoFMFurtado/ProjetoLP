@@ -501,7 +501,7 @@
   <script>
 
     let teamId = sessionStorage.getItem("teamId");
-    console.log(teamId);
+    //console.log(teamId);
     let newArray = [];
 
     $.ajax({
@@ -511,14 +511,45 @@
       success:function(equipaById){
         newArray = equipaById
         buildCard(newArray);
-        console.log(newArray);
+        //console.log(newArray);
       }
     })
+    async function get_trabalhadores(){
+      const trabalhadores = await fetch('/auth/getTrab/')
+      const data_trabalhadores = await trabalhadores.json()
+      const trab_1 = []
+      const trab_2 = []
+      const trab_3 = []
+      for (let i=0;i<data_trabalhadores.length; i++){
+        if (data_trabalhadores[i]._id === newArray.trab1){
+          trab_1.push(data_trabalhadores[i].name)
+        }else if (data_trabalhadores[i]._id === newArray.trab2){
+          trab_2.push(data_trabalhadores[i].name)
+        }else if (data_trabalhadores[i]._id === newArray.trab3){
+          trab_3.push(data_trabalhadores[i].name)
+        }
+      }
+      if(trab_1.length === 0){
+        trab_1.push("1")
+      }
+      if(trab_2.length === 0){
+        trab_2.push("2")
+      }
+      if(trab_3.length === 0){
+        trab_3.push("3")
+      }
+      const name_1 = trab_1[0]
+      const name_2 = trab_2[0]
+      const name_3 = trab_3[0]
+      //console.log(name_1)
+      //console.log(name_2)
+      //console.log(name_3)
+      return {name_1, name_2, name_3}
+    }
 
-    
-    function buildCard(equipaById){
+    async function buildCard(equipaById){
+      const data_trabalhadores = await get_trabalhadores();
       let card = document.getElementById('membros');
-
       let stuff = 
       ` 
               <div class="card-header ">
@@ -527,15 +558,15 @@
 
               <div class="card-body ">
                 <div>
-                  <h6>Nome do Trabalhador:</h6>
+                  <h6>Nome do Trabalhador: ${data_trabalhadores.name_1}</h6>
                   <p>ID: ${equipaById.trab2}</p>
                 </div>
                 <div>
-                  <h6>Nome do Trabalhador:</h6>
+                  <h6>Nome do Trabalhador: ${data_trabalhadores.name_2}</h6>
                   <p>ID: ${equipaById.trab2}</p>
                 </div>
                 <div>
-                  <h6>Nome do Trabalhador:</h6>
+                  <h6>Nome do Trabalhador: ${data_trabalhadores.name_3}</h6>
                   <p>ID: ${equipaById.trab2}</p>
                 </div>
               </div>
@@ -565,7 +596,7 @@
         url: action + teamId,
         dataType: 'json',
         success: function(data) {
-          console.log(data);
+          //console.log(data);
           $('.card-footer').replaceWith('<h4 style="text-indent :2em;">Apagado!</h4>');
         }
       })
@@ -579,11 +610,27 @@
       success:function(marcsEquipa){
         newArray2 = marcsEquipa
         buildTable(newArray2);
-        console.log(newArray2);
+        //console.log(newArray2);
       }
     });
-
-    function buildTable(marcsEquipa){
+    async function get_clientes(){
+      const clientes = await fetch('/auth/clientsGET/')
+      const data_clientes = await clientes.json()
+      //console.log(data_clientes)
+      const nome_do_cliente = []
+      for (let i=0;i<newArray2.length; i++){
+        for (let a=0;a<data_clientes.length; a++){
+          if (data_clientes[a]._id === newArray2[i].cliente){
+              nome_do_cliente.push(data_clientes[a].name)
+            }
+        }
+      }
+      //console.log(newArray2[0].cliente)
+      console.log(nome_do_cliente)
+      return {nome_do_cliente}
+    }
+    async function buildTable(marcsEquipa){
+      const data_clientes = await get_clientes();
       let table = document.getElementById('marcacoesEquipa');
 
       for(let i = 0; i < marcsEquipa.length; i++){
@@ -594,7 +641,7 @@
           ` 
             <tr>
               <td>${marcsEquipa[i]._id}</td>
-              <td>${marcsEquipa[i].cliente}</td>
+              <td>${data_clientes.nome_do_cliente[i]}</td>
               <td>${marcsEquipa[i].address}</td>
               <td>${marcsEquipa[i].state}</td>
               <td>${marcsEquipa[i].date}</td>
@@ -608,7 +655,7 @@
           ` 
             <tr>
               <td>${marcsEquipa[i]._id}</td>
-              <td>${marcsEquipa[i].cliente}</td>
+              <td>${data_clientes.nome_do_cliente[i]}</td>
               <td>${marcsEquipa[i].address}</td>
               <td>${marcsEquipa[i].state}</td>
               <td>${marcsEquipa[i].date}</td>
@@ -631,7 +678,7 @@
           ` 
             <tr>
               <td>${marcsEquipa[i]._id}</td>
-              <td>${marcsEquipa[i].cliente}</td>
+              <td>${data_clientes.nome_do_cliente[i]}</td>
               <td>${marcsEquipa[i].address}</td>
               <td>${marcsEquipa[i].state}</td>
               <td>${marcsEquipa[i].date}</td>
@@ -669,7 +716,7 @@
         url: action,
         dataType: 'json',
         success: function(data) {
-          console.log(data);
+          //console.log(data);
           $form.replaceWith('<p>Apagado!</p>');
         }
       })
