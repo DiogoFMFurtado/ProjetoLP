@@ -72,8 +72,7 @@ router.put('/teamAttr/:_id2', authControllerMarcacao.atribTeam);
 
 
 
-router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
-router.get('/getTrab', authControllerTrab.getTrab);
+
 
 // Workers Admin Page
 
@@ -147,6 +146,7 @@ router.put('/avaliacaoPUT/:_id', authControllerMarcacao.clientAval);
 router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
 router.get('/getUserFeedback/:_id', authControllerFeedback.getFeedBacksById);
 router.delete('/apagarfeedback/:_id', authControllerFeedback.deleteFeedback);
+router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
 
 
 //Equipa
@@ -155,6 +155,11 @@ router.get('/equipasGET', authControllerEquipa.getEquipas);
 router.get('/equipaGET/:_id', authControllerEquipa.getEquipaById);
 router.delete('/deleteTeam/:trab1/:trab2/:trab3/:_id', authControllerEquipa.delEquipa);
 router.get('/marcEquipaGET/:teamId', authControllerEquipa.getMarcEquipa);
+
+
+// Trab
+router.get('/getTrab', authControllerTrab.getTrab);
+router.get('/marcsTrabGET/:_id', authControllerTrab.getMarcacoesTrab);
 
 
 
