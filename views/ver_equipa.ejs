@@ -479,21 +479,8 @@
 
       let row = 
       ` 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-5 pr-md-1" id="eqDel">
-                <form action="/auth/deleteTeam/${equipaById.trab1}/${equipaById.trab2}/${equipaById.trab3}/" method="POST" class="formAdmin">
-                  <button type="submit" class="btn btn-primary">Apagar Equipa</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
         <div class="row" id="">
-          <div class="col-lg-10 col-md-12">
+          <div class="col-lg-4   col-md-5">
             <div class="card card-tasks">
 
               <div class="card-header ">
@@ -501,24 +488,24 @@
               </div>
 
               <div class="card-body ">
-                <div class="table-full-width table-responsive">
-                  <table class="table" id="tableEquipa">
-                    <tr>
-                      <td>
-                        <p class="text-muted">${equipaById.teamName}</p>
-                      </td>
-                      <td>
-                        <p class="text-muted">${equipaById.trab1}</p>
-                      </td>
-                      <td>
-                        <p class="text-muted">${equipaById.trab2}</p>
-                      </td>
-                      <td>
-                        <p class="text-muted">${equipaById.trab3}</p>
-                      </td>
-                    </tr>
-                  </table>
+                <div>
+                  <h6>Nome do Trabalhador:</h6>
+                  <p>ID: ${equipaById.trab2}</p>
                 </div>
+                <div>
+                  <h6>Nome do Trabalhador:</h6>
+                  <p>ID: ${equipaById.trab2}</p>
+                </div>
+                <div>
+                  <h6>Nome do Trabalhador:</h6>
+                  <p>ID: ${equipaById.trab2}</p>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <form action="/auth/deleteTeam/${equipaById.trab1}/${equipaById.trab2}/${equipaById.trab3}/" method="POST" class="formAdmin">
+                  <button type="submit" class="btn btn-primary">Apagar Equipa</button>
+                </form>
               </div>
             </div>
           </div>
@@ -544,7 +531,7 @@
         dataType: 'json',
         success: function(data) {
           console.log(data);
-          $('#eqDel').replaceWith('<p>Apagado!</p>')
+          $('.card-footer').replaceWith('<h4 style="text-indent :2em;">Apagado!</h4>');
         }
       })
 

@@ -188,7 +188,7 @@
                   <div class="photo">
                     <img src="../assets/img/anime3.png" alt="Profile Photo">
                   </div>
-                  <b class="caret d-none d-lg-block d-xl-block"></b>
+                  <b class="et d-none d-lg-block d-xl-block"></b>
                   <p class="d-lg-none">
                     Log out
                   </p>
@@ -224,13 +224,13 @@
       <div class="content">
         <div class="row">
             <div class="col-md-3">
-              <div class="card" id="cardProjeto2">
+              <div class="d" id="dProjeto2">
                 
   
               </div>
             </div>
             <div class="col-md-12">
-              <div class="card" id="cardProjeto">
+              <div class="d" id="dProjeto">
                 
 
               </div>
@@ -470,10 +470,7 @@
   <script>
 
     let marcacaoId = sessionStorage.getItem("marcacaoId");
-    let clientId = sessionStorage.getItem("clientId");
     console.log(marcacaoId);
-    console.log(clientId);
-    let thisUser;
     let thisMarcacao;
 
 
@@ -482,60 +479,83 @@
       url: '/auth/marcGET' + '/' + marcacaoId,
       dataType: 'json',
       success:function(marc){
-        thisUser = marc
-        buildCard(thisUser);
-        console.log(thisUser);
-      }
-    })
-
-    $.ajax({
-      method: 'GET',
-      url: '/auth/clientByIdGET' + '/' + clientId,
-      dataType: 'json',
-      success:function(clientById){
-        thisMarcacao = clientById
-        buildCard2(thisMarcacao);
+        thisMarcacao = marc
+        buildd(thisMarcacao);
         console.log(thisMarcacao);
       }
     })
+    async function get_equipas(){
+      const equipas = await fetch('/auth/equipasGET/')
+      const data_equipas = await equipas.json()
+      const nome = []
+      for (let i=0;i<data_equipas.length; i++){
+        if (data_equipas[i]._id === thisMarcacao.team){
+          nome.push(data_equipas[i].teamName)
+        }
+      }
+      if(nome.length === 0){
+        nome.push("Falta Associar")
+      }
+      const name = nome
+      return {name}
+    }
 
-    
-    function buildCard(thisUser){
-      let card = document.getElementById('cardProjeto');
+    async function slider(){
+      const equipa = await fetch('/auth/equipasGET/')
+      const data_equipa = await equipa.json()
+      const list = []
+      for(let i = 0; i < data_equipa.length; i++){
+        let option = `<option value="${data_equipa[i]._id}">${data_equipa[i].teamName}</option>`
+        list.push(option)
+      }
+      return {list}
+    }
 
-      let cardInfo = 
+    async function buildd(thisMarcacao){
+      const data = await get_equipas();
+      const option = await slider();
+      let d = document.getElementById('dProjeto');
+      console.log(data)
+      let dInfo =
       `
-      <div class="card-header">
-                  <h2 class="title">ID da Marcação: ${thisUser._id}</h2>
+      <div class="d-header">
+                  <h2 class="title">ID da Marcação: ${thisMarcacao._id}</h2>
                 </div>
 
-                <div class="card-body">
+
+                <div class="d-body">
                     <div class="row">
                       <div class="col-md-5 pr-md-1">
                         <div class="form-group">
                           <label>Nome do Cliente</label>
-                          <p>${thisUser.name}</p>
+                          <p>${thisMarcacao.name}</p>
                         </div>
                       </div>
                       <div class="col-md-3 px-md-1">
-                        <div class="form-group">
-                          <label>Equipa</label>
-                          <p>${thisUser.team}</p>
-                          <button type="button" id="ModalBtn" class="btn btn-primary">Adicionar</button>
-                        </div>
+                        <form action="/auth/teamAttr/${thisMarcacao._id}" method="POST" class="attr">
+                          <div class="form-group">
+                            <label>Equipa</label>
+                            <p>${data.name}</p>
+                            <select id="slidemenu" name="_id">
+                              <option selected="selected" hidden>Selecione a Equipa</option>
+                              ${option.list}
+                            </select>
+                            <button type="submit" id="" class="btn btn-primary">Adicionar</button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 pr-md-1">
                         <div class="form-group">
                           <label>Estado</label>
-                          <p>${thisUser.state}</p>
+                          <p>${thisMarcacao.state}</p>
                         </div>
                       </div>
                       <div class="col-md-6 pl-md-1">
                         <div class="form-group">
                           <label>Nota do Cliente</label>
-                          <p>${thisUser.aval_client}</p>
+                          <p>${thisMarcacao.aval_client}</p>
                         </div>
                       </div>
                     </div>
@@ -543,49 +563,50 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label>Morada</label>
-                          <p>${thisUser.address}</p>
+                          <p>${thisMarcacao.address}</p>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-4 pr-md-1">
-                        <form action="/auth/evalPUT" method="POST" class="aval">
+                        <form action="/auth/evalPUT/${thisMarcacao._id}" method="POST" class="aval">
                           <div class="form-group">
                             <label>Avaliação Projeto</label>
-                            <p>${thisUser.aval_admin}</p>
+                            <p>${thisMarcacao.aval_admin}</p>
                             <input type="text" name="aval_admin" class="form-control" placeholder="L1-L5" >
-                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload()" onclick="javascript: form.action='/auth/evalPUT'">Submeter Avaliação</button>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Avaliação</button>
                           </div>
                         </form>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-8">
-                        <form action="/auth/descripPUT" method="POST" class="description">
+                        <form action="/auth/descripPUT/${thisMarcacao._id}" method="POST" class="description">
                           <div class="form-group">
                             <label>About Projeto</label>
-                            <p>${thisUser.descricao}</p>
+                            <p>${thisMarcacao.descricao}</p>
                             <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
-                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload()" onclick="javascript: form.action='/auth/descripPUT'">Submeter Descrição</button>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
                           </div>
                         </form>
                       </div>
                     </div>
                 </div>
       `
-      card.innerHTML += cardInfo
+      d.innerHTML += dInfo
     }
 
-    function buildCard2(thisMarcacao){
-      let card2 = document.getElementById('cardProjeto2');
+    function buildd2(thisMarcacao){
+      let d2 = document.getElementById('dProjeto2');
 
-      let cardInfo2 =
+      let dInfo2 =
       `
-                <div class="card-header">
+                <div class="d-header">
                   <h2 class="title">Manager do Cliente</h2>
                 </div>
 
-                <div class="card-body">
+
+                <div class="d-body">
                   <form>
                     <div class="row">
                       <div class="col-md-5 pr-md-1">
@@ -597,21 +618,22 @@
                   </form>
                 </div>
       `
-      card2.innerHTML += cardInfo2
+      d2.innerHTML += dInfo2
     }
 
-    
-    console.log("Isto é o ID da marcacao", marcacaoId);
-    
-    $('.card').on('click', '.aval', function(e) {
-      console.log("??")
+
+    console.log("Isto é o ID da marcacao", marcId);
+
+    $('.d').on('submit', '.aval', function(e) {
       e.preventDefault();
+
       let formData = $(this).serialize();
       let formAction = $(this).attr('action');
-      console.log("Chega aqui?")
+
+
       $.ajax({
         method: 'PUT',
-        url: formAction + '/' + marcacaoId,
+        url: formAction,
         dataType: 'json',
         data: formData,
         success: function(data) {
@@ -620,13 +642,14 @@
       })
     })
 
-    $('.card').on('click', '.description', function(e) {
+    $('.d').on('click', '.description', function(e) {
       e.preventDefault();
+
       let formData2 = $(this).serialize();
       let formAction2 = $(this).attr('action');
       $.ajax({
         method: 'PUT',
-        url: formAction2 + '/' + marcacaoId,
+        url: formAction2,
         dataType: 'json',
         data: formData2,
         success: function(data) {
@@ -634,10 +657,28 @@
         }
       })
     })
-    
+
+    $('.d').on('submit', '.attr', function(e) {
+      e.preventDefault();
+
+      let formData3 = $(this).serialize();
+      let formAction3 = $(this).attr('action');
+      $.ajax({
+        method: 'PUT',
+        url: formAction3,
+        dataType: 'json',
+        data: formData3,
+        success: function(data) {
+          console.log(data);
+        }
+      });
+    });
+
 
 
   </script>
 </body>
 
 </html>
+
+    
