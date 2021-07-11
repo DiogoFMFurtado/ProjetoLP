@@ -74,8 +74,8 @@ exports.registerHandle = (req, res) => {
                 const transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: {
-                        type: "OAuth2",
-                        user: "nodejsa@gmail.com",
+                        user: 'limpeza.mania.servicos@gmail.com',
+                        pass: 'projetofinal',
                         clientId: "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com",
                         clientSecret: "OKXIYR14wBB_zumf30EC__iJ",
                         refreshToken: "1//04T_nqlj9UVrVCgYIARAAGAQSNwF-L9IrGm-NOdEKBOakzMn1cbbCHgg2ivkad3Q_hMyBkSQen0b5ABfR8kPR18aOoqhRrSlPm9w",
@@ -84,13 +84,14 @@ exports.registerHandle = (req, res) => {
                 });
 
                 const mailOptions = {
-                    from: '"Nome da empresa" <nodejsa@gmail.com>',
+                    from: 'limpeza.mania.servicos@gmail.com',
                     to: email,
                     subject: "Confirme a sua conta.",
                     generateTextFromHTML: true,
                     html: output,
                 };
 
+                
 //-----Mensagem-de-confirmação-de-rgisto--------------------------------------
                 transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
@@ -233,8 +234,8 @@ exports.forgotPassword = (req, res) => {
                         const transporter = nodemailer.createTransport({
                             service: 'gmail',
                             auth: {
-                                type: "OAuth2",
-                                user: "nodejsa@gmail.com",
+                                user: 'limpeza.mania.servicos@gmail.com',
+                                pass: 'projetofinal',
                                 clientId: "173872994719-pvsnau5mbj47h0c6ea6ojrl7gjqq1908.apps.googleusercontent.com",
                                 clientSecret: "OKXIYR14wBB_zumf30EC__iJ",
                                 refreshToken: "1//04T_nqlj9UVrVCgYIARAAGAQSNwF-L9IrGm-NOdEKBOakzMn1cbbCHgg2ivkad3Q_hMyBkSQen0b5ABfR8kPR18aOoqhRrSlPm9w",
@@ -244,7 +245,7 @@ exports.forgotPassword = (req, res) => {
 
                         // send mail with defined transport object
                         const mailOptions = {
-                            from: '"Nome da Empresa" <nodejsa@gmail.com>', // sender address
+                            from: 'limpeza.mania.servicos@gmail.com', // sender address
                             to: email, // list of receivers
                             subject: "Redfinir nova senha", // Subject line
                             html: output, // html body
