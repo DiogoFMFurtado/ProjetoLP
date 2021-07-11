@@ -505,18 +505,33 @@
       success:function(marcacoes){
         thisArray = marcacoes
         buildTable(thisArray);
-        console.log(thisArray)
+        //console.log(thisArray)
       }
     })
+    async function get_clientes() {
+      const clientes = await fetch('/auth/clientsGET/')
+      const data_clientes = await clientes.json()
+      const nome_do_cliente = []
+      for (let i = 0; i < thisArray.length; i++) {
+        for (let a = 0; a < data_clientes.length; a++) {
+          if (data_clientes[a]._id === thisArray[i].cliente) {
+            nome_do_cliente.push(data_clientes[a].name)
+          }
+        }
+      }
+      //console.log(nome_do_cliente)
+      return {nome_do_cliente}
+    }
 
-    function buildTable(marcacoes){
+    async function buildTable(marcacoes){
+      const data_cliente = await get_clientes();
       let table = document.getElementById('tabelaMarcacoes')
 
       for(let i = 0; i < marcacoes.length; i++){
         let row = `<tr>
                       <td>${marcacoes[i]._id}</td>
                       <td>${marcacoes[i].address}</td>
-                      <td>${marcacoes[i].cliente}</td>
+                      <td>${data_cliente.nome_do_cliente[i]}</td>
                       <td>${marcacoes[i].state}</td>
                       <td>${marcacoes[i].equipa}</td>
                       <td>
@@ -559,7 +574,7 @@
         url: action,
         dataType: 'json',
         success: function(data) {
-          console.log(data);
+          //console.log(data);
           $form.replaceWith('<p>Apagado!</p>');
         }
       })
@@ -598,7 +613,7 @@
       }
       const total_com_aval = data_avaliacoes.length - total_sem_avaliacao.length
       notas_de_avaliacoes.push(uma_estrela.length, duas_estrela.length, tres_estrela.length,quatro_estrela.length,cinco_estrela.length)
-      console.log(notas_de_avaliacoes)
+      //console.log(notas_de_avaliacoes)
       document.getElementById("avaliacoes_total").innerHTML = "Avaliados: " + total_com_aval
       return {notas_de_avaliacoes};
     }
@@ -663,7 +678,7 @@
     }
     async function get_avaliacoes_chart2() {
       const data_avaliacoes2 = await get_avaliacoes2();
-      console.log(data_avaliacoes2)
+      //console.log(data_avaliacoes2)
       const ctx = document.getElementById('chart_avaliacoes2_canvas').getContext('2d');
       const myChart = new Chart(ctx, {
         type: 'bar',
