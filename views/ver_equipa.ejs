@@ -225,9 +225,51 @@
       
       <div class="content" id="divTeamDelete">
 
+        <div class="row" id="">
+          <div class="col-lg-4   col-md-5">
+            <div class="card card-tasks" id="membros">
 
+              
+        
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              
+              <div class="card-header">
+                <h4 class="card-title">Marcações Atribuídas a esta Equipa</h4>
+              </div>
+              
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table tablesorter " id="">
+                    
+                    <thead class=" text-primary">
+                      <tr>
+                        <th>Marcação ID</th>
+                        <th>Cliente</th>
+                        <th>Morada</th>
+                        <th>Estado</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Avaliado</th>
+                        <th>Apagar</th>
+                      </tr>
+                    </thead>
+                    
+                    <tbody id="marcacoesEquipa">
 
+                    </tbody>
 
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
 
 
@@ -468,21 +510,17 @@
       dataType: 'json',
       success:function(equipaById){
         newArray = equipaById
-        buildTable(newArray);
+        buildCard(newArray);
         console.log(newArray);
       }
     })
 
-    //não funciona
-    function buildTable(equipaById){
-      let table = document.getElementById('divTeamDelete');
+    
+    function buildCard(equipaById){
+      let card = document.getElementById('membros');
 
-      let row = 
+      let stuff = 
       ` 
-        <div class="row" id="">
-          <div class="col-lg-4   col-md-5">
-            <div class="card card-tasks">
-
               <div class="card-header ">
                 <h6 class="title d-inline">Equipa</h6>
               </div>
@@ -507,18 +545,15 @@
                   <button type="submit" class="btn btn-primary">Apagar Equipa</button>
                 </form>
               </div>
-            </div>
-          </div>
-        </div>
       `
-      table.innerHTML += row
+      card.innerHTML += stuff
 
       
 
     }
 
     // Funciona
-    $('#divTeamDelete').on('submit', '.formAdmin' ,function(e) {
+    $('#membros').on('submit', '.formAdmin' ,function(e) {
 
       e.preventDefault();
 
@@ -537,6 +572,89 @@
 
     })
     
+    $.ajax({
+      method:'GET',
+      url: '/auth/marcEquipaGET/' + teamId,
+      dataType: 'json',
+      success:function(marcsEquipa){
+        newArray2 = marcsEquipa
+        buildTable(newArray2);
+        console.log(newArray2);
+      }
+    });
+
+    function buildTable(marcsEquipa){
+      let table = document.getElementById('marcacoesEquipa');
+
+      for(let i = 0; i < marcsEquipa.length; i++){
+
+        if(marcsEquipa[i].state == "Pendente" && marcsEquipa[i].avaliado_admin == "Não"){
+
+          let row = 
+          ` 
+            <tr>
+              <td>${marcsEquipa[i]._id}</td>
+              <td>${marcsEquipa[i].cliente}</td>
+              <td>${marcsEquipa[i].address}</td>
+              <td>${marcsEquipa[i].state}</td>
+              <td>${marcsEquipa[i].date}</td>
+              <td>${marcsEquipa[i].hour}</td>
+              <td>${marcsEquipa[i].avaliado_admin}</td>
+            </tr>   
+          `
+          table.innerHTML += row
+        } else if(marcsEquipa[i].state == "Terminado" && marcsEquipa[i].avaliado_admin == "Sim"){
+          let row = 
+          ` 
+            <tr>
+              <td>${marcsEquipa[i]._id}</td>
+              <td>${marcsEquipa[i].cliente}</td>
+              <td>${marcsEquipa[i].address}</td>
+              <td>${marcsEquipa[i].state}</td>
+              <td>${marcsEquipa[i].date}</td>
+              <td>${marcsEquipa[i].hour}</td>
+              <td>${marcsEquipa[i].avaliado_admin}</td>
+              <td>
+                <form action="/auth/projDEL/${marcsEquipa[i]._id}/${marcsEquipa[i].cliente}" method="POST" class="projetoDEL">
+                  <div class="projDelete">
+                    <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                      <i class="tim-icons icon-trash-simple"></i>
+                    </button>
+                  </div>
+                </form>
+              </td>
+            </tr>   
+          `
+          table.innerHTML += row
+        }
+      }
+    }
+
+
+    
+
+
+
+
+
+    $('#marcacoesEquipa').on('submit', '.projetoDEL', function(e) {
+      e.preventDefault();
+
+      const $form = $(e.target);
+      const action = $form.attr('action');
+
+      $.ajax({
+        method: 'DELETE',
+        url: action,
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          $form.replaceWith('<p>Apagado!</p>');
+        }
+      })
+
+    })
+
 
 
   </script>
