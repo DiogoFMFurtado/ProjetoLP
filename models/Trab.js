@@ -35,7 +35,11 @@ const TrabSchema = new mongoose.Schema({
   equipa: {
     type: Schema.Types.ObjectId,
     ref: 'Equipas'
-  }
+  },
+  marcTrab: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Marcacao'
+  }]
   
 }, { timestamps: true });
 

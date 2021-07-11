@@ -225,9 +225,51 @@
       
       <div class="content" id="divTeamDelete">
 
+        <div class="row" id="">
+          <div class="col-lg-4   col-md-5">
+            <div class="card card-tasks" id="membros">
 
-
+              
         
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              
+              <div class="card-header">
+                <h4 class="card-title">Marcações Atribuídas a esta Equipa</h4>
+              </div>
+              
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table tablesorter " id="">
+                    
+                    <thead class=" text-primary">
+                      <tr>
+                        <th>Marcação ID</th>
+                        <th>Cliente</th>
+                        <th>Morada</th>
+                        <th>Estado</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Avaliado</th>
+                        <th>Apagar</th>
+                      </tr>
+                    </thead>
+                    
+                    <tbody id="marcacoesEquipa">
+
+                    </tbody>
+
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
 
 
@@ -459,7 +501,7 @@
   <script>
 
     let teamId = sessionStorage.getItem("teamId");
-    console.log(teamId);
+    //console.log(teamId);
     let newArray = [];
 
     $.ajax({
@@ -468,70 +510,81 @@
       dataType: 'json',
       success:function(equipaById){
         newArray = equipaById
-        buildTable(newArray);
-        console.log(newArray);
+        buildCard(newArray);
+        //console.log(newArray);
       }
     })
+    async function get_trabalhadores(){
+      const trabalhadores = await fetch('/auth/getTrab/')
+      const data_trabalhadores = await trabalhadores.json()
+      const trab_1 = []
+      const trab_2 = []
+      const trab_3 = []
+      for (let i=0;i<data_trabalhadores.length; i++){
+        if (data_trabalhadores[i]._id === newArray.trab1){
+          trab_1.push(data_trabalhadores[i].name)
+        }else if (data_trabalhadores[i]._id === newArray.trab2){
+          trab_2.push(data_trabalhadores[i].name)
+        }else if (data_trabalhadores[i]._id === newArray.trab3){
+          trab_3.push(data_trabalhadores[i].name)
+        }
+      }
+      if(trab_1.length === 0){
+        trab_1.push("1")
+      }
+      if(trab_2.length === 0){
+        trab_2.push("2")
+      }
+      if(trab_3.length === 0){
+        trab_3.push("3")
+      }
+      const name_1 = trab_1[0]
+      const name_2 = trab_2[0]
+      const name_3 = trab_3[0]
+      //console.log(name_1)
+      //console.log(name_2)
+      //console.log(name_3)
+      return {name_1, name_2, name_3}
+    }
 
-    //não funciona
-    function buildTable(equipaById){
-      let table = document.getElementById('divTeamDelete');
-
-      let row = 
+    async function buildCard(equipaById){
+      const data_trabalhadores = await get_trabalhadores();
+      let card = document.getElementById('membros');
+      let stuff = 
       ` 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-5 pr-md-1" id="eqDel">
-                <form action="/auth/deleteTeam/${equipaById.trab1}/${equipaById.trab2}/${equipaById.trab3}/" method="POST" class="formAdmin">
-                  <button type="submit" class="btn btn-primary">Apagar Equipa</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row" id="">
-          <div class="col-lg-10 col-md-12">
-            <div class="card card-tasks">
-
               <div class="card-header ">
                 <h6 class="title d-inline">Equipa</h6>
               </div>
 
               <div class="card-body ">
-                <div class="table-full-width table-responsive">
-                  <table class="table" id="tableEquipa">
-                    <tr>
-                      <td>
-                        <p class="text-muted">${equipaById.teamName}</p>
-                      </td>
-                      <td>
-                        <p class="text-muted">${equipaById.trab1}</p>
-                      </td>
-                      <td>
-                        <p class="text-muted">${equipaById.trab2}</p>
-                      </td>
-                      <td>
-                        <p class="text-muted">${equipaById.trab3}</p>
-                      </td>
-                    </tr>
-                  </table>
+                <div>
+                  <h6>Nome do Trabalhador: ${data_trabalhadores.name_1}</h6>
+                  <p>ID: ${equipaById.trab2}</p>
+                </div>
+                <div>
+                  <h6>Nome do Trabalhador: ${data_trabalhadores.name_2}</h6>
+                  <p>ID: ${equipaById.trab2}</p>
+                </div>
+                <div>
+                  <h6>Nome do Trabalhador: ${data_trabalhadores.name_3}</h6>
+                  <p>ID: ${equipaById.trab2}</p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+
+              <div class="card-footer">
+                <form action="/auth/deleteTeam/${equipaById.trab1}/${equipaById.trab2}/${equipaById.trab3}/" method="POST" class="formAdmin">
+                  <button type="submit" class="btn btn-primary">Apagar Equipa</button>
+                </form>
+              </div>
       `
-      table.innerHTML += row
+      card.innerHTML += stuff
 
       
 
     }
 
     // Funciona
-    $('#divTeamDelete').on('submit', '.formAdmin' ,function(e) {
+    $('#membros').on('submit', '.formAdmin' ,function(e) {
 
       e.preventDefault();
 
@@ -543,13 +596,133 @@
         url: action + teamId,
         dataType: 'json',
         success: function(data) {
-          console.log(data);
-          $('#eqDel').replaceWith('<p>Apagado!</p>')
+          //console.log(data);
+          $('.card-footer').replaceWith('<h4 style="text-indent :2em;">Apagado!</h4>');
         }
       })
 
     })
     
+    $.ajax({
+      method:'GET',
+      url: '/auth/marcEquipaGET/' + teamId,
+      dataType: 'json',
+      success:function(marcsEquipa){
+        newArray2 = marcsEquipa
+        buildTable(newArray2);
+        //console.log(newArray2);
+      }
+    });
+    async function get_clientes(){
+      const clientes = await fetch('/auth/clientsGET/')
+      const data_clientes = await clientes.json()
+      //console.log(data_clientes)
+      const nome_do_cliente = []
+      for (let i=0;i<newArray2.length; i++){
+        for (let a=0;a<data_clientes.length; a++){
+          if (data_clientes[a]._id === newArray2[i].cliente){
+              nome_do_cliente.push(data_clientes[a].name)
+            }
+        }
+      }
+      //console.log(newArray2[0].cliente)
+      console.log(nome_do_cliente)
+      return {nome_do_cliente}
+    }
+    async function buildTable(marcsEquipa){
+      const data_clientes = await get_clientes();
+      let table = document.getElementById('marcacoesEquipa');
+
+      for(let i = 0; i < marcsEquipa.length; i++){
+
+        if(marcsEquipa[i].state == "Pendente" && marcsEquipa[i].avaliado_admin == "Não"){
+
+          let row = 
+          ` 
+            <tr>
+              <td>${marcsEquipa[i]._id}</td>
+              <td>${data_clientes.nome_do_cliente[i]}</td>
+              <td>${marcsEquipa[i].address}</td>
+              <td>${marcsEquipa[i].state}</td>
+              <td>${marcsEquipa[i].date}</td>
+              <td>${marcsEquipa[i].hour}</td>
+              <td>${marcsEquipa[i].avaliado_admin}</td>
+            </tr>   
+          `
+          table.innerHTML += row
+        } else if(marcsEquipa[i].state == "Terminado" && marcsEquipa[i].avaliado_admin == "Sim"){
+          let row = 
+          ` 
+            <tr>
+              <td>${marcsEquipa[i]._id}</td>
+              <td>${data_clientes.nome_do_cliente[i]}</td>
+              <td>${marcsEquipa[i].address}</td>
+              <td>${marcsEquipa[i].state}</td>
+              <td>${marcsEquipa[i].date}</td>
+              <td>${marcsEquipa[i].hour}</td>
+              <td>${marcsEquipa[i].avaliado_admin}</td>
+              <td>
+                <form action="/auth/projDEL/${marcsEquipa[i]._id}/${marcsEquipa[i].cliente}" method="POST" class="projetoDEL">
+                  <div class="projDelete">
+                    <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                      <i class="tim-icons icon-trash-simple"></i>
+                    </button>
+                  </div>
+                </form>
+              </td>
+            </tr>   
+          `
+          table.innerHTML += row
+        } else if(marcsEquipa[i].state == "Terminado" && marcsEquipa[i].avaliado_admin == "Não"){
+          let row = 
+          ` 
+            <tr>
+              <td>${marcsEquipa[i]._id}</td>
+              <td>${data_clientes.nome_do_cliente[i]}</td>
+              <td>${marcsEquipa[i].address}</td>
+              <td>${marcsEquipa[i].state}</td>
+              <td>${marcsEquipa[i].date}</td>
+              <td>${marcsEquipa[i].hour}</td>
+              <td>${marcsEquipa[i].avaliado_admin}</td>
+              <td>
+                <form>
+                  <div class="projDelete">
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='/auth/projmarc'">Avaliar</button>
+                  </div>
+                </form>
+              </td>
+            </tr>   
+          `
+          table.innerHTML += row
+        }
+      }
+    }
+
+
+    
+
+
+
+
+
+    $('#marcacoesEquipa').on('submit', '.projetoDEL', function(e) {
+      e.preventDefault();
+
+      const $form = $(e.target);
+      const action = $form.attr('action');
+
+      $.ajax({
+        method: 'DELETE',
+        url: action,
+        dataType: 'json',
+        success: function(data) {
+          //console.log(data);
+          $form.replaceWith('<p>Apagado!</p>');
+        }
+      })
+
+    })
+
 
 
   </script>

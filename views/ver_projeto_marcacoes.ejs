@@ -224,7 +224,7 @@
       <div class="content">
         <div class="row">
             <div class="col-md-3">
-              <div class="card" id="cardProjeto2">
+              <div class="dard" id="cardProjeto2">
                 
   
               </div>
@@ -489,18 +489,32 @@
       const data_equipas = await equipas.json()
       const nome = []
       for (let i=0;i<data_equipas.length; i++){
-        if (data_equipas[i].id === thisMarcacao.team.objectId){
-          nome.push(data_equipas[i])
+        if (data_equipas[i]._id === thisMarcacao.team){
+          nome.push(data_equipas[i].teamName)
         }
       }
-      const name = nome[0].teamName
+      if(nome.length === 0){
+        nome.push("Falta Associar")
+      }
+      const name = nome
       return {name}
     }
 
-    async function buildCard(thisMarcacao){
-      let data = await get_equipas();
-      let card = document.getElementById('cardProjeto');
+    async function slider(){
+      const equipa = await fetch('/auth/equipasGET/')
+      const data_equipa = await equipa.json()
+      const list = []
+      for(let i = 0; i < data_equipa.length; i++){
+        let option = `<option value="${data_equipa[i]._id}">${data_equipa[i].teamName}</option>`
+        list.push(option)
+      }
+      return {list}
+    }
 
+    async function buildCard(thisMarcacao){
+      const data = await get_equipas();
+      const option = await slider();
+      let card = document.getElementById('cardProjeto');
       console.log(data)
       let cardInfo =
       `
@@ -518,11 +532,17 @@
                         </div>
                       </div>
                       <div class="col-md-3 px-md-1">
-                        <div class="form-group">
-                          <label>Equipa</label>
-                          <p>${data.name}</p>
-                          <button type="button" id="ModalBtn" class="btn btn-primary">Adicionar</button>
-                        </div>
+                        <form action="/auth/teamAttr/${thisMarcacao._id}" method="POST" class="teamAttr">
+                          <div class="form-group">
+                            <label>Equipa</label>
+                            <p>${data.name}</p>
+                            <select id="slidemenu" name="_id">
+                              <option selected="selected" hidden>Selecione a Equipa</option>
+                              ${option.list}
+                            </select>
+                            <button type="submit" id="ModalBtn" class="btn btn-primary">Adicionar</button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                     <div class="row">
@@ -586,7 +606,7 @@
                 </div>
 
 
-                <div class="card-body">
+                <div class="d-body">
                   <form>
                     <div class="row">
                       <div class="col-md-5 pr-md-1">
@@ -637,6 +657,22 @@
         }
       })
     })
+
+    $('.card').on('submit', '.teamAttr', function(e) {
+      e.preventDefault();
+
+      let formData3 = $(this).serialize();
+      let formAction3 = $(this).attr('action');
+      $.ajax({
+        method: 'PUT',
+        url: formAction3,
+        dataType: 'json',
+        data: formData3,
+        success: function(data) {
+          console.log(data);
+        }
+      });
+    });
 
 
 

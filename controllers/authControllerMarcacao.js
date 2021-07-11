@@ -10,6 +10,7 @@ const JWT_RESET_KEY = "jwtreset987";
 const Marcacao = require('../models/Marcacao');
 const User = require('../models/User');
 const Equipas = require('../models/Equipas');
+const Trab = require('../models/Trab');
 
 
 exports.registerMarcHandle = async (req, res) => {
@@ -85,8 +86,10 @@ exports.giveAval = async (req, res) => {
     console.log(req.params.marcacaoId);
     try {
         const eval_admin = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
+        const avaliado_admin = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, {avaliado_admin: "Sim"}, {useFindAndModify: false});
         console.log(req.body);
         await eval_admin.save();
+        await avaliado_admin.save();
         res.status(200).json(eval_admin);
     } catch (err) {
         res.status(404).json({message: err})
@@ -133,12 +136,23 @@ exports.deleteMarc = async (req,res) => {
 
     console.log("Deleting Project..");
     console.log(req.params._id);
+    console.log(req.params.clientId);
+    
+
     try{
+
+        // Remove a marcação do array do User
+        const delProj = await User.findByIdAndUpdate(req.params.clientId,
+            { $pull: {
+                marcacaoCliente: req.params._id
+            }});
+        await delProj.save();
         
-        const deletedProj = await Marcacao.deleteOne({_id: req.params._id});
-        console.log(req.body);
-        res.status(200).json(deletedProj);
-        console.log("Project Deleted");
+
+        await Marcacao.deleteOne({_id: req.params._id});
+        res.status(200).json();
+            
+        console.log("1");
 
     }catch(err) {
         res.status(400).json({message: err});
@@ -149,18 +163,35 @@ exports.deleteMarc = async (req,res) => {
 exports.atribTeam = async(req,res) => {
 
     console.log("Attributing Team for Project....");
-    console.log(req.params._id1);
+    console.log(req.body);
     console.log(req.params._id2);
 
     try{
 
-        const equipa = await Equipas.findById(req.params._id1);
+        const equipa = await Equipas.findById(req.body);
         const proj = await Marcacao.findById(req.params._id2);
 
+        //Associação Equipa a Projeto
         proj.team = equipa;
         await proj.save();
         equipa.marcsEquipa.push(proj);
         await equipa.save();
+
+        // Associação Projeto a cada Trabalhador
+        const worker1 = await Trab.findOne({_id: equipa.trab1});
+        worker1.marcTrab.push(proj);
+        await worker1.save();
+        const worker2 = await Trab.findOne({_id: equipa.trab2});
+        worker2.marcTrab.push(proj);
+        await worker2.save();
+        const worker3 = await Trab.findOne({_id: equipa.trab3});
+        worker3.marcTrab.push(proj);
+        await worker3.save();
+
+
+        const equipaTrue = await Marcacao.findByIdAndUpdate(req.params._id2, {equipa: "Sim"}, {useFindAndModify: false});
+        equipaTrue.save();
+        
         res.status(201).json()
         
 

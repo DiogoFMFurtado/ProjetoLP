@@ -257,11 +257,8 @@
               <div class="col-md-5 pr-md-1">
                 <div class="input-group">
                   <div class="form-outline">
-                    <input type="search" id="form1" class="form-control" />
-                    <label class="form-label" for="form1">Search</label>
+                    <input type="text" id="form1" class="form-control" placeholder="Search..." onkeyup="filtrar()">
                   </div>
-                  <button type="button" class="btn  btn-primary-smol">
-                    <i class="fas fa-search"></i>
                   </button>
                 </div>
               </div>
@@ -605,6 +602,26 @@
     })
 
 
+  </script>
+  <script>
+    function filtrar() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("form1");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("tabelaWorkers");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
   </script>
 </body>
 

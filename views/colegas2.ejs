@@ -18,6 +18,8 @@
   <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body class="">
@@ -229,7 +231,7 @@
               </div>
 
               <div class="card-body">
-                <form action="/auth/registertrab" method="POST">
+                <form action="/auth/registertrab" method="POST" id="registar_um_novo_trabalhador_">
                   <%- include ("./messages") %>
                   <div class="row">
                     <div class="col-md-5 pr-md-1">
@@ -261,25 +263,44 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card-footer">
-                    <button onclick="javascript: form.action='/auth/registertrab'" type="submit" class="btn btn-fill btn-primary" >Adicionar Trabalhador</button>
-                  </div>
+                 <button type="submit" class="btn btn-fill btn-primary" >Adicionar Trabalhador</button>
                 </form>
+
               </div>
             </div>
           </div>
         </div>
-        
       </div>
-
-
-
-
-
-
-
-
-
+      <script>
+        $("#registar_um_novo_trabalhador_").submit(function(e) {
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+          var form = $(this);
+          $.ajax({
+            type: "POST",
+            url: '/auth/registertrab',
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+              window.location.href = "./colegas2";
+            }
+          });
+        });
+        //$("#registar_um_novo_trabalhador").on('submit',function(e) {
+        //  e.preventDefault(); // avoid to execute the actual submit of the form.
+        //  var $form = $(e.target);
+        //  var url = $form.attr('action');
+        //  let formAction = $(this).serialize();
+        //  $.ajax({
+        //    method: "POST",
+        //    url: url,
+        //    data: formAction,
+        //    success: function(data)
+        //    {
+        //      window.location.href = "./registertrab";
+        //    }
+        //  });
+        //});
+      </script>
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
