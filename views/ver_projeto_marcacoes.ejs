@@ -470,7 +470,7 @@
   <script>
 
     let marcId = sessionStorage.getItem("marcId");
-    console.log(marcId);
+    //console.log(marcId);
     let thisMarcacao;
 
 
@@ -481,7 +481,7 @@
       success:function(marc){
         thisMarcacao = marc
         buildCard(thisMarcacao);
-        console.log(thisMarcacao);
+        //console.log(thisMarcacao);
       }
     })
     async function get_equipas(){
@@ -515,7 +515,7 @@
       const data = await get_equipas();
       const option = await slider();
       let card = document.getElementById('cardProjeto');
-      console.log(data)
+      //console.log(data)
       let cardInfo =
       `
       <div class="card-header">
@@ -622,7 +622,7 @@
     }
 
 
-    console.log("Isto é o ID da marcacao", marcId);
+    //console.log("Isto é o ID da marcacao", marcId);
 
     $('.card').on('submit', '.aval', function(e) {
       e.preventDefault();
@@ -637,7 +637,7 @@
         dataType: 'json',
         data: formData,
         success: function(data) {
-          console.log(data);
+          //console.log(data);
         }
       })
     })
@@ -653,7 +653,7 @@
         dataType: 'json',
         data: formData2,
         success: function(data) {
-          console.log(data);
+          //console.log(data);
         }
       })
     })
@@ -666,14 +666,14 @@
       $.ajax({
         method: 'PUT',
         url: formAction3,
-        dataType: 'json',
         data: formData3,
-        success: function(data) {
-          console.log(data);
+        dataType: 'json',
+        complete: function() { //complete
+          //console.log(data);
+          window.location.href = './ver_projeto_marcacoes';
         }
       });
     });
-
 
 
   </script>
