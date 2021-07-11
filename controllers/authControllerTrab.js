@@ -21,7 +21,7 @@ exports.registerTrabHandle = (req, res) => {
     }
 
     //------------ Checking password mismatch ------------//
-    if (password != password2) {
+    if (password !== password2) {
         errors.push({ msg: 'Passwords do not match' });
     }
 
@@ -278,7 +278,7 @@ exports.forgotTrabPassword = (req, res) => {
 exports.loginTrabHandle = (req, res, next) => {
     passport.authenticate('local', {
         successRedirect: '/workerpage',
-        failureRedirect: '/loginTrab',
+        failureRedirect: '/auth/loginTrab',
         failureFlash: true
     })(req, res, next);
 }
