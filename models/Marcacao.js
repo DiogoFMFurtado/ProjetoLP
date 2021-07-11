@@ -37,7 +37,11 @@ const MarcacaoSchema = new mongoose.Schema({
     team: {
         type: Schema.Types.ObjectId,
         ref: 'Equipas'
-    }
+    },
+    avaliado_admin: {
+        type: String,
+        default: 'Não'
+    },
 
 },
 {collection: 'Marcacao'}

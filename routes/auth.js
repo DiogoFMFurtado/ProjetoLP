@@ -154,6 +154,7 @@ router.post('/equipa', authControllerEquipa.registerEquipaHandle);
 router.get('/equipasGET', authControllerEquipa.getEquipas);
 router.get('/equipaGET/:_id', authControllerEquipa.getEquipaById);
 router.delete('/deleteTeam/:trab1/:trab2/:trab3/:_id', authControllerEquipa.delEquipa);
+router.get('/marcEquipaGET/:teamId', authControllerEquipa.getMarcEquipa);
 
 
 

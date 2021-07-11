@@ -151,5 +151,19 @@ exports.delEquipa = async(req,res) => {
     }catch(err) {
         res.status(404).json({message: err});
     }
+}
+
+exports.getMarcEquipa = async(req, res) => {
+    
+    console.log("Getting Projects of this team...")
+
+    try {
+        const equipa = await Equipas.findById(req.params.teamId).populate('marcsEquipa');
+        console.log('Marcacoes', equipa);
+        console.log("Done!");
+        res.status(200).json(equipa.marcsEquipa);
+    } catch (err) {
+        res.json({message:err});
+    }    
 
 }

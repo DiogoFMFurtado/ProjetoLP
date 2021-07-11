@@ -86,8 +86,10 @@ exports.giveAval = async (req, res) => {
     console.log(req.params.marcacaoId);
     try {
         const eval_admin = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, req.body, {useFindAndModify: false});
+        const avaliado_admin = await Marcacao.findByIdAndUpdate(req.params.marcacaoId, {avaliado_admin: "Sim"}, {useFindAndModify: false});
         console.log(req.body);
         await eval_admin.save();
+        await avaliado_admin.save();
         res.status(200).json(eval_admin);
     } catch (err) {
         res.status(404).json({message: err})
