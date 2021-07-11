@@ -161,12 +161,12 @@ exports.deleteMarc = async (req,res) => {
 exports.atribTeam = async(req,res) => {
 
     console.log("Attributing Team for Project....");
-    console.log(req.params._id1);
+    console.log(req.body);
     console.log(req.params._id2);
 
     try{
 
-        const equipa = await Equipas.findById(req.params._id1);
+        const equipa = await Equipas.findById(req.body);
         const proj = await Marcacao.findById(req.params._id2);
 
         //Associação Equipa a Projeto

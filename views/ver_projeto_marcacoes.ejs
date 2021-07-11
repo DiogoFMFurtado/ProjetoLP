@@ -532,15 +532,17 @@
                         </div>
                       </div>
                       <div class="col-md-3 px-md-1">
-                        <div class="form-group">
-                          <label>Equipa</label>
-                          <p>${data.name}</p>
-                          <select id="slidemenu">
-                            <option selected="selected" hidden>Selecione a Equipa</option>
-                            ${option.list}
-                          </select>
-                          <button type="button" id="ModalBtn" class="btn btn-primary">Adicionar</button>
-                        </div>
+                        <form action="/auth/teamAttr/${thisMarcacao._id}" method="POST" class="teamAttr">
+                          <div class="form-group">
+                            <label>Equipa</label>
+                            <p>${data.name}</p>
+                            <select id="slidemenu" name="_id">
+                              <option selected="selected" hidden>Selecione a Equipa</option>
+                              ${option.list}
+                            </select>
+                            <button type="submit" id="ModalBtn" class="btn btn-primary">Adicionar</button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                     <div class="row">
@@ -655,6 +657,22 @@
         }
       })
     })
+
+    $('.d').on('submit', '.teamAttr', function(e) {
+      e.preventDefault();
+
+      let formData3 = $(this).serialize();
+      let formAction3 = $(this).attr('action');
+      $.ajax({
+        method: 'PUT',
+        url: formAction3,
+        dataType: 'json',
+        data: formData3,
+        success: function(data) {
+          console.log(data);
+        }
+      });
+    });
 
 
 
