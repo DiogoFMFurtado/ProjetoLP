@@ -188,7 +188,7 @@
                   <div class="photo">
                     <img src="../assets/img/anime3.png" alt="Profile Photo">
                   </div>
-                  <b class="et d-none d-lg-block d-xl-block"></b>
+                  <b class="caret d-none d-lg-block d-xl-block"></b>
                   <p class="d-lg-none">
                     Log out
                   </p>
@@ -224,13 +224,13 @@
       <div class="content">
         <div class="row">
             <div class="col-md-3">
-              <div class="d" id="dProjeto2">
+              <div class="dard" id="cardProjeto2">
                 
   
               </div>
             </div>
             <div class="col-md-12">
-              <div class="d" id="dProjeto">
+              <div class="card" id="cardProjeto">
                 
 
               </div>
@@ -480,7 +480,7 @@
       dataType: 'json',
       success:function(marc){
         thisMarcacao = marc
-        buildd(thisMarcacao);
+        buildCard(thisMarcacao);
         console.log(thisMarcacao);
       }
     })
@@ -511,19 +511,19 @@
       return {list}
     }
 
-    async function buildd(thisMarcacao){
+    async function buildCard(thisMarcacao){
       const data = await get_equipas();
       const option = await slider();
-      let d = document.getElementById('dProjeto');
+      let card = document.getElementById('cardProjeto');
       console.log(data)
-      let dInfo =
+      let cardInfo =
       `
-      <div class="d-header">
+      <div class="card-header">
                   <h2 class="title">ID da Marcação: ${thisMarcacao._id}</h2>
                 </div>
 
 
-                <div class="d-body">
+                <div class="card-body">
                     <div class="row">
                       <div class="col-md-5 pr-md-1">
                         <div class="form-group">
@@ -593,15 +593,15 @@
                     </div>
                 </div>
       `
-      d.innerHTML += dInfo
+      card.innerHTML += cardInfo
     }
 
-    function buildd2(thisMarcacao){
-      let d2 = document.getElementById('dProjeto2');
+    function buildCard2(thisMarcacao){
+      let card2 = document.getElementById('cardProjeto2');
 
-      let dInfo2 =
+      let cardInfo2 =
       `
-                <div class="d-header">
+                <div class="card-header">
                   <h2 class="title">Manager do Cliente</h2>
                 </div>
 
@@ -618,13 +618,13 @@
                   </form>
                 </div>
       `
-      d2.innerHTML += dInfo2
+      card2.innerHTML += cardInfo2
     }
 
 
     console.log("Isto é o ID da marcacao", marcId);
 
-    $('.d').on('submit', '.aval', function(e) {
+    $('.card').on('submit', '.aval', function(e) {
       e.preventDefault();
 
       let formData = $(this).serialize();
@@ -642,7 +642,7 @@
       })
     })
 
-    $('.d').on('click', '.description', function(e) {
+    $('.card').on('click', '.description', function(e) {
       e.preventDefault();
 
       let formData2 = $(this).serialize();
@@ -658,7 +658,7 @@
       })
     })
 
-    $('.d').on('submit', '.teamAttr', function(e) {
+    $('.card').on('submit', '.teamAttr', function(e) {
       e.preventDefault();
 
       let formData3 = $(this).serialize();
