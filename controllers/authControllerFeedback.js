@@ -1,6 +1,7 @@
 const Feedback = require('../models/Feedback');
 const User = require('../models/User');
 var mongodb = require('mongodb');
+const Trab = require('../models/Trab');
 
 exports.registerFeedbackHandle = async (req, res) => {
     
@@ -20,6 +21,29 @@ exports.registerFeedbackHandle = async (req, res) => {
         res.status(201).json()
         
     } catch (err) {}
+}
+
+exports.postFeedT = async(req, res) => {
+
+    const { name, feedback } = req.body;
+
+    try {
+        console.log(req.body);
+        const feed = new Feedback({
+            name,
+            feedback
+        });
+        const trab = await Trab.findById(req.user);
+        feed.trab = trab;
+        await feed.save();
+        trab.feedbacksT.push(feed);
+        await trab.save();
+        res.status(201).json();
+        
+    } catch (err) {
+        res.status(404).json();
+    }
+
 }
 
 //Funciona
@@ -51,6 +75,22 @@ exports.getFeedBacksById = async(req,res) => {
     }
 
 }
+
+exports.getFeedBacksByIdT = async(req,res) => {
+
+    console.log("Getting feedbacks of worker...");
+
+    try{
+        const workerFeed = await Trab.findById(req.params._id).populate('feedbacksT');
+        console.log('Feedbacks Worker', workerFeed);
+        res.status(200).json(workerFeed.feedbacksT);
+        console.log("Done!");
+    }catch (err) {
+        res.status(400).json({message:err});
+    }
+
+}
+
 
 
 exports.deleteFeedback = async(req,res) => {
