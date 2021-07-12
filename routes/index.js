@@ -24,95 +24,95 @@ router.get('/loginAdmin', ensureAuthenticated, (req, res) => res.render('loginAd
     name: req.user.name
 }));
 
-router.get('/calendario', ensureAuthenticated, (req, res) => res.render('calendario', {
+router.get('/calendario', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('calendario', {
     name: req.user.name
 }));
 
-router.get('/clientes', ensureAuthenticated, (req, res) => res.render('clientes', {
+router.get('/clientes', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('clientes', {
     name: req.user.name
 }));
 
-router.get('/trabalhadores', ensureAuthenticated, (req, res) => res.render('trabalhadores', {
+router.get('/trabalhadores', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('trabalhadores', {
     name: req.user.name
 }));
 
-router.get('/performance', ensureAuthenticated, (req, res) => res.render('performance', {
+router.get('/performance', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('performance', {
     name: req.user.name
 }));
 
-router.get('/colegas', ensureAuthenticated, (req, res) => res.render('colegas', {
+router.get('/colegas', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('colegas', {
     name: req.user.name
 }));
 
-router.get('/colegas2', ensureAuthenticated, (req, res) => res.render('colegas2', {
+router.get('/colegas2', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('colegas2', {
     name: req.user.name
 }));
 
-router.get('/feedbacks', ensureAuthenticated, (req, res) => res.render('feedbacks', {
+router.get('/feedbacks', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('feedbacks', {
     name: req.user.name
 }));
 
-router.get('/icons', ensureAuthenticated, (req, res) => res.render('icons', {
+router.get('/icons', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('icons', {
     name: req.user.name
 }));
 
-router.get('/map', ensureAuthenticated, (req, res) => res.render('map', {
+router.get('/map', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('map', {
     name: req.user.name
 }));
 
-router.get('/notifications', ensureAuthenticated, (req, res) => res.render('notifications', {
+router.get('/notifications', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('notifications', {
     name: req.user.name
 }));
 
-router.get('/user', ensureAuthenticated, (req, res) => res.render('user', {
+router.get('/user', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('user', {
     name: req.user.name
 }));
 
-router.get('/tables', ensureAuthenticated, (req, res) => res.render('tables', {
+router.get('/tables', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('tables', {
     name: req.user.name
 }));
 
-router.get('/typography', ensureAuthenticated, (req, res) => res.render('typography', {
+router.get('/typography', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('typography', {
     name: req.user.name
 }));
 
-router.get('/rtl', ensureAuthenticated, (req, res) => res.render('rtl', {
+router.get('/rtl', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('rtl', {
     name: req.user.name
 }));
 
-router.get('/upgrade', ensureAuthenticated, (req, res) => res.render('upgrade', {
+router.get('/upgrade', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('upgrade', {
     name: req.user.name
 }));
 
-router.get('/projmarc', ensureAuthenticated, (req, res) => res.render('projmarc', {
+router.get('/projmarc', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('projmarc', {
     name: req.user.name
 }));
 
-router.get('/ver_todos_trabalhadores', ensureAuthenticated, (req, res) => res.render('ver_todos_trabalhadores', {
+router.get('/ver_todos_trabalhadores', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('ver_todos_trabalhadores', {
     name: req.user.name
 }));
 
-router.get('/ver_projeto', ensureAuthenticated, (req, res) => res.render('ver_projeto', {
+router.get('/ver_projeto', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('ver_projeto', {
     name: req.user.name
 }));
 
-router.get('/ver_projeto_marcacoes', ensureAuthenticated, (req, res) => res.render('ver_projeto_marcacoes', {
+router.get('/ver_projeto_marcacoes', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('ver_projeto_marcacoes', {
     name: req.user.name
 }));
 
-router.get('/ver_equipa', ensureAuthenticated, (req, res) => res.render('ver_equipa', {
+router.get('/ver_equipa', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('ver_equipa', {
     name: req.user.name
 }));
 
-router.get('/ver_cliente', ensureAuthenticated, (req, res) => res.render('ver_cliente', {
+router.get('/ver_cliente', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('ver_cliente', {
     name: req.user.name
 }));
 
-router.get('/criar_equipa', ensureAuthenticated, (req, res) => res.render('criar_equipa', {
+router.get('/criar_equipa', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('criar_equipa', {
     name: req.user.name
 }));
 
-router.get('/ver_trabalhador', ensureAuthenticated, (req, res) => res.render('ver_trabalhador', {
+router.get('/ver_trabalhador', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('ver_trabalhador', {
     name: req.user.name
 }));
 
