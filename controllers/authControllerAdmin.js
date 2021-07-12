@@ -378,9 +378,9 @@ exports.resetAdminPassword = (req, res) => {
 }
 
 exports.loginAdminHandle = (req, res, next) => {
-    passport.authenticate('local', {
+    passport.authenticate('admin', {
         successRedirect: '/dashboard',
-        failureRedirect: '/loginAdmin',
+        failureRedirect: '/auth/loginAdmin',
         failureFlash: true
     })(req, res, next);
 }
