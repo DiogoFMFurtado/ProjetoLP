@@ -759,9 +759,12 @@
         method: 'PUT',
         url: formAction3,
         dataType: 'json',
+
         data: formData3,
-        success: function(data) {
-          console.log(data);
+        dataType: 'json',
+        complete: function() { //complete
+          //console.log(data);
+          window.location.href = './ver_projeto_marcacoes';
         }
       });
     });
