@@ -224,16 +224,10 @@
       <div class="content">
         <div class="row">
             <div class="col-md-3">
-              <div class="dard" id="cardProjeto2">
-                
-  
-              </div>
+              <div class="card" id="cardProjeto2"></div>
             </div>
             <div class="col-md-12">
-              <div class="card" id="cardProjeto">
-                
-
-              </div>
+              <div class="card" id="cardProjeto"></div>
             </div>
           </div>
         </div>
@@ -481,6 +475,7 @@
       success:function(marc){
         thisMarcacao = marc
         buildCard(thisMarcacao);
+        buildCard2(thisMarcacao);
         //console.log(thisMarcacao);
       }
     })
@@ -509,6 +504,22 @@
         list.push(option)
       }
       return {list}
+    }
+
+    async function get_admin(){
+      const administrador = await fetch('/auth/clientsGET/')
+      const data_admin = await administrador.json()
+      const nome = []
+      for (let i=0;i<data_admin.length; i++){
+        if (data_admin[i]._id === thisMarcacao.cliente){
+          nome.push(data_admin[i].admin)
+        }
+      }
+      if(nome.length === 0){
+        nome.push("Sem Manager")
+      }
+      const name = nome
+      return {name}
     }
 
     async function buildCard(thisMarcacao){
@@ -671,8 +682,9 @@
       }
     }
 
-    function buildCard2(thisMarcacao){
+    async function buildCard2(thisMarcacao){
       let card2 = document.getElementById('cardProjeto2');
+      const admin_data = await get_admin();
 
       let cardInfo2 =
       `
@@ -684,9 +696,9 @@
                 <div class="d-body">
                   <form>
                     <div class="row">
-                      <div class="col-md-5 pr-md-1">
+                      <div class="col-md-6 pr-md-1">
                         <div class="form-group">
-                          <p>${thisMarcacao.admin}</p>
+                          <p>${admin_data.name}</p>
                         </div>
                       </div>
                     </div>

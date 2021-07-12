@@ -10,6 +10,7 @@ const authControllerFeedback = require('../controllers/authControllerFeedback')
 const ControllerWorker = require('../controllers/ControllerWorker')
 const ControllerClient = require('../controllers/ControllerClient');
 const authControllerEquipa = require('../controllers/authControllerEquipa')
+const authControllerContact = require('../controllers/authControllerContact')
 
 
 //------------ Login Route ------------//
@@ -97,6 +98,8 @@ router.post('/registeradmin', authControllerAdmin.registerAdminHandle);
 router.post('/registertrab', authControllerTrab.registerTrabHandle);
 
 router.post('/register', authController.registerHandle);
+
+router.post('/contacto', authControllerContact.contactoHandle);
 
 //------------ Email ACTIVATE Handle ------------//
 router.get('/activate/:token', authController.activateHandle);

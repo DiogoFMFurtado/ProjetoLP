@@ -136,7 +136,8 @@
                                 <div class="form-group">
                                     <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Messagem" required></textarea>
                                 </div>
-                                <button type="submit" class="btn  tm-btn-submit float-right btn-big">Enviar</button>
+                                <div id="mensagem"><%- include ("./messages") %></div>
+                                <button type="submit" class="btn  tm-btn-submit float-right btn-big" onclick="javascript: form.action='/auth/contacto'">Enviar</button>
                             </form>
                         </div>
                     </div>
