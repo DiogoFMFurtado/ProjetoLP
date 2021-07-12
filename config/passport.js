@@ -90,14 +90,14 @@ module.exports = function (passport) {
                     done(err, { message: 'Admin not found' })
             });
         }else if (login.role === 'Cliente') {
-            Admin.findById(login, (err, admin) => {
+            User.findById(login, (err, admin) => {
                 if (admin)
                     done(null, admin);
                 else
                     done(err, { message: 'Admin not found' })
             });
         }else if (login.role === 'Trabalhador') {
-            Admin.findById(login, (err, admin) => {
+            Trab.findById(login, (err, admin) => {
                 if (admin)
                     done(null, admin);
                 else

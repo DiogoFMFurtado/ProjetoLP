@@ -389,5 +389,5 @@ exports.loginHandle = (req, res, next) => {
 exports.logoutHandle = (req, res) => {
     req.logout();
     req.flash('success_msg', 'Saiu da conta');
-    res.redirect('/auth/login_registar_user');
+    res.redirect('/');
 }
