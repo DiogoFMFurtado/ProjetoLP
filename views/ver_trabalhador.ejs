@@ -4,31 +4,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <title>
     Black Dashboard by Creative Tim
   </title>
-  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <link rel="stylesheet" href="/public/css/tooplate-style.css">
   <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="/assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
-  <!--Scripts para esconder-->
-  <script>
-  $(document).ready(function(){
-    $('#despedir_empregado').on('click', function(){
-      $('#procura').show(); //Faz apareçer a tm-section-3, utiliza o id da secção
-      $('#delete').show(); //Faz apareçer a tm-section-2, utiliza o id da secção
-    })
-  })
-  </script>
+  <link href="/assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -59,7 +48,7 @@
               <p>Clientes</p>
             </a>
           </li>
-          <li class="active ">
+          <li>
             <a href="./trabalhadores">
               <i class="tim-icons icon-single-02"></i>
               <p>Trabalhadores</p>
@@ -71,7 +60,7 @@
               <p>Projetos/Marcações</p>
             </a>
           </li>
-          <li>
+          <li class="active ">
             <a href="./performance">
               <i class="tim-icons icon-chart-bar-32"></i>
               <p>Performance da Empresa</p>
@@ -197,7 +186,7 @@
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <div class="photo">
-                    <img src="../assets/img/anime3.png" alt="Profile Photo">
+                    <img src="/assets/img/anime3.png" alt="Profile Photo">
                   </div>
                   <b class="caret d-none d-lg-block d-xl-block"></b>
                   <p class="d-lg-none">
@@ -229,114 +218,57 @@
         </div>
       </div>
       <!-- End Navbar -->
-      
-      
-      
-      
-      
       <div class="content">
 
-        <div class="row">
-          <div class="col-md-12">
+        <div class="content">
             <div class="row">
-              <div class="col-md-5 pr-md-1">
-                <a href="./colegas2">
-                  <button type="button" class="btn btn-primary" href="./colegas2">+ Empregados</button>
-                </a>
-              </div>
-              <div class="col-md-5 pr-md-1">
-                <button type="button" id="despedir_empregado" class="btn btn-primary">Despedir Empregado</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row ">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-5 pr-md-1">
-                <div class="input-group">
-                  <div class="form-outline">
-                    <input type="text" id="form1" class="form-control" placeholder="Search..." onkeyup="filtrar()">
-                  </div>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12">
-            <form action="/auth/workerFIRE" method="POST" >
-              <div class="row">
-                <div class="col-sm-2">
-                  <div class="form-group hidden" id="procura">
-                    <input type="text" name="_id" class="form-control" placeholder="Worker ID">
-                  </div>
-                  <div class="botao-de-despedir hidden" id="delete">
-                    <button type="submit" id="btnDespedir" class="btn  btn-primary-smol" onClick="window.location.reload()"  onclick="javascript: form.action='/auth/workerFIRE'">Despedir</button>
+                <div class="col-md-12">
+                  <div class="card" id="cardTrabalhador">
+                    
+    
                   </div>
                 </div>
-              </div>
-            </form>
-          </div>
-        </div>
-
-
-
-
-
-        <div class="table-responsive">
-          <h2>Todos os Trabalhadores</h2>
-          <table class="table tablesorter " id="tabelaWorkers">
-            <thead class=" text-primary">
-              <tr>
-                <th>Worker ID</th>
-                <th>Nome</th>
-                <th>Pertence a Equipa</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            </tbody>
-          </table>
-        </div>
-
-
-
-
-
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Tabela Trabalhadores Com Informação</h5>
-                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartLinePurple"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
+                <div class="col-md-12">
+                    <div class="card" id="cardTrabalhador3">
+                        
         
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card  card-plain" id="cardTrabalhador2">
+                        
+                        <div class="card-header">
+                            <h4 class="card-title">Marcações do Trabalhador</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table tablesorter " id="">
+                                
+                                    <thead class=" text-primary">
+                                        <tr>
+                                        <th>Marcação ID</th>
+                                        <th>Morada</th>
+                                        <th>Estado</th>
+                                        <th>Data</th>
+                                        <th>Hora</th>
+                                        <th>Avaliado</th>
+                                        <th>Apagar</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody id="marcacoesTrab">
+                
+                                    </tbody>
+            
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
@@ -408,20 +340,20 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/assets/js/core/jquery.min.js"></script>
+  <script src="/assets/js/core/popper.min.js"></script>
+  <script src="/assets/js/core/bootstrap.min.js"></script>
+  <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <!-- Place this tag in your head or just before your close body tag. -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <script src="/assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="/assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
+  <script src="/assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="/assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -550,92 +482,248 @@
   </script>
 
 
-
-
-
   <script>
 
-    let thisArray = [];
-    let workerId = $('#workerId').val();
+    let workerId = sessionStorage.getItem("workerId");
+    console.log(workerId);
+    let thisWorker;
 
     $.ajax({
-
       method: 'GET',
-      url: '/auth/workersGET',
+      url: '/auth/trabByIdGET' + '/' + workerId,
       dataType: 'json',
-      success:function(workers){
-        thisArray = workers
-        buildTable(thisArray);
-        console.log(thisArray)
+      success:function(worker){
+        thisWorker = worker
+        buildCard(thisWorker);
+        console.log(thisWorker);
       }
-    })
+    });
 
-    function buildTable(workers){
-      let table = document.getElementById('tabelaWorkers')
+    function buildCard(worker){
+        let card = document.getElementById('cardTrabalhador');
 
-      for(let i = 0; i < workers.length; i++){
-        let row = `<tr>
-                      <td>${workers[i]._id}</td>
-                      <td>${workers[i].name}</td>
-                      <td>${workers[i].pequipa}</td>
-                      <td>
-                        <a href="./ver_trabalhador">
-                          <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Trabalhador</button>
-                        </a>
-                      </td>
-                  </tr>`
-        table.innerHTML += row
-      }
+        if(thisWorker.pequipa == "Não"){
+
+            let cardInfo =
+            `
+                <div class="card-header">
+                  <h2 class="title">ID do Trabalhador: ${thisWorker._id}</h2>
+                </div>
+
+
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-5 pr-md-1">
+                        <div class="form-group">
+                          <label>Nome do Trabalhador</label>
+                          <p>${thisWorker.name}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                            <label>Email do Trabalhador</label>
+                            <p>${thisWorker.email}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <div class="form-group">
+                          <label>Pertence a Equipa</label>
+                          <p>${thisWorker.pequipa}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                        
+                          <div class="form-group">
+                            <label>Nota Trab</label>
+                            <p>${thisWorker.note}</p>
+                            <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
+                          </div>
+                        
+                      </div>
+                    </div>
+                </div>
+            `
+            card.innerHTML += cardInfo
+        }else{
+            let cardInfo =
+            `
+                <div class="card-header">
+                  <h2 class="title">ID do Trabalhador: ${thisWorker._id}</h2>
+                </div>
+
+
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-5 pr-md-1">
+                        <div class="form-group">
+                          <label>Nome do Trabalhador</label>
+                          <p>${thisWorker.name}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                            <label>Email do Trabalhador</label>
+                            <p>${thisWorker.email}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <div class="form-group">
+                          <label>Pertence a Equipa</label>
+                          <p>${thisWorker.pequipa}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-6 pl-md-1">
+                        <div class="form-group">
+                          <label>Equipa</label>
+                          <p>${thisWorker.equipa}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <form action="/auth/giveNote/${thisWorker._id}" method="POST" class="giveNote">
+                          <div class="form-group">
+                            <label>Nota Trab</label>
+                            <p>${thisWorker.note}</p>
+                            <textarea rows="4" cols="80" name="note" class="form-control" placeholder="Uma nota sobre o trabalhador"></textarea>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Nota</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+            `
+            card.innerHTML += cardInfo
+        }
     }
 
-    function store(index) {
-
-      let workerId = thisArray[index]._id;
-
-      sessionStorage.setItem("workerId", workerId);
-
-      location.href = "./ver_trabalhador";
-    }
-
-  </script>
-
-  <script>
-
-    $('form').submit(function(e) {
+    $('#cardTrabalhador').on('submit', '.giveNote', function(e) {
       e.preventDefault();
-      let formData = $(this).serialize()
-      let formAction = $(this).attr('action');
+
+      let formData2 = $(this).serialize();
+      let formAction2 = $(this).attr('action');
       $.ajax({
-        type: 'DELETE',
-        url: formAction,
-        data: formData,
-        success: function(data){
-          
+        method: 'PUT',
+        url: formAction2,
+        dataType: 'json',
+        data: formData2,
+        success: function(data) {
+          console.log(data);
         }
       })
     })
 
 
-  </script>
-  <script>
-    function filtrar() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("form1");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("tabelaWorkers");
-      tr = table.getElementsByTagName("tr");
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }       
+    let theseMarcacoes;
+
+    $.ajax({
+      method: 'GET',
+      url: '/auth/marcsTrabGET2' + '/' + workerId,
+      dataType: 'json',
+      success:function(marcsTrab){
+        theseMarcacoes = marcsTrab
+        buildTable(theseMarcacoes);
+        console.log(theseMarcacoes);
       }
+    });
+
+    function buildTable(marcsTrab){
+        let table = document.getElementById('marcacoesTrab');
+
+        for(let i = 0; i < marcsTrab.length; i++){
+            if(marcsTrab[i].state == "Pendente" && marcsTrab[i].avaliado_admin == "Não"){
+
+                let row = 
+                ` 
+                <tr>
+                    <td>${marcsTrab[i]._id}</td>
+                    <td>${marcsTrab[i].address}</td>
+                    <td>${marcsTrab[i].state}</td>
+                    <td>${marcsTrab[i].date}</td>
+                    <td>${marcsTrab[i].hour}</td>
+                    <td>${marcsTrab[i].avaliado_admin}</td>
+                </tr>   
+                `
+                table.innerHTML += row
+            } else if(marcsTrab[i].state == "Terminado" && marcsTrab[i].avaliado_admin == "Sim"){
+                let row = 
+                ` 
+                <tr>
+                    <td>${marcsTrab[i]._id}</td>
+                    <td>${marcsTrab[i].address}</td>
+                    <td>${marcsTrab[i].state}</td>
+                    <td>${marcsTrab[i].date}</td>
+                    <td>${marcsTrab[i].hour}</td>
+                    <td>${marcsTrab[i].avaliado_admin}</td>
+                    <td>
+                    <form action="/auth/projDEL/${marcsTrab[i]._id}/${marcsTrab[i].cliente}" method="POST" class="projetoDEL">
+                        <div class="projDelete">
+                            <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                                <i class="tim-icons icon-trash-simple"></i>
+                            </button>
+                        </div>
+                    </form>
+                    </td>
+                </tr>   
+                `
+                table.innerHTML += row
+            } else if(marcsTrab[i].state == "Terminado" && marcsTrab[i].avaliado_admin == "Não"){
+                let row = 
+                ` 
+                <tr>
+                    <td>${marcsTrab[i]._id}</td>
+                    <td>${marcsTrab[i].address}</td>
+                    <td>${marcsTrab[i].state}</td>
+                    <td>${marcsTrab[i].date}</td>
+                    <td>${marcsTrab[i].hour}</td>
+                    <td>${marcsTrab[i].avaliado_admin}</td>
+                    <td>
+                    <form>
+                        <div class="">
+                            <button type="button" class="btn btn-primary" onclick="window.location.href='/auth/projmarc'">Avaliar</button>
+                        </div>
+                    </form>
+                    </td>
+                </tr>   
+                `
+                table.innerHTML += row
+            }
+
+        }
     }
+
+    $('#marcacoesTrab').on('submit', '.projetoDEL', function(e) {
+      e.preventDefault();
+
+      const $form = $(e.target);
+      const action = $form.attr('action');
+
+      $.ajax({
+        method: 'DELETE',
+        url: action,
+        dataType: 'json',
+        success: function(data) {
+          //console.log(data);
+          $form.replaceWith('<p>Apagado!</p>');
+        }
+      })
+
+    })
+
+
+
+    
+
+
+
+
   </script>
 </body>
 

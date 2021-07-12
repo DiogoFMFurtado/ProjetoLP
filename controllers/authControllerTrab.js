@@ -310,3 +310,44 @@ exports.getMarcacoesTrab = async(req, res) => {
     }    
 
 }
+
+exports.getTrabById = async(req, res) => {
+
+    console.log("Getting Worker...")
+    try {
+        console.log("1");
+        const worker = await Trab.findById(req.params._id);
+        console.log('Worker', worker);
+        res.status(200).json(worker);
+        console.log('Done!');
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+    
+}
+
+exports.getMarcacoesTrab2 = async(req,res) => {
+    try {
+        const marcacoes = await Trab.findById(req.params._id).populate('marcTrab');
+        console.log('Marcações do Trabalhador', marcacoes);
+        res.status(200).json(marcacoes.marcTrab);
+    } catch (err) {
+        res.json({message:err});
+    }
+}
+
+exports.giveNote = async (req,res) => {
+
+    console.log("Giving Note to Worker...");
+    console.log(req.params._id);
+    try {
+        const note = await Trab.findByIdAndUpdate(req.params._id, req.body, {useFindAndModify: false});
+        await note.save();
+        console.log(req.body);
+        res.status(200).json(note);
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+    console.log("Done!")
+}
+

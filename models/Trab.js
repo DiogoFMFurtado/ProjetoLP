@@ -39,8 +39,11 @@ const TrabSchema = new mongoose.Schema({
   marcTrab: [{
     type: Schema.Types.ObjectId,
     ref: 'Marcacao'
-  }]
-  
+  }],
+  note: {
+    type: String,
+    default: "Não tem nota"
+  }
 }, { timestamps: true });
 
 const Trab = mongoose.model('Trab', TrabSchema);

@@ -160,8 +160,9 @@ router.get('/marcEquipaGET/:teamId', authControllerEquipa.getMarcEquipa);
 // Trab
 router.get('/getTrab', authControllerTrab.getTrab);
 router.get('/marcsTrabGET/:_id', authControllerTrab.getMarcacoesTrab);
-
-
+router.get('/marcsTrabGET2/:_id', authControllerTrab.getMarcacoesTrab2);
+router.get('/trabByIdGET/:_id', authControllerTrab.getTrabById);
+router.put('/giveNote/:_id', authControllerTrab.giveNote);
 
 
 module.exports = router;
