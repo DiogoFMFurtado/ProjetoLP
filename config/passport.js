@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 
 //------------ Local User Model ------------//
 const User = require('../models/User');
+const Trab = require('../models/Trab');
 const Admin = require('../models/Admin');
 
 module.exports = function (passport) {
@@ -10,7 +11,7 @@ module.exports = function (passport) {
         new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
             
             //------------ User Matching ------------//
-            User.findOne({
+            Admin.findOne({
                 email: email
             }).then(user => {
                 if (!user) {
@@ -35,7 +36,7 @@ module.exports = function (passport) {
     });
 
     passport.deserializeUser(function (id, done) {
-        User.findById(id, function (err, user) {
+        Admin.findById(id, function (err, user) {
             done(err, user);
         });
     });

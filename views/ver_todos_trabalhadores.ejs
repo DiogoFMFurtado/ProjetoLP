@@ -577,9 +577,23 @@
                       <td>${workers[i]._id}</td>
                       <td>${workers[i].name}</td>
                       <td>${workers[i].pequipa}</td>
+                      <td>
+                        <a href="./ver_trabalhador">
+                          <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Trabalhador</button>
+                        </a>
+                      </td>
                   </tr>`
         table.innerHTML += row
       }
+    }
+
+    function store(index) {
+
+      let workerId = thisArray[index]._id;
+
+      sessionStorage.setItem("workerId", workerId);
+
+      location.href = "./ver_trabalhador";
     }
 
   </script>
