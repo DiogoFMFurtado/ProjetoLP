@@ -143,6 +143,13 @@ exports.delEquipa = async(req,res) => {
         await trabalhador2.save();
         const trabalhador3 = await Trab.findByIdAndUpdate(req.params.trab3, {pequipa: "Não"}, {useFindAndModify: false});
         await trabalhador3.save();
+
+        const worker1 = await Trab.findByIdAndUpdate(req.params.trab1, {$set: {marcTrab: []}}, {useFindAndModify: false});
+        await worker1.save();
+        const worker2 = await Trab.findByIdAndUpdate(req.params.trab2, {$set: {marcTrab: []}}, {useFindAndModify: false});
+        await worker2.save();
+        const worker3 = await Trab.findByIdAndUpdate(req.params.trab3, {$set: {marcTrab: []}}, {useFindAndModify: false});
+        await worker3.save();
         
         res.status(200).json(deletedTeam);
         console.log("Team Deleted!");
