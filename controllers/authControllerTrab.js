@@ -351,3 +351,53 @@ exports.giveNote = async (req,res) => {
     console.log("Done!")
 }
 
+exports.workerSDisp = async(req, res) => { 
+
+    console.log("Making worker not available for work....")
+    try {
+
+        const pequipaD = await Trab.findById(req.params._id);
+        if(pequipaD.pequipa == "Sim"){
+            res.status(404).json({message: "You can't make a worker not available while he is on a team"});
+        }else{
+            pequipaD.pequipa = "Não disponível";
+            await pequipaD.save();
+
+            const disp = await Trab.findByIdAndUpdate(req.params._id, {disponibilidade: "Não disponível"}, {useFindAndModify: false});
+            await disp.save();
+
+            res.status(200).json();
+            console.log("Done!");
+        }
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+
+}
+
+
+exports.workerCDisp = async(req, res) => {
+
+    console.log("Making worker available for work....")
+    try {
+
+        const pequipaD = await Trab.findById(req.params._id);
+        if(pequipaD.pequipa == "Não disponível" && pequipaD.disponibilidade == "Não disponível"){
+            
+            pequipaD.pequipa = "Não";
+            await pequipaD.save();
+
+            const disp = await Trab.findByIdAndUpdate(req.params._id, {disponibilidade: "Sim"}, {useFindAndModify: false});
+            await disp.save();
+
+            res.status(200).json();
+            console.log("Done!");
+        }else{
+            res.status(404).json({message: "Something went wrong...."});
+        }
+
+    }catch(err){
+        res.status(404).json({message: err});
+    }
+
+}

@@ -68,7 +68,7 @@ router.put('/evalPUT/:marcacaoId', authControllerMarcacao.giveAval);
 router.put('/descripPUT/:marcacaoId', authControllerMarcacao.giveDescrip);
 router.delete('/projDEL/:_id/:clientId', authControllerMarcacao.deleteMarc);
 router.put('/teamAttr/:_id2', authControllerMarcacao.atribTeam);
-
+router.put('/disAssE/:_id2', authControllerMarcacao.disAssEquipa);
 
 
 
@@ -136,7 +136,7 @@ router.get('/logoutAdmin', authControllerAdmin.logoutAdminHandle);
 
 router.get('/logoutTrab', authControllerTrab.logoutTrabHandle);
 
-// Post Marcacao
+//Marcacao
 
 router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
 router.put('/avaliacaoPUT/:_id', authControllerMarcacao.clientAval);
@@ -144,9 +144,12 @@ router.put('/avaliacaoPUT/:_id', authControllerMarcacao.clientAval);
 //Feedback
 
 router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
+router.post('/feedbackT', authControllerFeedback.postFeedT);
 router.get('/getUserFeedback/:_id', authControllerFeedback.getFeedBacksById);
+router.get('/getWorkerFeedback/:_id', authControllerFeedback.getFeedBacksByIdT);
 router.delete('/apagarfeedback/:_id', authControllerFeedback.deleteFeedback);
 router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
+
 
 
 //Equipa
@@ -163,6 +166,7 @@ router.get('/marcsTrabGET/:_id', authControllerTrab.getMarcacoesTrab);
 router.get('/marcsTrabGET2/:_id', authControllerTrab.getMarcacoesTrab2);
 router.get('/trabByIdGET/:_id', authControllerTrab.getTrabById);
 router.put('/giveNote/:_id', authControllerTrab.giveNote);
-
+router.put('/trabNDisp/:_id', authControllerTrab.workerSDisp);
+router.put('/trabCDisp/:_id', authControllerTrab.workerCDisp);
 
 module.exports = router;

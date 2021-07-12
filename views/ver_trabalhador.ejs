@@ -229,9 +229,23 @@
                   </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="card" id="cardTrabalhador3">
+                    <div class="card card-tasks" id="cardTrabalhador3">
                         
+                      <div class="card-header">
+                        <h4 class="card-title">Feedbacks do Trabalhador</h4>
+                      </div>
+                      
+                      <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table tablesorter " id="">
+                                <tbody id="feedbacksT">
+            
+                                </tbody>
         
+                            </table>
+                        </div>
+                      </div>
+
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -502,7 +516,7 @@
     function buildCard(worker){
         let card = document.getElementById('cardTrabalhador');
 
-        if(thisWorker.pequipa == "Não"){
+        if(thisWorker.pequipa == "Não" && thisWorker.disponibilidade == "Sim"){
 
             let cardInfo =
             `
@@ -535,21 +549,32 @@
                       </div>
                     </div>
                     <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <form action="/auth/trabNDisp/${thisWorker._id}" method="POST" class="NDisp">
+                          <div class="form-group">
+                            <label>Disponibilidade</label>
+                            <p>${thisWorker.disponibilidade}</p>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Não disponível</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-8">
-                        
+                        <form action="/auth/giveNote/${thisWorker._id}" method="POST" class="giveNote">
                           <div class="form-group">
                             <label>Nota Trab</label>
                             <p>${thisWorker.note}</p>
-                            <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
-                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
+                            <textarea rows="4" cols="80" name="note" class="form-control" placeholder="Uma nota sobre o trabalhador"></textarea>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Nota</button>
                           </div>
-                        
+                        </form>
                       </div>
                     </div>
                 </div>
             `
             card.innerHTML += cardInfo
-        }else{
+        }else if(thisWorker.pequipa == "Sim" && thisWorker.disponibilidade == "Sim"){
             let cardInfo =
             `
                 <div class="card-header">
@@ -587,6 +612,17 @@
                       </div>
                     </div>
                     <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <form action="/auth/trabNDisp/${thisWorker._id}" method="POST" class="NDisp">
+                          <div class="form-group">
+                            <label>Disponibilidade</label>
+                            <p>${thisWorker.disponibilidade}</p>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Não disponível</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-8">
                         <form action="/auth/giveNote/${thisWorker._id}" method="POST" class="giveNote">
                           <div class="form-group">
@@ -599,6 +635,69 @@
                       </div>
                     </div>
                 </div>
+            `
+            card.innerHTML += cardInfo
+        }else if(thisWorker.pequipa == "Não disponível" && thisWorker.disponibilidade == "Não disponível"){
+            let cardInfo =
+            `
+                  <div class="card-header">
+                    <h2 class="title">ID do Trabalhador: ${thisWorker._id}</h2>
+                  </div>
+
+
+                  <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5 pr-md-1">
+                          <div class="form-group">
+                            <label>Nome do Trabalhador</label>
+                            <p>${thisWorker.name}</p>
+                          </div>
+                        </div>
+                        <div class="col-md-3 px-md-1">
+                          <div class="form-group">
+                              <label>Email do Trabalhador</label>
+                              <p>${thisWorker.email}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 pr-md-1">
+                          <div class="form-group">
+                            <label>Pertence a Equipa</label>
+                            <p>${thisWorker.pequipa}</p>
+                          </div>
+                        </div>
+                        <div class="col-md-6 pl-md-1">
+                          <div class="form-group">
+                            <label>Equipa</label>
+                            <p>${thisWorker.equipa}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 pr-md-1">
+                          <form action="/auth/trabCDisp/${thisWorker._id}" method="POST" class="CDisp">
+                          <div class="form-group">
+                            <label>Disponibilidade</label>
+                            <p>${thisWorker.disponibilidade}</p>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Disponível</button>
+                          </div>
+                        </form>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-8">
+                          <form action="/auth/giveNote/${thisWorker._id}" method="POST" class="giveNote">
+                            <div class="form-group">
+                              <label>Nota Trab</label>
+                              <p>${thisWorker.note}</p>
+                              <textarea rows="4" cols="80" name="note" class="form-control" placeholder="Uma nota sobre o trabalhador"></textarea>
+                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Nota</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                  </div>
             `
             card.innerHTML += cardInfo
         }
@@ -617,8 +716,40 @@
         success: function(data) {
           console.log(data);
         }
-      })
-    })
+      });
+    });
+
+    $('#cardTrabalhador').on('submit', '.NDisp', function(e) {
+      e.preventDefault();
+
+      let formData2 = $(this).serialize();
+      let formAction2 = $(this).attr('action');
+      $.ajax({
+        method: 'PUT',
+        url: formAction2,
+        dataType: 'json',
+        data: formData2,
+        success: function(data) {
+          console.log(data);
+        }
+      });
+    });
+
+    $('#cardTrabalhador').on('submit', '.CDisp', function(e) {
+      e.preventDefault();
+
+      let formData2 = $(this).serialize();
+      let formAction2 = $(this).attr('action');
+      $.ajax({
+        method: 'PUT',
+        url: formAction2,
+        dataType: 'json',
+        data: formData2,
+        success: function(data) {
+          console.log(data);
+        }
+      });
+    });
 
 
     let theseMarcacoes;
@@ -719,7 +850,61 @@
 
 
 
-    
+
+
+
+    $.ajax({
+      method: 'GET',
+      url: '/auth/getWorkerFeedback/' + workerId,
+      dataType: 'json',
+      success: function(workerFeed) {
+        arrayFeed = workerFeed;
+        console.log(arrayFeed);
+        buildFeedbacks(arrayFeed)
+      }
+    });
+
+    function buildFeedbacks(workerFeed){
+      let tabela = document.getElementById('feedbacksT')
+
+      for(let i = 0; i < workerFeed.length; i++){
+        let row = `
+                  <tr>
+                    <td>
+                      <p class="text-muted">${workerFeed[i].feedback}</p>
+                    </td>
+                    <td class="td-actions text-right" id="feedDel">
+                      <form action="/auth/apagarfeedback/${workerFeed[i]._id}" method="POST" class="feedDelete">
+                        <div>
+                          <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                            <i class="tim-icons icon-trash-simple"></i>
+                          </button>
+                        </div>
+                      </form>
+                    </td>
+                  </tr>
+                  `
+        tabela.innerHTML += row
+      }
+    }
+
+    $('#cardTrabalhador3').on('submit', '.feedDelete', function(e) {
+      e.preventDefault();
+
+      const $form = $(e.target);
+      const action = $form.attr('action');
+
+      $.ajax({
+        method: 'DELETE',
+        url: action,
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          $form.replaceWith('<p>Apagado!</p>');
+        }
+      })
+
+    })
 
 
 
