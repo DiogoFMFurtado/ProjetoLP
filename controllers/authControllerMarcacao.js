@@ -214,23 +214,24 @@ exports.disAssEquipa = async(req,res) => {
     console.log(req.params._id2);
 
     try {
-        
+        console.log("1");
         const proj = await Marcacao.findByIdAndUpdate(req.params._id2, {team: null}, {useFindAndModify: false});
         await proj.save();
-
-        const equipa = await Equipas.findByIdAndUpdate(req.body, { $pull: { marcsEquipa: req.params._id2}});
-        await equipa.save();
+        console.log("2");
 
         const equipaFalse = await Marcacao.findByIdAndUpdate(req.params._id2, {equipa: "Não"}, {useFindAndModify: false});
         await equipaFalse.save();
-        
+        console.log("3");
+        const equipa = await Equipas.findByIdAndUpdate(req.body, { $pull: { marcsEquipa: req.params._id2}});
+        await equipa.save();
+        console.log("4");
         const worker1 = await Trab.findByIdAndUpdate(equipa.trab1, { $pull: {marcTrab: req.params._id2}});
         await worker1.save();
         const worker2 = await Trab.findByIdAndUpdate(equipa.trab2, { $pull: {marcTrab: req.params._id2}});
         await worker2.save();
         const worker3 = await Trab.findByIdAndUpdate(equipa.trab3, { $pull: {marcTrab: req.params._id2}});
         await worker3.save();
-
+        console.log("5");
         res.status(201).json()
         console.log("Done!");
 
