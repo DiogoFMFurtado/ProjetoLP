@@ -389,5 +389,5 @@ exports.loginAdminHandle = (req, res, next) => {
 exports.logoutAdminHandle = (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
-    res.redirect('/auth/loginAdmin');
+    res.redirect('/');
 }

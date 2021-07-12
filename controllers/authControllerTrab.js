@@ -287,7 +287,7 @@ exports.loginTrabHandle = (req, res, next) => {
 exports.logoutTrabHandle = (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
-    res.redirect('/auth/loginTrab');
+    res.redirect('/');
 }
 
 exports.getTrab = async (req, res) => {
