@@ -4,20 +4,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <title>
-    Marcações
+    Black Dashboard by Creative Tim
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="/assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <link href="/assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -54,13 +54,13 @@
               <p>Trabalhadores</p>
             </a>
           </li>
-          <li class="active">
+          <li>
             <a href="./projmarc">
               <i class="tim-icons icon-bullet-list-67"></i>
               <p>Projetos/Marcações</p>
             </a>
           </li>
-          <li>
+          <li class="active ">
             <a href="./performance">
               <i class="tim-icons icon-chart-bar-32"></i>
               <p>Performance da Empresa</p>
@@ -186,7 +186,7 @@
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <div class="photo">
-                    <img src="../assets/img/anime3.png" alt="Profile Photo">
+                    <img src="/assets/img/anime3.png" alt="Profile Photo">
                   </div>
                   <b class="caret d-none d-lg-block d-xl-block"></b>
                   <p class="d-lg-none">
@@ -218,26 +218,71 @@
         </div>
       </div>
       <!-- End Navbar -->
-
-
-
       <div class="content">
-        <div class="row">
-            <div class="col-md-3">
-              <div class="dard" id="cardProjeto2">
+
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="card" id="cardTrabalhador">
+                    
+    
+                  </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card card-tasks" id="cardTrabalhador3">
+                        
+                      <div class="card-header">
+                        <h4 class="card-title">Feedbacks do Trabalhador</h4>
+                      </div>
+                      
+                      <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table tablesorter " id="">
+                                <tbody id="feedbacksT">
+            
+                                </tbody>
+        
+                            </table>
+                        </div>
+                      </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card  card-plain" id="cardTrabalhador2">
+                        
+                        <div class="card-header">
+                            <h4 class="card-title">Marcações do Trabalhador</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table tablesorter " id="">
+                                
+                                    <thead class=" text-primary">
+                                        <tr>
+                                        <th>Marcação ID</th>
+                                        <th>Morada</th>
+                                        <th>Estado</th>
+                                        <th>Data</th>
+                                        <th>Hora</th>
+                                        <th>Avaliado</th>
+                                        <th>Apagar</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody id="marcacoesTrab">
                 
-  
+                                    </tbody>
+            
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="card" id="cardProjeto">
-                
-
-              </div>
-            </div>
-          </div>
-        </div>
-
+      </div>
       <footer class="footer">
         <div class="container-fluid">
           <ul class="nav">
@@ -247,7 +292,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="./aboutus" class="nav-link">
+              <a href="aboutus.html" class="nav-link">
                 About Us
               </a>
             </li>
@@ -309,20 +354,20 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/assets/js/core/jquery.min.js"></script>
+  <script src="/assets/js/core/popper.min.js"></script>
+  <script src="/assets/js/core/bootstrap.min.js"></script>
+  <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <!-- Place this tag in your head or just before your close body tag. -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <script src="/assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="/assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
+  <script src="/assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="/assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -449,275 +494,216 @@
         application: "black-dashboard-free"
       });
   </script>
-  <script>
-    let modal = document.getElementById("ModalEquipa");
-    let btn = document.getElementById("ModalBtn");
-    let span = document.getElementsByClassName("close");
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-    span.onclick = function () {
-      modal.style.display = "none";
-    }
-    window.onclick = function(event) {
-      if (event.target == modal) { 
-        modal.style.display = "none";
-      }
-    }
-  </script>
 
 
   <script>
 
-    let marcId = sessionStorage.getItem("marcId");
-    //console.log(marcId);
-    let thisMarcacao;
-
+    let workerId = sessionStorage.getItem("workerId");
+    console.log(workerId);
+    let thisWorker;
 
     $.ajax({
       method: 'GET',
-      url: '/auth/marcGET' + '/' + marcId,
+      url: '/auth/trabByIdGET' + '/' + workerId,
       dataType: 'json',
-      success:function(marc){
-        thisMarcacao = marc
-        buildCard(thisMarcacao);
-        //console.log(thisMarcacao);
+      success:function(worker){
+        thisWorker = worker
+        buildCard(thisWorker);
+        console.log(thisWorker);
       }
-    })
-    async function get_equipas(){
-      const equipas = await fetch('/auth/equipasGET/')
-      const data_equipas = await equipas.json()
-      const nome = []
-      for (let i=0;i<data_equipas.length; i++){
-        if (data_equipas[i]._id === thisMarcacao.team){
-          nome.push(data_equipas[i].teamName)
-        }
-      }
-      if(nome.length === 0){
-        nome.push("Falta Associar")
-      }
-      const name = nome
-      return {name}
-    }
+    });
 
-    async function slider(){
-      const equipa = await fetch('/auth/equipasGET/')
-      const data_equipa = await equipa.json()
-      const list = []
-      for(let i = 0; i < data_equipa.length; i++){
-        let option = `<option value="${data_equipa[i]._id}">${data_equipa[i].teamName}</option>`
-        list.push(option)
-      }
-      return {list}
-    }
+    function buildCard(worker){
+        let card = document.getElementById('cardTrabalhador');
 
-    async function buildCard(thisMarcacao){
-      const data = await get_equipas();
-      const option = await slider();
-      let card = document.getElementById('cardProjeto');
-      console.log(data)
-      if(thisMarcacao.equipa == "Não" || data.name == "Falta Associar"){
-        let cardInfo =
-        `
-        <div class="card-header">
-                    <h2 class="title">ID da Marcação: ${thisMarcacao._id}</h2>
-                  </div>
-                  <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-5 pr-md-1">
-                          <div class="form-group">
-                            <label>Nome do Cliente</label>
-                            <p>${thisMarcacao.name}</p>
-                          </div>
-                        </div>
-                        <div class="col-md-3 px-md-1">
-                          <form action="/auth/teamAttr/${thisMarcacao._id}" method="POST" class="teamAttr">
-                            <div class="form-group">
-                              <label>Equipa</label>
-                              <p>${data.name}</p>
-                              <select id="slidemenu" name="_id">
-                                <option selected="selected" hidden>Selecione a Equipa</option>
-                                ${option.list}
-                              </select>
-                              <button type="submit" id="ModalBtn" class="btn btn-primary" onClick="window.location.reload();">Adicionar</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6 pr-md-1">
-                          <div class="form-group">
-                            <label>Estado</label>
-                            <p>${thisMarcacao.state}</p>
-                          </div>
-                        </div>
-                        <div class="col-md-6 pl-md-1">
-                          <div class="form-group">
-                            <label>Nota do Cliente</label>
-                            <p>${thisMarcacao.aval_client}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <label>Morada</label>
-                            <p>${thisMarcacao.address}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-4 pr-md-1">
-                          <form action="/auth/evalPUT/${thisMarcacao._id}" method="POST" class="aval">
-                            <div class="form-group">
-                              <label>Avaliação Projeto</label>
-                              <p>${thisMarcacao.aval_admin}</p>
-                              <input type="text" name="aval_admin" class="form-control" placeholder="L1-L5" >
-                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Avaliação</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-8">
-                          <form action="/auth/descripPUT/${thisMarcacao._id}" method="POST" class="description">
-                            <div class="form-group">
-                              <label>About Projeto</label>
-                              <p>${thisMarcacao.descricao}</p>
-                              <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
-                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                  </div>
-        `
-        card.innerHTML += cardInfo
-      }else{
-        let cardInfo =
-        `
-                  <div class="card-header">
-                    <h2 class="title">ID da Marcação: ${thisMarcacao._id}</h2>
-                  </div>
+        if(thisWorker.pequipa == "Não" && thisWorker.disponibilidade == "Sim"){
 
-
-                  <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-5 pr-md-1">
-                          <div class="form-group">
-                            <label>Nome do Cliente</label>
-                            <p>${thisMarcacao.name}</p>
-                          </div>
-                        </div>
-                        <div class="col-md-3 px-md-1">
-                          <form action="/auth/disAssE/${thisMarcacao._id}" method="POST" class="disAssE">
-                            <div class="form-group">
-                              <label>Equipa</label>
-                              <p>${data.name}</p>
-                              <button type="submit" id="ModalBtn" class="btn btn-primary" onClick="window.location.reload();">Disassociar</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6 pr-md-1">
-                          <div class="form-group">
-                            <label>Estado</label>
-                            <p>${thisMarcacao.state}</p>
-                          </div>
-                        </div>
-                        <div class="col-md-6 pl-md-1">
-                          <div class="form-group">
-                            <label>Nota do Cliente</label>
-                            <p>${thisMarcacao.aval_client}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <label>Morada</label>
-                            <p>${thisMarcacao.address}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-4 pr-md-1">
-                          <form action="/auth/evalPUT/${thisMarcacao._id}" method="POST" class="aval">
-                            <div class="form-group">
-                              <label>Avaliação Projeto</label>
-                              <p>${thisMarcacao.aval_admin}</p>
-                              <input type="text" name="aval_admin" class="form-control" placeholder="L1-L5" >
-                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Avaliação</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-8">
-                          <form action="/auth/descripPUT/${thisMarcacao._id}" method="POST" class="description">
-                            <div class="form-group">
-                              <label>About Projeto</label>
-                              <p>${thisMarcacao.descricao}</p>
-                              <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
-                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                  </div>
-        `
-        card.innerHTML += cardInfo
-      }
-    }
-
-    function buildCard2(thisMarcacao){
-      let card2 = document.getElementById('cardProjeto2');
-
-      let cardInfo2 =
-      `
+            let cardInfo =
+            `
                 <div class="card-header">
-                  <h2 class="title">Manager do Cliente</h2>
+                  <h2 class="title">ID do Trabalhador: ${thisWorker._id}</h2>
                 </div>
 
 
-                <div class="d-body">
-                  <form>
+                <div class="card-body">
                     <div class="row">
                       <div class="col-md-5 pr-md-1">
                         <div class="form-group">
-                          <p>${thisMarcacao.admin}</p>
+                          <label>Nome do Trabalhador</label>
+                          <p>${thisWorker.name}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                            <label>Email do Trabalhador</label>
+                            <p>${thisWorker.email}</p>
                         </div>
                       </div>
                     </div>
-                  </form>
+                    <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <div class="form-group">
+                          <label>Pertence a Equipa</label>
+                          <p>${thisWorker.pequipa}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <form action="/auth/trabNDisp/${thisWorker._id}" method="POST" class="NDisp">
+                          <div class="form-group">
+                            <label>Disponibilidade</label>
+                            <p>${thisWorker.disponibilidade}</p>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Não disponível</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <form action="/auth/giveNote/${thisWorker._id}" method="POST" class="giveNote">
+                          <div class="form-group">
+                            <label>Nota Trab</label>
+                            <p>${thisWorker.note}</p>
+                            <textarea rows="4" cols="80" name="note" class="form-control" placeholder="Uma nota sobre o trabalhador"></textarea>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Nota</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
                 </div>
-      `
-      card2.innerHTML += cardInfo2
+            `
+            card.innerHTML += cardInfo
+        }else if(thisWorker.pequipa == "Sim" && thisWorker.disponibilidade == "Sim"){
+            let cardInfo =
+            `
+                <div class="card-header">
+                  <h2 class="title">ID do Trabalhador: ${thisWorker._id}</h2>
+                </div>
+
+
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-5 pr-md-1">
+                        <div class="form-group">
+                          <label>Nome do Trabalhador</label>
+                          <p>${thisWorker.name}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-3 px-md-1">
+                        <div class="form-group">
+                            <label>Email do Trabalhador</label>
+                            <p>${thisWorker.email}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <div class="form-group">
+                          <label>Pertence a Equipa</label>
+                          <p>${thisWorker.pequipa}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-6 pl-md-1">
+                        <div class="form-group">
+                          <label>Equipa</label>
+                          <p>${thisWorker.equipa}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 pr-md-1">
+                        <form action="/auth/trabNDisp/${thisWorker._id}" method="POST" class="NDisp">
+                          <div class="form-group">
+                            <label>Disponibilidade</label>
+                            <p>${thisWorker.disponibilidade}</p>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Não disponível</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <form action="/auth/giveNote/${thisWorker._id}" method="POST" class="giveNote">
+                          <div class="form-group">
+                            <label>Nota Trab</label>
+                            <p>${thisWorker.note}</p>
+                            <textarea rows="4" cols="80" name="note" class="form-control" placeholder="Uma nota sobre o trabalhador"></textarea>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Nota</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+            `
+            card.innerHTML += cardInfo
+        }else if(thisWorker.pequipa == "Não disponível" && thisWorker.disponibilidade == "Não disponível"){
+            let cardInfo =
+            `
+                  <div class="card-header">
+                    <h2 class="title">ID do Trabalhador: ${thisWorker._id}</h2>
+                  </div>
+
+
+                  <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5 pr-md-1">
+                          <div class="form-group">
+                            <label>Nome do Trabalhador</label>
+                            <p>${thisWorker.name}</p>
+                          </div>
+                        </div>
+                        <div class="col-md-3 px-md-1">
+                          <div class="form-group">
+                              <label>Email do Trabalhador</label>
+                              <p>${thisWorker.email}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 pr-md-1">
+                          <div class="form-group">
+                            <label>Pertence a Equipa</label>
+                            <p>${thisWorker.pequipa}</p>
+                          </div>
+                        </div>
+                        <div class="col-md-6 pl-md-1">
+                          <div class="form-group">
+                            <label>Equipa</label>
+                            <p>${thisWorker.equipa}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 pr-md-1">
+                          <form action="/auth/trabCDisp/${thisWorker._id}" method="POST" class="CDisp">
+                          <div class="form-group">
+                            <label>Disponibilidade</label>
+                            <p>${thisWorker.disponibilidade}</p>
+                            <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Disponível</button>
+                          </div>
+                        </form>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-8">
+                          <form action="/auth/giveNote/${thisWorker._id}" method="POST" class="giveNote">
+                            <div class="form-group">
+                              <label>Nota Trab</label>
+                              <p>${thisWorker.note}</p>
+                              <textarea rows="4" cols="80" name="note" class="form-control" placeholder="Uma nota sobre o trabalhador"></textarea>
+                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Nota</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                  </div>
+            `
+            card.innerHTML += cardInfo
+        }
     }
 
-
-    //console.log("Isto é o ID da marcacao", marcId);
-
-    $('.card').on('submit', '.aval', function(e) {
-      e.preventDefault();
-
-      let formData = $(this).serialize();
-      let formAction = $(this).attr('action');
-
-
-      $.ajax({
-        method: 'PUT',
-        url: formAction,
-        dataType: 'json',
-        data: formData,
-        success: function(data) {
-          //console.log(data);
-        }
-      })
-    })
-
-    $('.card').on('click', '.description', function(e) {
+    $('#cardTrabalhador').on('submit', '.giveNote', function(e) {
       e.preventDefault();
 
       let formData2 = $(this).serialize();
@@ -728,43 +714,199 @@
         dataType: 'json',
         data: formData2,
         success: function(data) {
-          //console.log(data);
-        }
-      })
-    })
-
-    $('.card').on('submit', '.teamAttr', function(e) {
-      e.preventDefault();
-
-      let formData3 = $(this).serialize();
-      let formAction3 = $(this).attr('action');
-      $.ajax({
-        method: 'PUT',
-        url: formAction3,
-        data: formData3,
-        dataType: 'json',
-        complete: function() { //complete
-          //console.log(data);
-          window.location.href = './ver_projeto_marcacoes';
+          console.log(data);
         }
       });
     });
 
-    $('.card').on('submit', '.disAssE', function(e) {
+    $('#cardTrabalhador').on('submit', '.NDisp', function(e) {
       e.preventDefault();
 
-      let formData3 = $(this).serialize();
-      let formAction3 = $(this).attr('action');
+      let formData2 = $(this).serialize();
+      let formAction2 = $(this).attr('action');
       $.ajax({
         method: 'PUT',
-        url: formAction3,
+        url: formAction2,
         dataType: 'json',
-        data: formData3,
+        data: formData2,
         success: function(data) {
           console.log(data);
         }
       });
     });
+
+    $('#cardTrabalhador').on('submit', '.CDisp', function(e) {
+      e.preventDefault();
+
+      let formData2 = $(this).serialize();
+      let formAction2 = $(this).attr('action');
+      $.ajax({
+        method: 'PUT',
+        url: formAction2,
+        dataType: 'json',
+        data: formData2,
+        success: function(data) {
+          console.log(data);
+        }
+      });
+    });
+
+
+    let theseMarcacoes;
+
+    $.ajax({
+      method: 'GET',
+      url: '/auth/marcsTrabGET2' + '/' + workerId,
+      dataType: 'json',
+      success:function(marcsTrab){
+        theseMarcacoes = marcsTrab
+        buildTable(theseMarcacoes);
+        console.log(theseMarcacoes);
+      }
+    });
+
+    function buildTable(marcsTrab){
+        let table = document.getElementById('marcacoesTrab');
+
+        for(let i = 0; i < marcsTrab.length; i++){
+            if(marcsTrab[i].state == "Pendente" && marcsTrab[i].avaliado_admin == "Não"){
+
+                let row = 
+                ` 
+                <tr>
+                    <td>${marcsTrab[i]._id}</td>
+                    <td>${marcsTrab[i].address}</td>
+                    <td>${marcsTrab[i].state}</td>
+                    <td>${marcsTrab[i].date}</td>
+                    <td>${marcsTrab[i].hour}</td>
+                    <td>${marcsTrab[i].avaliado_admin}</td>
+                </tr>   
+                `
+                table.innerHTML += row
+            } else if(marcsTrab[i].state == "Terminado" && marcsTrab[i].avaliado_admin == "Sim"){
+                let row = 
+                ` 
+                <tr>
+                    <td>${marcsTrab[i]._id}</td>
+                    <td>${marcsTrab[i].address}</td>
+                    <td>${marcsTrab[i].state}</td>
+                    <td>${marcsTrab[i].date}</td>
+                    <td>${marcsTrab[i].hour}</td>
+                    <td>${marcsTrab[i].avaliado_admin}</td>
+                    <td>
+                    <form action="/auth/projDEL/${marcsTrab[i]._id}/${marcsTrab[i].cliente}" method="POST" class="projetoDEL">
+                        <div class="projDelete">
+                            <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                                <i class="tim-icons icon-trash-simple"></i>
+                            </button>
+                        </div>
+                    </form>
+                    </td>
+                </tr>   
+                `
+                table.innerHTML += row
+            } else if(marcsTrab[i].state == "Terminado" && marcsTrab[i].avaliado_admin == "Não"){
+                let row = 
+                ` 
+                <tr>
+                    <td>${marcsTrab[i]._id}</td>
+                    <td>${marcsTrab[i].address}</td>
+                    <td>${marcsTrab[i].state}</td>
+                    <td>${marcsTrab[i].date}</td>
+                    <td>${marcsTrab[i].hour}</td>
+                    <td>${marcsTrab[i].avaliado_admin}</td>
+                    <td>
+                    <form>
+                        <div class="">
+                            <button type="button" class="btn btn-primary" onclick="window.location.href='/auth/projmarc'">Avaliar</button>
+                        </div>
+                    </form>
+                    </td>
+                </tr>   
+                `
+                table.innerHTML += row
+            }
+
+        }
+    }
+
+    $('#marcacoesTrab').on('submit', '.projetoDEL', function(e) {
+      e.preventDefault();
+
+      const $form = $(e.target);
+      const action = $form.attr('action');
+
+      $.ajax({
+        method: 'DELETE',
+        url: action,
+        dataType: 'json',
+        success: function(data) {
+          //console.log(data);
+          $form.replaceWith('<p>Apagado!</p>');
+        }
+      })
+
+    })
+
+
+
+
+
+
+    $.ajax({
+      method: 'GET',
+      url: '/auth/getWorkerFeedback/' + workerId,
+      dataType: 'json',
+      success: function(workerFeed) {
+        arrayFeed = workerFeed;
+        console.log(arrayFeed);
+        buildFeedbacks(arrayFeed)
+      }
+    });
+
+    function buildFeedbacks(workerFeed){
+      let tabela = document.getElementById('feedbacksT')
+
+      for(let i = 0; i < workerFeed.length; i++){
+        let row = `
+                  <tr>
+                    <td>
+                      <p class="text-muted">${workerFeed[i].feedback}</p>
+                    </td>
+                    <td class="td-actions text-right" id="feedDel">
+                      <form action="/auth/apagarfeedback/${workerFeed[i]._id}" method="POST" class="feedDelete">
+                        <div>
+                          <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                            <i class="tim-icons icon-trash-simple"></i>
+                          </button>
+                        </div>
+                      </form>
+                    </td>
+                  </tr>
+                  `
+        tabela.innerHTML += row
+      }
+    }
+
+    $('#cardTrabalhador3').on('submit', '.feedDelete', function(e) {
+      e.preventDefault();
+
+      const $form = $(e.target);
+      const action = $form.attr('action');
+
+      $.ajax({
+        method: 'DELETE',
+        url: action,
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          $form.replaceWith('<p>Apagado!</p>');
+        }
+      })
+
+    })
+
+
 
 
   </script>

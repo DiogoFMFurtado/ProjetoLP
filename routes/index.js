@@ -112,4 +112,8 @@ router.get('/criar_equipa', ensureAuthenticated, (req, res) => res.render('criar
     name: req.user.name
 }));
 
+router.get('/ver_trabalhador', ensureAuthenticated, (req, res) => res.render('ver_trabalhador', {
+    name: req.user.name
+}));
+
 module.exports = router;
