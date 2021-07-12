@@ -470,7 +470,7 @@
   <script>
 
     let marcId = sessionStorage.getItem("marcId");
-    console.log(marcId);
+    //console.log(marcId);
     let thisMarcacao;
 
 
@@ -481,7 +481,7 @@
       success:function(marc){
         thisMarcacao = marc
         buildCard(thisMarcacao);
-        console.log(thisMarcacao);
+        //console.log(thisMarcacao);
       }
     })
     async function get_equipas(){
@@ -522,8 +522,6 @@
         <div class="card-header">
                     <h2 class="title">ID da Marcação: ${thisMarcacao._id}</h2>
                   </div>
-
-
                   <div class="card-body">
                       <div class="row">
                         <div class="col-md-5 pr-md-1">
@@ -699,7 +697,7 @@
     }
 
 
-    console.log("Isto é o ID da marcacao", marcId);
+    //console.log("Isto é o ID da marcacao", marcId);
 
     $('.card').on('submit', '.aval', function(e) {
       e.preventDefault();
@@ -714,7 +712,7 @@
         dataType: 'json',
         data: formData,
         success: function(data) {
-          console.log(data);
+          //console.log(data);
         }
       })
     })
@@ -730,7 +728,7 @@
         dataType: 'json',
         data: formData2,
         success: function(data) {
-          console.log(data);
+          //console.log(data);
         }
       })
     })
@@ -743,10 +741,11 @@
       $.ajax({
         method: 'PUT',
         url: formAction3,
-        dataType: 'json',
         data: formData3,
-        success: function(data) {
-          console.log(data);
+        dataType: 'json',
+        complete: function() { //complete
+          //console.log(data);
+          window.location.href = './ver_projeto_marcacoes';
         }
       });
     });
@@ -766,7 +765,6 @@
         }
       });
     });
-
 
 
   </script>
