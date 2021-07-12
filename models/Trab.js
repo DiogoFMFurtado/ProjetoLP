@@ -1,3 +1,4 @@
+const { SchemaType } = require('mongoose');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -39,8 +40,19 @@ const TrabSchema = new mongoose.Schema({
   marcTrab: [{
     type: Schema.Types.ObjectId,
     ref: 'Marcacao'
+  }],
+  note: {
+    type: String,
+    default: "Não tem nota"
+  },
+  disponibilidade: {
+    type: String,
+    default: "Sim"
+  },
+  feedbacksT: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Feedback'
   }]
-  
 }, { timestamps: true });
 
 const Trab = mongoose.model('Trab', TrabSchema);

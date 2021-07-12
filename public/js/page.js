@@ -9,20 +9,6 @@ var renderPage = true;
 
 //script para esconder a marcação da limpeza
 
-$(document).ready(function(){
-    $('#Login').on('click', function(){
-        $('#Login').hide(); //Faz apareçer a tm-section-3, utiliza o id da secção
-        $('#Logout').show(); //Faz apareçer a tm-section-2, utiliza o id da secção
-    })
-})
-
-    
-$(document).ready(function(){
-    $('#Logout').on('click', function(){
-        $('#Login').show(); //Faz apareçer a tm-section-3, utiliza o id da secção
-        $('#Logout').hide(); //Faz apareçer a tm-section-2, utiliza o id da secção
-    })
-})
 // Marcação da limpeza
 $(document).ready(function(){
     $('#limpeza').on('click', function(){

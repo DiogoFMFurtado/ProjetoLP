@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { ensureAuthenticated } = require('../config/checkAuth')
+const { ensureAuthenticated, ensureRole } = require('../config/checkAuth')
 
 //------------ Welcome Route ------------//
 router.get('/', (req, res) => {
@@ -8,15 +8,15 @@ router.get('/', (req, res) => {
 });
 
 //------------ Dashboard Route ------------//
-router.get('/dashboard', ensureAuthenticated, (req, res) => res.render('dashboard', {
+router.get('/dashboard', ensureAuthenticated, ensureRole('Adminstrador'), (req, res) => res.render('dashboard', {
     name: req.user.name
 }));
 
-router.get('/workerpage', ensureAuthenticated, (req, res) => res.render('workerpage', {
+router.get('/workerpage', ensureAuthenticated, ensureRole('Trabalhador'),(req, res) => res.render('workerpage', {
     name: req.user.name
 }));
 
-router.get('/clientpage', ensureAuthenticated, (req, res) => res.render('clientpage', {
+router.get('/clientpage', ensureAuthenticated, ensureRole('Cliente'),(req, res) => res.render('clientpage', {
     name: req.user.name
 }));
 
@@ -109,6 +109,10 @@ router.get('/ver_cliente', ensureAuthenticated, (req, res) => res.render('ver_cl
 }));
 
 router.get('/criar_equipa', ensureAuthenticated, (req, res) => res.render('criar_equipa', {
+    name: req.user.name
+}));
+
+router.get('/ver_trabalhador', ensureAuthenticated, (req, res) => res.render('ver_trabalhador', {
     name: req.user.name
 }));
 

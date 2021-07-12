@@ -233,6 +233,7 @@
               <div class="card-body">
                 <form action="/auth/registertrab" method="POST" id="registar_um_novo_trabalhador_">
                   <%- include ("./messages") %>
+
                   <div class="row">
                     <div class="col-md-5 pr-md-1">
                       <div class="form-group">
@@ -281,7 +282,10 @@
             data: form.serialize(), // serializes the form's elements.
             success: function(data)
             {
+              alert('Email enviado')
               window.location.href = "./colegas2";
+              //this.success()
+
             }
           });
         });

@@ -176,6 +176,13 @@ exports.atribTeam = async(req,res) => {
         await proj.save();
         equipa.marcsEquipa.push(proj);
         await equipa.save();
+        
+        console.log("1");
+        
+        const equipaTrue = await Marcacao.findByIdAndUpdate(req.params._id2, {equipa: "Sim"}, {useFindAndModify: false});
+        await equipaTrue.save();
+        
+        console.log("1");
 
         // Associação Projeto a cada Trabalhador
         const worker1 = await Trab.findOne({_id: equipa.trab1});
@@ -187,17 +194,49 @@ exports.atribTeam = async(req,res) => {
         const worker3 = await Trab.findOne({_id: equipa.trab3});
         worker3.marcTrab.push(proj);
         await worker3.save();
-
-
-        const equipaTrue = await Marcacao.findByIdAndUpdate(req.params._id2, {equipa: "Sim"}, {useFindAndModify: false});
-        equipaTrue.save();
+        
+        console.log("2");
         
         res.status(201).json()
-        
+        console.log("Done!");
 
     } catch(err) {
         res.status(404).json({message: err})
     }
 
-    console.log("Done!");
+    
+}
+
+exports.disAssEquipa = async(req,res) => {
+
+    console.log("Removing Team for Project....");
+    console.log(req.body);
+    console.log(req.params._id2);
+
+    try {
+        
+        const proj = await Marcacao.findByIdAndUpdate(req.params._id2, {team: null}, {useFindAndModify: false});
+        await proj.save();
+
+        const equipa = await Equipas.findByIdAndUpdate(req.body, { $pull: { marcsEquipa: req.params._id2}});
+        await equipa.save();
+
+        const equipaFalse = await Marcacao.findByIdAndUpdate(req.params._id2, {equipa: "Não"}, {useFindAndModify: false});
+        await equipaFalse.save();
+        
+        const worker1 = await Trab.findByIdAndUpdate(equipa.trab1, { $pull: {marcTrab: req.params._id2}});
+        await worker1.save();
+        const worker2 = await Trab.findByIdAndUpdate(equipa.trab2, { $pull: {marcTrab: req.params._id2}});
+        await worker2.save();
+        const worker3 = await Trab.findByIdAndUpdate(equipa.trab3, { $pull: {marcTrab: req.params._id2}});
+        await worker3.save();
+
+        res.status(201).json()
+        console.log("Done!");
+
+
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+
 }

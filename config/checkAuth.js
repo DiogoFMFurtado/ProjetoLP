@@ -1,16 +1,23 @@
 //------------ Routing via Auth ------------//
-module.exports = {
-    ensureAuthenticated: function (req, res, next) {
-        if (req.isAuthenticated()) {
-            return next();
-        }
-        req.flash('error_msg', 'Please log in first!');
-        res.redirect('/auth/welcome');
-    },
-    forwardAuthenticated: function (req, res, next) {
-        if (!req.isAuthenticated()) {
-            return next();
-        }
-        res.redirect('/dashboard.ejs');
+
+ function ensureAuthenticated(req, res, next) {
+    if (!req.isAuthenticated()) {
+        return res.redirect('/');
     }
+     return next();
+}
+function ensureRole(role){
+    return (req, res, next)=>{
+       //if (req.user.role === role){
+       //    return res.redirect('')
+       //}
+        return next()
+    }
+}
+
+
+
+module.exports = {
+    ensureRole,
+    ensureAuthenticated
 };
