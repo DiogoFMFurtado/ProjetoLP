@@ -276,7 +276,7 @@ exports.forgotTrabPassword = (req, res) => {
 }
 
 exports.loginTrabHandle = (req, res, next) => {
-    passport.authenticate('local', {
+    passport.authenticate('trabalhador', {
         successRedirect: '/workerpage',
         failureRedirect: '/auth/loginTrab',
         failureFlash: true
