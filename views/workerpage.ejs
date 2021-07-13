@@ -136,7 +136,7 @@
                             <th>Hora</th>
                             <th>Estado</th>
                             <th>Terminar</th>
-                            <th>Apagar</th>
+                            <th>Avaliação</th>
                         </tr>
                         <tbody id="marcsT">
 
@@ -222,11 +222,13 @@
                                 <td>${marcs[i].hour}</td>
                                 <td>${marcs[i].state}</td>
                                 <td>
-                                    <form action="/auth/avaliacaoPUT/${marcs[i]._id}" method="POST" class="avaliacao">
-                                        <div class="form-group" class="div1">
-                                            <button type="submit" class="btn btn-fill btn-primary">Terminar</button>
-                                        </div>
-                                    </form>
+                                    <div class="form-group col-xs-12 pl-lg-3">
+                                        <form action="/auth/endProject/${marcs[i]._id}" method="POST" class="endProject">
+                                            <div class="form-group" class="div1">
+                                                <button type="submit" class="btn btn-fill btn-primary">Terminar</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>`
                     table.innerHTML += row 
@@ -259,11 +261,7 @@
                                     <p>Terminado!</p>
                                 </div>    
                             </td>
-                            <td>
-                                <div class="form-group" class="div1">
-                                    <button type="submit" class="btn btn-fill btn-primary">Apagar</button>
-                                </div>   
-                            </td>
+                            <td>${marcs[i].aval_admin}</td>
                         </tr>`
                     table.innerHTML += row
                     
@@ -272,20 +270,18 @@
             }
         }
 
-        $('.tabela-clientes').on('submit', '.avaliacao', function(e) {
+        $('#marcsT').on('submit', '.endProject', function(e) {
             e.preventDefault();
 
             const $form = $(e.target);
-            const formData = $form.serialize();
             const action = $form.attr('action');
             $.ajax({
                 method: 'PUT',
                 url: action,
                 dataType: 'json',
-                data: formData,
                 success: function(data) {
                     console.log(data);
-                    $form.replaceWith("<p>Avaliado!</p>");
+                    $form.replaceWith("<p>Terminado!</p>");
                 }
             })
         })
