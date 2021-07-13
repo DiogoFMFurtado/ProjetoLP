@@ -592,7 +592,7 @@
                           </div>
                         </div>
                         <div class="col-md-3 px-md-1">
-                          <form action="/auth/disAssE/${thisMarcacao._id}" method="POST" class="disAssE">
+                          <form action="/auth/disAssE/${thisMarcacao._id}/${thisMarcacao.team}" method="POST" class="disAssE">
                             <div class="form-group">
                               <label>Equipa</label>
                               <p>${data.name}</p>
@@ -649,7 +649,7 @@
                           </div>
                         </div>
                         <div class="col-md-3 px-md-1">
-                          <form action="/auth/disAssE/${thisMarcacao._id}" method="POST" class="disAssE">
+                          <form action="/auth/disAssE/${thisMarcacao._id}/${thisMarcacao.team}" method="POST" class="disAssE">
                             <div class="form-group">
                               <label>Equipa</label>
                               <p>${data.name}</p>
@@ -792,14 +792,10 @@
     $('.card').on('submit', '.disAssE', function(e) {
       e.preventDefault();
 
-      let formData3 = $(this).serialize();
       let formAction3 = $(this).attr('action');
       $.ajax({
         method: 'PUT',
         url: formAction3,
-        dataType: 'json',
-
-        data: formData3,
         dataType: 'json',
         complete: function() { //complete
           //console.log(data);

@@ -68,7 +68,7 @@ router.put('/evalPUT/:marcacaoId', authControllerMarcacao.giveAval);
 router.put('/descripPUT/:marcacaoId', authControllerMarcacao.giveDescrip);
 router.delete('/projDEL/:_id/:clientId', authControllerMarcacao.deleteMarc);
 router.put('/teamAttr/:_id2', authControllerMarcacao.atribTeam);
-router.put('/disAssE/:_id2', authControllerMarcacao.disAssEquipa);
+router.put('/disAssE/:_id2/:_id1', authControllerMarcacao.disAssEquipa);
 
 
 
