@@ -564,18 +564,15 @@
       if (clientById.hasAdmin == false){
         let divis = `
           <div class="col-md-12">
-            <form action="/auth/adminPUT" method="POST" class="formAdmin" >
               <div class="row">
                 <div class="col-sm-2">
-                  <div class="form-group hidden" id="procura">
-                    <input type="text" name="admin" class="form-control" placeholder="Manager Name">
-                  </div>
-                  <div class="botao-de-despedir hidden" id="associar">
-                    <button type="submit" id="btnDespedir" class="btn  btn-primary-smol">Associar</button>
-                  </div>
+                  <form action="/auth/adminPUT/${clientById._id}" method="POST" class="adminPUT">
+                    <div class="botao-de-despedir hidden" id="associar">
+                      <button type="submit" id="btnDespedir" class="btn  btn-primary-smol" onclick="window.location.href='/ver_cliente'">Associar</button>
+                    </div>
+                  </form>
                 </div>
               </div>
-            </form>
           </div>`
         divRetirar.innerHTML += divis
       } else {
@@ -588,7 +585,11 @@
               <p>Confirme com o Manager neste momento associado, para poder associar-se:</p> 
             </div>
             <div class="card-footer">
-              <button type="submit" id="btnDiss" class="btn  btn-primary-smol">Desassociar</button>
+              <form action="/auth/adminNPUT/${clientById.admin}/${clientById._id}" method="POST" class="adminNPUT">
+                <div>
+                  <button type="submit" class="btn btn-fill btn-primary" onclick="window.location.href='/ver_cliente'">Desassociar</button>
+                </div>
+              </form>
             </div>
 
           </div>
@@ -598,24 +599,43 @@
 
     }
 
-    $('#divRetirar').on('submit', '.formAdmin' ,function(e) {
+    $('#divRetirar').on('submit', '.adminPUT' ,function(e) {
       e.preventDefault();
       
       const $form = $(e.target);
-      let formData = $form.serialize();
       let action = $form.attr('action');
 
       $.ajax({
         method: 'PUT',
-        url: action + '/' + clientId,
+        url: action,
         dataType: 'json',
-        data: formData,
         success: function(data) {
           console.log(data);
           $('#divRetirar').replaceWith('<h3>Manager Associado!</h3>')
         }
       })
     })
+
+    $('#divRetirar').on('submit', '.adminNPUT' ,function(e) {
+      e.preventDefault();
+      
+      const $form = $(e.target);
+      let action = $form.attr('action');
+
+      $.ajax({
+        method: 'PUT',
+        url: action,
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          $('#divRetirar').replaceWith('<h3>Manager Desassociado!</h3>')
+        }
+      });
+    });
+
+
+
+
 
     function buildH2(clientById){
       

@@ -27,8 +27,8 @@ const UserSchema = new mongoose.Schema({
     default: ''
   },
   admin: {
-    type: String,
-    default: 'Sem Manager'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Admin'
   },
   hasAdmin: {
     type: Boolean,
