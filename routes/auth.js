@@ -172,4 +172,6 @@ router.put('/trabNDisp/:_id', authControllerTrab.workerSDisp);
 router.put('/trabCDisp/:_id', authControllerTrab.workerCDisp);
 
 
+router.get('/allAdminsGET', authControllerAdmin.getAllAdmins);
+
 module.exports = router;
