@@ -720,7 +720,7 @@
                     <td>
                     <form>
                         <div class="">
-                            <button type="button" class="btn btn-primary" onclick="window.location.href='/projmarc'">Avaliar</button>
+                            <button type="button" class="btn btn-primary" onclick="store(${i})">Avaliar</button>
                         </div>
                     </form>
                     </td>
@@ -731,6 +731,17 @@
 
         }
     }
+
+
+    function store(index) {
+
+      console.log("Getting marcacaoId...");
+      let marcacaoId = theseMarcacoes[index]._id;
+      sessionStorage.setItem("marcacaoId", marcacaoId);
+      location.href = "./ver_projeto";
+
+    }
+
 
     $('#marcacoesTrab').on('submit', '.projetoDEL', function(e) {
       e.preventDefault();
@@ -749,11 +760,6 @@
       })
 
     })
-
-
-
-
-
 
     $.ajax({
       method: 'GET',
