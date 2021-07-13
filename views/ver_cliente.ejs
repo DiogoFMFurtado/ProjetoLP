@@ -61,12 +61,6 @@
             </a>
           </li>
           <li>
-            <a href="./performance">
-              <i class="tim-icons icon-chart-bar-32"></i>
-              <p>Performance da Empresa</p>
-            </a>
-          </li>
-          <li>
             <a href="./colegas">
               <i class="tim-icons icon-single-02"></i>
               <p>Registo de Administradores</p>
@@ -91,51 +85,9 @@
             </a>
           </li>
           <li>
-            <a href="./icons">
-              <i class="tim-icons icon-atom"></i>
-              <p>Icons</p>
-            </a>
-          </li>
-          <li>
-            <a href="./map">
-              <i class="tim-icons icon-pin"></i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li>
-            <a href="./notifications">
-              <i class="tim-icons icon-bell-55"></i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <li>
             <a href="./user">
               <i class="tim-icons icon-single-02"></i>
               <p>User Profile</p>
-            </a>
-          </li>
-          <li>
-            <a href="./tables">
-              <i class="tim-icons icon-puzzle-10"></i>
-              <p>Table List</p>
-            </a>
-          </li>
-          <li>
-            <a href="./typography">
-              <i class="tim-icons icon-align-center"></i>
-              <p>Typography</p>
-            </a>
-          </li>
-          <li>
-            <a href="./rtl">
-              <i class="tim-icons icon-world"></i>
-              <p>RTL Support</p>
-            </a>
-          </li>
-          <li class="active-pro">
-            <a href="./upgrade">
-              <i class="tim-icons icon-spaceship"></i>
-              <p>Upgrade to PRO</p>
             </a>
           </li>
         </ul>
@@ -209,7 +161,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder='Search by "MORADA"' onkeyup="filtrar('tabelaClienteAdmin', 1)">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <i class="tim-icons icon-simple-remove"></i>
               </button>
@@ -221,25 +173,7 @@
 
       <div class="content">
         
-        <div class="input-group">
-          <div class="form-outline">
-            <input type="search" id="form1" class="form-control" />
-            <label class="form-label" for="form1">Search</label>
-          </div>
-          <button type="button" class="btn  btn-primary-smol">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      
-
-
-
-        <div class="col-md-4 pl-md-1" id="divRetirar" >
-          
-        </div>
-
-
-
+        <div class="col-md-4 pl-md-1" id="divRetirar" ></div>
 
         <!-- Tabela Clientes -->
         <div class="table-responsive">

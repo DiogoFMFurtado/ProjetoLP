@@ -220,7 +220,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder='Search by "NOME"'  onkeyup="filtrar('tabelaWorkers', 1)">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <i class="tim-icons icon-simple-remove"></i>
               </button>
@@ -246,20 +246,6 @@
               </div>
               <div class="col-md-5 pr-md-1">
                 <button type="button" id="despedir_empregado" class="btn btn-primary">Despedir Empregado</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row ">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-5 pr-md-1">
-                <div class="input-group">
-                  <div class="form-outline">
-                    <input type="text" id="form1" class="form-control" placeholder="Search..." onkeyup="filtrar()">
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -615,26 +601,6 @@
     })
 
 
-  </script>
-  <script>
-    function filtrar() {
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("form1");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("tabelaWorkers");
-      tr = table.getElementsByTagName("tr");
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }       
-      }
-    }
   </script>
 </body>
 
