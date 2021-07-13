@@ -1,10 +1,10 @@
 //------------ Routing via Auth ------------//
 
- function ensureAuthenticated(req, res, next) {
+function ensureAuthenticated(req, res, next) {
     if (!req.isAuthenticated()) {
-        //res.status(403)
         return res.redirect('/');
-        //res.redirect('/auth/welcome');
+    }else if(req.isAuthenticated()){
+
     }
      return next();
 }
