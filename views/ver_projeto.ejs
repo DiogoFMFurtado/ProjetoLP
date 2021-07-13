@@ -464,14 +464,14 @@
 
   <script>
 
-    let marcId = sessionStorage.getItem("marcId");
-    //console.log(marcId);
+    let marcacaoId = sessionStorage.getItem("marcacaoId");
+    //console.log(marcacaoId);
     let thisMarcacao;
 
 
     $.ajax({
       method: 'GET',
-      url: '/auth/marcGET' + '/' + marcId,
+      url: '/auth/marcGET' + '/' + marcacaoId,
       dataType: 'json',
       success:function(marc){
         thisMarcacao = marc
