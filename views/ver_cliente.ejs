@@ -172,16 +172,16 @@
       <!-- End Navbar -->
 
       <div class="content">
-        
+
         <div class="col-md-4 pl-md-1" id="divRetirar" ></div>
 
         <!-- Tabela Clientes -->
         <div class="table-responsive">
           <h2 id="nomeCliente">
-            
+
           </h2>
           <h2 id="idCliente">
-              
+
             </h2>
           <table class="table tablesorter " id="tabelaClienteAdmin">
             <thead class=" text-primary">
@@ -212,12 +212,12 @@
             <div class="card-header ">
               <h6 class="title d-inline">Feedbacks</h6>
             </div>
-            
+
             <div class="card-body ">
               <div class="table-full-width table-responsive">
                 <table class="table" id="tabelaFeeds">
                   <tbody>
-                    
+
                   </tbody>
                 </table>
               </div>
@@ -373,7 +373,7 @@
   <script>
 
     let clientId = sessionStorage.getItem("clientId");
-    console.log(clientId);
+    //console.log(clientId);
     let newArray = [];
 
     $.ajax({
@@ -383,7 +383,7 @@
       success:function(client){
         newArray = client
         buildTable(newArray);
-        console.log(newArray);
+        //console.log(newArray);
       }
     })
 
@@ -406,58 +406,86 @@
 
     function store(index) {
 
-      console.log("Getting marcacaoId...");
+      //console.log("Getting marcacaoId...");
       let marcacaoId = newArray[index]._id;
       sessionStorage.setItem("marcacaoId", marcacaoId);
       location.href = "./ver_projeto";
 
     }
 
-    console.log(clientId);
+    //console.log(clientId);
 
     $.ajax({
       method: 'GET',
       url: '/auth/clientByIdGET/' + clientId,
       dataType: 'json',
-      success: function(clientById) {
-        console.log(clientById);
+      success:function(clientById) {
+        //(clientById);
         removeDiv(clientById);
         buildH2(clientById);
         buildH2two(clientById);
+
       }
     })
+    async function get_admin(){
+      const client = await fetch('/auth/clientByIdGET/' + clientId)
+      const data_client = await client.json()
+      console.log(data_client)
+      const admins = await fetch('/auth/allAdminsGET/')
+      const data_admins = await admins.json()
+      const primeiro_nome = []
+      const ultimo_nome = []
+      if ( data_client.hasAdmin === false){
+        primeiro_nome.push("Não")
+        ultimo_nome.push("Associado")
+      }
+      else if (data_client.hasAdmin === true) {
+        for (let i = 0; i < data_admins.length; i++) {
+          if (data_client.admin === data_admins[i]._id) {
+            console.log(data_admins[i]._id)
+            primeiro_nome.push(data_admins[i].firstName)
+            ultimo_nome.push(data_admins[i].lastName)
+          }
+        }
+      }
+      console.log(primeiro_nome)
+      console.log(ultimo_nome)
+      return {primeiro_nome , ultimo_nome}
+    }
 
-    function removeDiv(clientById) {
-
+    async function removeDiv(clientById) {
+      const data = await get_admin();
       let divRetirar = document.getElementById('divRetirar');
 
-      if (clientById.hasAdmin == false){
+      if (clientById.hasAdmin === false){
         let divis = `
           <div class="col-md-12">
               <div class="row">
                 <div class="col-sm-2">
                   <form action="/auth/adminPUT/${clientById._id}" method="POST" class="adminPUT">
                     <div class="botao-de-despedir hidden" id="associar">
-                      <button type="submit" id="btnDespedir" class="btn  btn-primary-smol" onclick="window.location.href='/ver_cliente'">Associar</button>
+                      <button type="submit" id="btnDespedir" class="btn  btn-primary-smol" >Associar</button>
                     </div>
                   </form>
                 </div>
               </div>
           </div>`
+
+
         divRetirar.innerHTML += divis
-      } else {
+      } else if(clientById.hasAdmin === true) {
         let divis = `
           <div class="card" id="cardProjeto">
             <div class="card-header">
-              <h3>Manager Associado: ${clientById.admin}</h2>
+              <h3>Manager Associado: ${data.primeiro_nome[0] + " " + data.ultimo_nome[0]}</h2>
             </div>
             <div class="card-body">
-              <p>Confirme com o Manager neste momento associado, para poder associar-se:</p> 
+              <p>Confirme com o Manager neste momento associado, para poder associar-se:</p>
             </div>
             <div class="card-footer">
               <form action="/auth/adminNPUT/${clientById.admin}/${clientById._id}" method="POST" class="adminNPUT">
                 <div>
-                  <button type="submit" class="btn btn-fill btn-primary" onclick="window.location.href='/ver_cliente'">Desassociar</button>
+                  <button type="submit" class="btn btn-fill btn-primary" >Desassociar</button>
                 </div>
               </form>
             </div>
@@ -471,7 +499,7 @@
 
     $('#divRetirar').on('submit', '.adminPUT' ,function(e) {
       e.preventDefault();
-      
+
       const $form = $(e.target);
       let action = $form.attr('action');
 
@@ -479,16 +507,17 @@
         method: 'PUT',
         url: action,
         dataType: 'json',
-        success: function(data) {
-          console.log(data);
-          $('#divRetirar').replaceWith('<h3>Manager Associado!</h3>')
+        complete: function(data) {
+          //console.log(data);
+          //$('#divRetirar').replaceWith('<h3>Manager Associado!</h3>')
+          window.location.href = "./ver_cliente";
         }
       })
     })
 
     $('#divRetirar').on('submit', '.adminNPUT' ,function(e) {
       e.preventDefault();
-      
+
       const $form = $(e.target);
       let action = $form.attr('action');
 
@@ -496,9 +525,10 @@
         method: 'PUT',
         url: action,
         dataType: 'json',
-        success: function(data) {
-          console.log(data);
-          $('#divRetirar').replaceWith('<h3>Manager Desassociado!</h3>')
+        complete: function(data) {
+          //console.log(data);
+          window.location.href = "./ver_cliente";
+          //$('#divRetirar').replaceWith('<h3>Manager Desassociado!</h3>')
         }
       });
     });
@@ -534,7 +564,7 @@
       dataType: 'json',
       success: function(userFeed) {
         arrayFeed = userFeed;
-        console.log(arrayFeed);
+        //console.log(arrayFeed);
         buildFeedbacks(arrayFeed)
       }
     })
@@ -574,7 +604,7 @@
         url: action,
         dataType: 'json',
         success: function(data) {
-          console.log(data);
+          //console.log(data);
           $form.replaceWith('<p>Apagado!</p>');
         }
       })
