@@ -84,30 +84,12 @@
               <p>Feedbacks</p>
             </a>
           </li>
-          <!--<li>
-            <a href="./icons">
-              <i class="tim-icons icon-atom"></i>
-              <p>Icons</p>
-            </a>
-          </li>-->
           <li>
             <a href="./user">
               <i class="tim-icons icon-single-02"></i>
               <p>User Profile</p>
             </a>
           </li>
-          <!--<li>
-            <a href="./clientpage">
-              <i class="tim-icons icon-spaceship"></i>
-              <p>Pagina do cliente</p>
-            </a>
-          </li>
-          <li>
-            <a href="./workerpage">
-              <i class="tim-icons icon-spaceship"></i>
-              <p>Pagina do trabalhador</p>
-            </a>
-          </li>-->
         </ul>
       </div>
     </div>
@@ -179,7 +161,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder='Search by "MORADA"' onkeyup="filtrar('tabelaClienteAdmin', 1)">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <i class="tim-icons icon-simple-remove"></i>
               </button>
@@ -191,25 +173,7 @@
 
       <div class="content">
         
-        <div class="input-group">
-          <div class="form-outline">
-            <input type="search" id="form1" class="form-control" />
-            <label class="form-label" for="form1">Search</label>
-          </div>
-          <button type="button" class="btn  btn-primary-smol">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      
-
-
-
-        <div class="col-md-4 pl-md-1" id="divRetirar" >
-          
-        </div>
-
-
-
+        <div class="col-md-4 pl-md-1" id="divRetirar" ></div>
 
         <!-- Tabela Clientes -->
         <div class="table-responsive">
