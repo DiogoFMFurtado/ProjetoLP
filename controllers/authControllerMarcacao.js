@@ -242,7 +242,7 @@ exports.disAssEquipa = async(req,res) => {
 
         console.log("4");
         
-        res.status(201).json();
+        res.status(200).json();
         console.log("Done!");
 
     } catch (err) {
