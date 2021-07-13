@@ -132,6 +132,20 @@ exports.giveDescrip = async (req,res) => {
     console.log("Done!")
 }
 
+exports.terminateMarc = async (req,res) => {
+
+    console.log("Worker is terminating the project...");
+    console.log(req.params._id);
+    try {
+        const terminate = await Marcacao.findByIdAndUpdate(req.params._id, {state: "Terminado"}, {useFindAndModify: false});
+        terminate.save();
+        res.status(200).json();
+        console.log("Done!");
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+}
+
 
 exports.deleteMarc = async (req,res) => {
 

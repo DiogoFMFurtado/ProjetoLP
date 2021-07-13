@@ -134,10 +134,11 @@
                             <th>Morada</th>
                             <th>Data</th>
                             <th>Hora</th>
-                            <th>Tipo Projeto</th>
-                            <th>Gestor</th>
+                            <th>Estado</th>
+                            <th>Terminar</th>
+                            <th>Apagar</th>
                         </tr>
-                        <tbody>
+                        <tbody id="marcsT">
 
                         </tbody>
                     </table>
@@ -187,4 +188,113 @@
         <script src="/public/js/page.js"></script>
 
     </body>
+
+
+    <script>
+
+        let thisArray = []
+        let userId = $('#userId').val();
+
+        $.ajax({
+            method:'GET',
+            url:'/auth/marcsTrabGET/' + userId,
+            dataType: 'json',
+            data: {
+                userId: userId
+            },
+            success:function(marcs){
+                thisArray = marcs;
+                buildTable(marcs);
+                console.log(thisArray);      
+            }
+        });
+
+        function buildTable(marcs){
+            let table = document.getElementById('marcsT');
+
+            for(let i = 0; i < marcs.length; i++){
+
+                if(marcs[i].state == "Pendente" && marcs[i].avaliado_admin == "Não"){
+
+                    let row = `<tr>
+                                <td>${marcs[i].address}</td>
+                                <td>${marcs[i].date}</td>
+                                <td>${marcs[i].hour}</td>
+                                <td>${marcs[i].state}</td>
+                                <td>
+                                    <form action="/auth/avaliacaoPUT/${marcs[i]._id}" method="POST" class="avaliacao">
+                                        <div class="form-group" class="div1">
+                                            <button type="submit" class="btn btn-fill btn-primary">Terminar</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>`
+                    table.innerHTML += row 
+                } else if (marcs[i].state == "Terminado" && marcs[i].avaliado_admin == "Não"){
+                    let row = `<tr>
+                            <td>${marcs[i].address}</td>
+                            <td>${marcs[i].date}</td>
+                            <td>${marcs[i].hour}</td>
+                            <td>${marcs[i].state}</td>
+                            <td>
+                                <div class="form-group" class="div1">
+                                    <p>Terminado!</p>
+                                </div>    
+                            </td>
+                            <td>
+                                <div class="form-group" class="div1">
+                                    <p>Aguardando Avaliação</p>
+                                </div>    
+                            </td>
+                        </tr>`
+                    table.innerHTML += row
+                }else if(marcs[i].state == "Terminado" && marcs[i].avaliado_admin == "Sim"){
+                    let row = `<tr>
+                            <td>${marcs[i].address}</td>
+                            <td>${marcs[i].date}</td>
+                            <td>${marcs[i].hour}</td>
+                            <td>${marcs[i].state}</td>
+                            <td>
+                                <div class="form-group" class="div1">
+                                    <p>Terminado!</p>
+                                </div>    
+                            </td>
+                            <td>
+                                <div class="form-group" class="div1">
+                                    <button type="submit" class="btn btn-fill btn-primary">Apagar</button>
+                                </div>   
+                            </td>
+                        </tr>`
+                    table.innerHTML += row
+                    
+                    
+                }
+            }
+        }
+
+        $('.tabela-clientes').on('submit', '.avaliacao', function(e) {
+            e.preventDefault();
+
+            const $form = $(e.target);
+            const formData = $form.serialize();
+            const action = $form.attr('action');
+            $.ajax({
+                method: 'PUT',
+                url: action,
+                dataType: 'json',
+                data: formData,
+                success: function(data) {
+                    console.log(data);
+                    $form.replaceWith("<p>Avaliado!</p>");
+                }
+            })
+        })
+    
+
+
+
+
+
+
+    </script>
 </html>
