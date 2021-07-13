@@ -464,14 +464,14 @@
 
   <script>
 
-    let marcId = sessionStorage.getItem("marcId");
+    let marcacaoId = sessionStorage.getItem("marcacaoId");
     //console.log(marcId);
     let thisMarcacao;
 
 
     $.ajax({
       method: 'GET',
-      url: '/auth/marcGET' + '/' + marcId,
+      url: '/auth/marcGET' + '/' + marcacaoId,
       dataType: 'json',
       success:function(marc){
         thisMarcacao = marc
@@ -546,12 +546,6 @@
                             <p>${thisMarcacao.state}</p>
                           </div>
                         </div>
-                        <div class="col-md-6 pl-md-1">
-                          <div class="form-group">
-                            <label>Nota do Cliente</label>
-                            <p>${thisMarcacao.aval_client}</p>
-                          </div>
-                        </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12">
@@ -559,18 +553,6 @@
                             <label>Morada</label>
                             <p>${thisMarcacao.address}</p>
                           </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-4 pr-md-1">
-                          <form action="/auth/evalPUT/${thisMarcacao._id}" method="POST" class="aval">
-                            <div class="form-group">
-                              <label>Avaliação Projeto</label>
-                              <p>${thisMarcacao.aval_admin}</p>
-                              <input type="text" name="aval_admin" class="form-control" placeholder="L1-L5" >
-                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Avaliação</button>
-                            </div>
-                          </form>
                         </div>
                       </div>
                       <div class="row">
@@ -588,7 +570,7 @@
                   </div>
         `
         card.innerHTML += cardInfo
-      }else{
+      }else if(thisMarcacao.equipa == "Sim" && thisMarcacao.state == "Pendente"){
         let cardInfo =
         `
                   <div class="card-header">
@@ -605,7 +587,64 @@
                           </div>
                         </div>
                         <div class="col-md-3 px-md-1">
-                          <form action="/auth/disAssE/${thisMarcacao._id}" method="POST" class="disAssE">
+                          <form action="/auth/disAssE/${thisMarcacao._id}/${thisMarcacao.team}" method="POST" class="disAssE">
+                            <div class="form-group">
+                              <label>Equipa</label>
+                              <p>${data.name}</p>
+                              <button type="submit" id="ModalBtn" class="btn btn-primary" onClick="window.location.reload();">Disassociar</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 pr-md-1">
+                          <div class="form-group">
+                            <label>Estado</label>
+                            <p>${thisMarcacao.state}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Morada</label>
+                            <p>${thisMarcacao.address}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-8">
+                          <form action="/auth/descripPUT/${thisMarcacao._id}" method="POST" class="description">
+                            <div class="form-group">
+                              <label>About Projeto</label>
+                              <p>${thisMarcacao.descricao}</p>
+                              <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
+                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                  </div>
+        `
+        card.innerHTML += cardInfo
+      }else if(thisMarcacao.equipa == "Sim" && thisMarcacao.state == "Terminado"){
+        let cardInfo =
+        `
+                  <div class="card-header">
+                    <h2 class="title">ID da Marcação: ${thisMarcacao._id}</h2>
+                  </div>
+
+
+                  <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5 pr-md-1">
+                          <div class="form-group">
+                            <label>Nome do Cliente</label>
+                            <p>${thisMarcacao.name}</p>
+                          </div>
+                        </div>
+                        <div class="col-md-3 px-md-1">
+                          <form action="/auth/disAssE/${thisMarcacao._id}/${thisMarcacao.team}" method="POST" class="disAssE">
                             <div class="form-group">
                               <label>Equipa</label>
                               <p>${data.name}</p>
@@ -722,14 +761,10 @@
     $('.card').on('submit', '.disAssE', function(e) {
       e.preventDefault();
 
-      let formData3 = $(this).serialize();
       let formAction3 = $(this).attr('action');
       $.ajax({
         method: 'PUT',
         url: formAction3,
-        dataType: 'json',
-
-        data: formData3,
         dataType: 'json',
         complete: function() { //complete
           //console.log(data);
