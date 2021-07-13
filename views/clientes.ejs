@@ -395,18 +395,43 @@
       success:function(clients){
         thisArray = clients
         buildTable(thisArray);
-        console.log(thisArray);
+       // console.log(thisArray);
       }
     })
+    async function get_admin(){
+      const admins = await fetch('/auth/allAdminsGET/')
+      const data_admins = await admins.json()
+      //console.log(data_admins)
+      const primeiro_nome = []
+      const ultimo_nome = []
+      for (let i = 0; i<thisArray.length; i++){
+        if (thisArray[i].hasAdmin === false){
+          primeiro_nome.push("Não")
+          ultimo_nome.push("Associad")
+        }else if (thisArray[i].hasAdmin === true) {
+          for (let a = 0; a < data_admins.length; a++) {
+            if (thisArray[i].admin === data_admins[a]._id) {
+              primeiro_nome.push(data_admins[a].firstName)
+              ultimo_nome.push(data_admins[a].lastName)
+            }
+          }
+        }
+      }
+      console.log(thisArray)
+      console.log(primeiro_nome)
+      console.log(ultimo_nome)
+      return {primeiro_nome, ultimo_nome}
+    }
 
-    function buildTable(clients) {
+    async function buildTable(clients) {
+      const data = await get_admin();
       let table = document.getElementById('tabelaClientesAdmin')
 
       for(let i = 0; i < clients.length; i++){
         let row = `<tr>
                       <td>${clients[i]._id}</td>
                       <td>${clients[i].name}</td>
-                      <td>${clients[i].admin}</td>
+                      <td>${data.primeiro_nome[i] + " " + data.ultimo_nome[i]}</td>
                       <td>
                           <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Cliente</button>
                       </td>
