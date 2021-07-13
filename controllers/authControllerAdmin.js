@@ -391,3 +391,19 @@ exports.logoutAdminHandle = (req, res) => {
     req.flash('success_msg', 'You are logged out');
     res.redirect('/');
 }
+
+
+
+exports.getAllAdmins = async (req, res) => {
+
+    console.log("Getting All Admins...");
+    try {
+        const admins = await Admin.find();
+        res.status(200).json(admins);
+    } catch (err) {
+        res.status(400).json({message: err});
+    }
+    console.log("Done!");
+
+}
+
