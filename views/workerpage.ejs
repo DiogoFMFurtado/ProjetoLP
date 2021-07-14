@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-            </section>     
+            </section>
 <!--Sobre-nos-------------------------------------------------->
             <section class="tm-section-2" id="sobrenos">
                 <div class="row">
@@ -235,8 +235,8 @@
                                 <td>${marcs[i].hour}</td>
                                 <td>${marcs[i].state}</td>
                                 <td>
-                                    <div class="form-group col-xs-12 pl-lg-3">
-                                        <form action="/auth/endProject/${marcs[i]._id}" method="POST" class="endProject">
+                                    <div class="form-group col-xs-12 pl-lg-3" id="kuku">
+                                        <form action="/auth/endProject/${marcs[i]._id}" method="POST" class="endProject" >
                                             <div class="form-group" class="div1">
                                                 <button type="submit" class="btn btn-fill btn-primary">Terminar</button>
                                             </div>
@@ -285,15 +285,17 @@
 
         $('#marcsT').on('submit', '.endProject', function(e) {
             e.preventDefault();
-
             const $form = $(e.target);
             const action = $form.attr('action');
             $.ajax({
                 method: 'PUT',
                 url: action,
                 dataType: 'json',
-                success: function(data) {
+                complete: function(data) {
                     console.log(data);
+                    //$("#kuku").load(location.href + " #kuku");
+                    //$("#kuku").load(location.href+" #kuku>*","");
+                    window.location.href =" ./workerpage"
                     $form.replaceWith("<p>Terminado!</p>");
                 }
             })

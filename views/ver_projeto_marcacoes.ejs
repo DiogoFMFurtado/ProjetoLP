@@ -395,21 +395,33 @@
       }
       return {list}
     }
-
+    let clientId = sessionStorage.getItem("clientId");
     async function get_admin(){
-      const administrador = await fetch('/auth/clientsGET/')
+      const administrador = await fetch('/auth/allAdminsGET/')
       const data_admin = await administrador.json()
-      const nome = []
-      for (let i=0;i<data_admin.length; i++){
-        if (data_admin[i]._id === thisMarcacao.cliente){
-          nome.push(data_admin[i].admin)
+      const client = await fetch('/auth/clientByIdGET/' + clientId)
+      const data_client = await client.json()
+      //console.log(data_client)
+      const primeiro_nome = []
+      const ultimo_nome = []
+     //console.log(thisMarcacao._id)
+      for (let i=0;i<data_client.marcacaoCliente.length; i++){
+        if (data_client.marcacaoCliente[i] === thisMarcacao._id){
+          for (let a=0;a<data_admin.length; a++){
+            if (data_admin[a]._id === data_client.admin){
+              primeiro_nome.push(data_admin[a].firstName)
+              ultimo_nome.push(data_admin[a].lastName)
+            }
+          }
         }
       }
-      if(nome.length === 0){
-        nome.push("Sem Manager")
+      if(primeiro_nome.length === 0){
+        primeiro_nome.push("Sem")
+        ultimo_nome.push("Manager")
       }
-      const name = nome
-      return {name}
+      const first_name = primeiro_nome
+      const last_name = ultimo_nome
+      return {first_name, last_name}
     }
 
     async function buildCard(thisMarcacao){
@@ -618,7 +630,7 @@
       let cardInfo2 =
       `
                 <div class="card-header">
-                  <h2 class="title">Manager: ${admin_data.name}</h2>
+                  <h2 class="title">Manager: ${admin_data.first_name + " " + admin_data.last_name}</h2>
                 </div>
       `
       card2.innerHTML += cardInfo2
