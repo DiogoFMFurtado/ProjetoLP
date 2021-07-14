@@ -97,10 +97,10 @@ exports.deleteFeedback = async(req,res) => {
 
     console.log("Deleting Feedback..");
     console.log(req.params._id);
-    console.log(req.params.client);
+    console.log(req.params.clientId);
     try{
         
-        const userFeed = await User.findByIdAndUpdate(req.params.client, { $pull: { feedbacks: req.params._id}}, {useFindAndModify: false});
+        const userFeed = await User.findByIdAndUpdate(req.params.clientId, { $pull: { feedbacks: req.params._id}}, {useFindAndModify: false});
         await userFeed.save();
 
         const deletedFeed = await Feedback.deleteOne({_id: req.params._id});

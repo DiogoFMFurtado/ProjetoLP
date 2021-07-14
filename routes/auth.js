@@ -149,7 +149,7 @@ router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
 router.post('/feedbackT', authControllerFeedback.postFeedT);
 router.get('/getUserFeedback/:_id', authControllerFeedback.getFeedBacksById);
 router.get('/getWorkerFeedback/:_id', authControllerFeedback.getFeedBacksByIdT);
-router.delete('/apagarfeedback/:_id/:client', authControllerFeedback.deleteFeedback);
+router.delete('/apagarfeedback/:_id/:clientId', authControllerFeedback.deleteFeedback);
 router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
 
 
