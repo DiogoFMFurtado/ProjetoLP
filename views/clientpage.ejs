@@ -197,7 +197,7 @@
                     
                     <div class="col-xl-12">
                         <div class="contact_message">
-                            <form action="/auth/feedback" method="POST" class="contact-form">
+                            <form action="/auth/feedback" method="POST" class="contact-form" id="enviar_feedback_cliente">
                                 <div class="row mb-3">
                                     <div class="form-group col-xs-12 pl-lg-3">
                                         <input type="name" id="name" name="name" class="form-control" placeholder="Nome"/> 
@@ -208,13 +208,28 @@
                                         <input type="text" id="feedback" name="feedback" class="form-control" rows="6" placeholder="Feedback">
                                     </div>
                                     <div id="fback-btn" class="form-group col-xl-2 pl-xl-4">
-                                        <button onclick="javascript: form.action='/auth/feedback'" type="submit" class="btn  tm-btn-submit float-right btn-marcar">Enviar</button>
+                                        <button type="submit" class="btn  tm-btn-submit float-right btn-marcar">Enviar</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+                <script>
+                    $("#enviar_feedback_cliente").submit(function(e) {
+                        e.preventDefault(); // avoid to execute the actual submit of the form.
+                        var form = $(this);
+                        $.ajax({
+                            type: "POST",
+                            url: '/auth/feedback/',
+                            data: form.serialize(), // serializes the form's elements.
+                            datatype: "json",
+                            complete: function(data) {
+                                window.location.href = "./clientpage";
+                            }//
+                        });
+                    });
+                </script>
             </section>
 <!--Rodapé-->
             <footer class="mt-5">
