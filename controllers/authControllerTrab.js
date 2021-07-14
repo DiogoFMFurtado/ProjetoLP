@@ -15,19 +15,9 @@ exports.registerTrabHandle = (req, res) => {
     const { name, email, password, password2 } = req.body;
     let errors = [];
 
-    //------------ Checking required fields ------------//
-    if (!name || !email || !password || !password2) {
-        errors.push({ msg: 'Please enter all fields' });
-    }
-
     //------------ Checking password mismatch ------------//
     if (password !== password2) {
-        errors.push({ msg: 'Passwords do not match' });
-    }
-
-    //------------ Checking password length ------------//
-    if (password.length < 8) {
-        errors.push({ msg: 'Password must be at least 8 characters' });
+        errors.push({ msg: 'As Passwords não correspondem.' });
     }
 
     if (errors.length > 0) {
@@ -43,7 +33,7 @@ exports.registerTrabHandle = (req, res) => {
         Trab.findOne({ email: email }).then(trab => {
             if (trab) {
                 //------------ User already exists ------------//
-                errors.push({ msg: 'Email ID already registered' });
+                errors.push({ msg: 'Este email já está registado' });
                 res.render('colegas2', {
                     errors,
                     name,
@@ -68,9 +58,11 @@ exports.registerTrabHandle = (req, res) => {
                 const CLIENT_URL = 'http://' + req.headers.host;
 
                 const output = `
-                <h2>Please click on below link to activate your account</h2>
+                <h2>Recebos o seu registo.</h2>
+                <p>Para confirmar a sua conta copie o seguinte link:</p>
                 <p>${CLIENT_URL}/auth/activate3/${token}</p>
-                <p><b>NOTE: </b> The above activation link expires in 30 minutes.</p>
+                <p><b>Atenção: </b></p>
+                <p>O link vai expirar após  30 minutos.</p>
                 `;
 
                 const transporter = nodemailer.createTransport({
@@ -87,11 +79,11 @@ exports.registerTrabHandle = (req, res) => {
 
                 // send mail with defined transport object
                 const mailOptions = {
-                    from: '"Auth Trab" <nodejsa@gmail.com>', // sender address
-                    to: email, // list of receivers
-                    subject: "Account Verification: NodeJS Auth ✔", // Subject line
+                    from: '"Cilit Bang" <nodejsa@gmail.com>',
+                    to: email,
+                    subject: "Confirme a sua conta.",
                     generateTextFromHTML: true,
-                    html: output, // html body
+                    html: output,
                 };
 
                 transporter.sendMail(mailOptions, (error, info) => {
@@ -99,7 +91,7 @@ exports.registerTrabHandle = (req, res) => {
                         console.log(error);
                         req.flash(
                             'error_msg',
-                            'Something went wrong on our end. Please register again.'
+                            'Ocorreu um erro, por favor, tente de novo.'
                         );
                         res.redirect('/auth/colegas2');
                     }
@@ -107,7 +99,7 @@ exports.registerTrabHandle = (req, res) => {
                         console.log('Mail sent : %s', info.response);
                         req.flash(
                             'success_msg',
-                            'Activation link sent to email ID. Please activate to log in.'
+                            'Sucesso! Verifique o seu email.'
                         );
                         res.redirect('/auth/colegas2');
                     }
@@ -127,7 +119,7 @@ exports.activateTrabHandle = (req, res) => {
             if (err) {
                 req.flash(
                     'error_msg',
-                    'Incorrect or expired link! Please register again.'
+                    'Link incorreto ou expirado, tente de novo.'
                 );
                 res.redirect('/auth/colegas2');
             }
@@ -138,7 +130,7 @@ exports.activateTrabHandle = (req, res) => {
                         //------------ User already exists ------------//
                         req.flash(
                             'error_msg',
-                            'Email ID already registered! Please log in.'
+                            'Email com conta associada, por favor faça o login'
                         );
                         res.redirect('/auth/colegas2');
                     } else {
@@ -157,7 +149,7 @@ exports.activateTrabHandle = (req, res) => {
                                     .then(trab => {
                                         req.flash(
                                             'success_msg',
-                                            'Account activated. You can now log in.'
+                                            'Conta criada, já pode fazer login.'
                                         );
                                         res.redirect('/auth/colegas2');
                                     })
@@ -171,7 +163,7 @@ exports.activateTrabHandle = (req, res) => {
         })
     }
     else {
-        console.log("Account activation error!")
+        console.log("Ocorreu um erro na criação da conta!")
     }
 }
 
@@ -181,10 +173,6 @@ exports.forgotTrabPassword = (req, res) => {
     let errors = [];
 
     //------------ Checking required fields ------------//
-    if (!email) {
-        errors.push({ msg: 'Please enter an email ID' });
-    }
-
     if (errors.length > 0) {
         res.render('forgot', {
             errors,
@@ -194,7 +182,7 @@ exports.forgotTrabPassword = (req, res) => {
         Trab.findOne({ email: email }).then(trab => {
             if (!trab) {
                 //------------ User already exists ------------//
-                errors.push({ msg: 'User with Email ID does not exist!' });
+                errors.push({ msg: 'Email não encontrado, confirme o seu email' });
                 res.render('forgot', {
                     errors,
                     email
@@ -215,14 +203,16 @@ exports.forgotTrabPassword = (req, res) => {
                 const token = jwt.sign({ _id: trab._id }, JWT_RESET_KEY, { expiresIn: '30m' });
                 const CLIENT_URL = 'http://' + req.headers.host;
                 const output = `
-                <h2>Please click on below link to reset your account password</h2>
+                <h2>Nova senha</h2>
+                <p>Para escolher a sua nova senha copie o seginte link:</p>
                 <p>${CLIENT_URL}/auth/forgot/${token}</p>
-                <p><b>NOTE: </b> The activation link expires in 30 minutes.</p>
+                <p><b>Atenção: </b></p>
+                <p>O link vai expirar após  30 minutos.</p>
                 `;
 
                 Trab.updateOne({ resetLink: token }, (err, success) => {
                     if (err) {
-                        errors.push({ msg: 'Error resetting password!' });
+                        errors.push({ msg: 'Erro na nova senha!' });
                         res.render('forgot', {
                             errors,
                             email
@@ -243,10 +233,10 @@ exports.forgotTrabPassword = (req, res) => {
 
                         // send mail with defined transport object
                         const mailOptions = {
-                            from: '"Auth Trab" <nodejsa@gmail.com>', // sender address
-                            to: email, // list of receivers
-                            subject: "Account Password Reset: NodeJS Auth ✔", // Subject line
-                            html: output, // html body
+                            from: '"Cilit Bang" <nodejsa@gmail.com>',
+                            to: email,
+                            subject: "Redfinir nova senha",
+                            html: output,
                         };
 
                         transporter.sendMail(mailOptions, (error, info) => {
@@ -254,7 +244,7 @@ exports.forgotTrabPassword = (req, res) => {
                                 console.log(error);
                                 req.flash(
                                     'error_msg',
-                                    'Something went wrong on our end. Please try again later.'
+                                    'Algo deu errado, tente de novo.'
                                 );
                                 res.redirect('/auth/forgot');
                             }
@@ -262,7 +252,7 @@ exports.forgotTrabPassword = (req, res) => {
                                 console.log('Mail sent : %s', info.response);
                                 req.flash(
                                     'success_msg',
-                                    'Password reset link sent to email ID. Please follow the instructions.'
+                                    'Sucesso! Confirme o seu email.'
                                 );
                                 res.redirect('/auth/colegas2');
                             }

@@ -41,6 +41,7 @@
                 <header id="header" class="text-center tm-text-gray">
                     <h1>CILLIT BANG</h1>
                     <p>A Sujidade Desaparece</p>
+                    <p>Nome: <%= name %></p>
                 </header>
             </section>
 <!--Slide-de-imagens------------------------------------------->
@@ -127,8 +128,8 @@
 
 <!--Marcações-Trabalhador-------------------------------------->
             <section class="tm-section-7" id="tm-section-7">
-                <h2 class="hidden" id="nome" >Nome do Trabalhador</h2>
                 <div id="marcacoesdelimpeza" class="row mb-3 pl-xl-3 hidden">
+                    <h2 class="h2-spaced">Marcações</h2>
                     <table id="tabelaWorker" class="tabela-clientes">
                         <tr>
                             <th>Morada</th>
@@ -151,7 +152,8 @@
                             <form action="/auth/feedbackT" method="post" class="contact-form" id="trabalhador_feedback_enviar">
                                 <div class="row mb-3">
                                     <div class="form-group col-xs-12 pl-lg-3">
-                                        <input type="text" id="contact_name" name="name" class="form-control" placeholder="Primeiro e Último nome" required/>
+                                        <input pattern="^[a-zA-Z ]+$" title="Não pode ter caracteres especiais e números"
+                                          type="text" id="contact_name" name="name" class="form-control" required placeholder="Nome:" value="<%= name %>"/>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
