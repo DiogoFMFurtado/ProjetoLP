@@ -42,13 +42,13 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="active ">
+          <li>
             <a href="./clientes">
               <i class="tim-icons icon-single-02"></i>
               <p>Clientes</p>
             </a>
           </li>
-          <li>
+          <li class="active ">
             <a href="./trabalhadores">
               <i class="tim-icons icon-single-02"></i>
               <p>Trabalhadores</p>
@@ -779,7 +779,7 @@
       }
     }
 
-    $('#cardTrabalhador3').on('submit', '.feedDelete', function(e) {
+    $('#feedbacksT').on('submit', '.feedDelete', function(e) {
       e.preventDefault();
 
       const $form = $(e.target);
