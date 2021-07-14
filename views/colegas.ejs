@@ -191,13 +191,15 @@
                     <div class="col-md-5 pr-md-1">
                       <div class="form-group">
                         <label>Primeiro Nome</label>
-                        <input type="name" id="firstName" name="firstName" value="<%= typeof firstName != 'undefined' ? firstName : '' %>" class="form-control" placeholder="Primeiro Nome do Novo Admnistrador" >
+                        <input pattern="^[a-zA-Z ]+$" title="Não pode ter caracteres especiais e números" required
+                          type="name" id="firstName" name="firstName" value="<%= typeof firstName != 'undefined' ? firstName : '' %>" class="form-control" placeholder="Primeiro Nome do Novo Admnistrador" >
                       </div>
                     </div>
                     <div class="col-md-5 pr-md-1">
                       <div class="form-group">
                         <label>Apelido</label>
-                        <input type="name" id="lastName" name="lastName" value="<%= typeof lastName != 'undefined' ? lastName : '' %>" class="form-control" placeholder="Apelido do Novo Admnistrador" >
+                        <input pattern="^[a-zA-Z ]+$" title="Não pode ter caracteres especiais e números" required
+                          type="name" id="lastName" name="lastName" value="<%= typeof lastName != 'undefined' ? lastName : '' %>" class="form-control" placeholder="Apelido do Novo Admnistrador" >
                       </div>
                     </div>
                   </div>
@@ -205,7 +207,8 @@
                     <div class="col-md-5 pr-md-1">
                       <div class="form-group">
                         <label>Email</label>
-                        <input type="email" id="email" name="email" value="<%= typeof email != 'undefined' ? email : '' %>" class="form-control" placeholder="Email do Novo Admnistrador" >
+                        <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required
+                          type="email" id="email" name="email" value="<%= typeof email != 'undefined' ? email : '' %>" class="form-control" placeholder="Email do Novo Admnistrador" >
                       </div>
                     </div>
                   </div>
@@ -213,13 +216,15 @@
                     <div class="col-md-3 pr-md-1">
                       <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="password" name="password" value="<%= typeof password != 'undefined' ? password : '' %>" class="form-control" placeholder="Password do Novo Admnistrador" >
+                        <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Tem de ter pelo menos 1 número 1 maiúscula, 1 minuscula e 8 caracteres" required
+                          type="password" id="password" name="password" value="<%= typeof password != 'undefined' ? password : '' %>" class="form-control" placeholder="Password do Novo Admnistrador" >
                       </div>
                     </div>
                     <div class="col-md-3 pr-md-1">
                       <div class="form-group">
                         <label>Repetir Password</label>
-                        <input type="password" id="password2" name="password2" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" class="form-control" placeholder="Password do Novo Admnistrador" >
+                        <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Tem de ter pelo menos 1 número 1 maiúscula, 1 minuscula e 8 caracteres" required
+                          type="password" id="password2" name="password2" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" class="form-control" placeholder="Password do Novo Admnistrador" >
                       </div>
                     </div>
                   </div>

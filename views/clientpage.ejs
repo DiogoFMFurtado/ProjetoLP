@@ -135,7 +135,7 @@
                                 <div class="row mb-3">
                                     <div class="form-group col-xs-12 pl-lg-3">
                                         <input pattern="^[a-zA-Z ]+$" title="Não pode ter caracteres especiais e números" required
-                                          type="text" id="contact_name" name="name" class="form-control" placeholder="Primeiro e Último nome"/>
+                                          type="text" id="contact_name" name="name" class="form-control" placeholder="Primeiro e Último nome" value="<%= name %>"/>
                                     </div>
                                     <div class="form-group col-sm-4 pl-xl-4">
                                         <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required
@@ -196,7 +196,8 @@
                             <form action="/auth/feedback" method="POST" class="contact-form" id="enviar_feedback_cliente">
                                 <div class="row mb-3">
                                     <div class="form-group col-xs-12 pl-lg-3">
-                                        <input type="name" id="name" name="name" class="form-control" placeholder="Nome"/> 
+                                        <input pattern="^[a-zA-Z ]+$" title="Não pode ter caracteres especiais e números"
+                                          type="name" id="name" name="name" class="form-control" placeholder="Nome:" value="<%= name %>"/> 
                                     </div>
                                 </div>
                                 <div class="row mb-3">

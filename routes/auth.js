@@ -27,6 +27,8 @@ router.get('/forgot', (req, res) => res.render('forgot'));
 
 router.get('/forgotAd', (req, res) => res.render('forgotAd'));
 
+router.get('/forgotTrab', (req, res) => res.render('forgotTrab'));
+
 router.get('/colegas', (req, res) => res.render('colegas'));
 
 router.get('/colegas2', (req, res) => res.render('colegas2'));

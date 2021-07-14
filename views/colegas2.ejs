@@ -191,7 +191,8 @@
                     <div class="col-md-5 pr-md-1">
                       <div class="form-group">
                         <label>Nome</label>
-                        <input type="name" id="name" name="name" value="<%= typeof name != 'undefined' ? name : '' %>" class="form-control" placeholder="Nome do Novo Trabalhador" >
+                        <input pattern="^[a-zA-Z ]+$" title="Não pode ter caracteres especiais e números" required
+                          type="name" id="name" name="name" value="<%= typeof name != 'undefined' ? name : '' %>" class="form-control" placeholder="Nome do Novo Trabalhador" >
                       </div>
                     </div>
                   </div>
@@ -199,7 +200,8 @@
                     <div class="col-md-5 pr-md-1">
                       <div class="form-group">
                         <label>Email</label>
-                        <input type="email" id="email" name="email" value="<%= typeof email != 'undefined' ? email : '' %>" class="form-control" placeholder="Email do Novo Trabalhador" >
+                        <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required
+                         type="email" id="email" name="email" value="<%= typeof email != 'undefined' ? email : '' %>" class="form-control" placeholder="Email do Novo Trabalhador" >
                       </div>
                     </div>
                   </div>
@@ -207,13 +209,15 @@
                     <div class="col-md-3 pr-md-1">
                       <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="password" name="password" value="<%= typeof password != 'undefined' ? password : '' %>" class="form-control" placeholder="Password do Novo Trabalhador" >
+                        <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Tem de ter pelo menos 1 número 1 maiúscula, 1 minuscula e 8 caracteres" required
+                          type="password" id="password" name="password" value="<%= typeof password != 'undefined' ? password : '' %>" class="form-control" placeholder="Password do Novo Trabalhador" >
                       </div>
                     </div>
                     <div class="col-md-3 pr-md-1">
                       <div class="form-group">
                         <label>Repetir Password</label>
-                        <input type="password" id="password2" name="password2" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" class="form-control" placeholder="Password do Novo Trabalhador" >
+                        <input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Tem de ter pelo menos 1 número 1 maiúscula, 1 minuscula e 8 caracteres" required
+                          type="password" id="password2" name="password2" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" class="form-control" placeholder="Password do Novo Trabalhador" >
                       </div>
                     </div>
                   </div>
