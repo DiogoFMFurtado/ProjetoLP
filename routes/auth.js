@@ -149,7 +149,7 @@ router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
 router.post('/feedbackT', authControllerFeedback.postFeedT);
 router.get('/getUserFeedback/:_id', authControllerFeedback.getFeedBacksById);
 router.get('/getWorkerFeedback/:_id', authControllerFeedback.getFeedBacksByIdT);
-router.delete('/apagarfeedback/:_id', authControllerFeedback.deleteFeedback);
+router.delete('/apagarfeedback/:_id/:client', authControllerFeedback.deleteFeedback);
 router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
 
 
@@ -170,6 +170,7 @@ router.get('/trabByIdGET/:_id', authControllerTrab.getTrabById);
 router.put('/giveNote/:_id', authControllerTrab.giveNote);
 router.put('/trabNDisp/:_id', authControllerTrab.workerSDisp);
 router.put('/trabCDisp/:_id', authControllerTrab.workerCDisp);
+router.delete('/deleteFeedbackT/:_id/:worker', authControllerFeedback.deleteFeedbackT);
 
 
 router.get('/allAdminsGET', authControllerAdmin.getAllAdmins);
