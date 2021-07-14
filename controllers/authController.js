@@ -14,17 +14,10 @@ exports.registerHandle = (req, res) => {
     let errors = [];
 
 //-----Requesitos-de-registo---------------------------------------------------
-    if (!name || !email || !password || !password2) {
-        errors.push({ msg: 'Preencha todos os espaços' });
-    }else{
-        if (password.length < 8) {
-            errors.push({ msg: 'A Password tem de ter no mínimo 8 caracteres' });
-        }else{
-            if (password != password2) {
-                errors.push({ msg: 'As Passwords não correspondem.' });
-            }
-        }
-    }  
+    
+    if (password != password2) {
+        errors.push({ msg: 'As Passwords não correspondem.' });
+    }
 
 //-----Validaçao-de-conta------------------------------------------------------
     if (errors.length > 0) {
