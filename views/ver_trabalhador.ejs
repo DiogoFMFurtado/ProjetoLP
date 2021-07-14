@@ -765,7 +765,7 @@
                       <p class="text-muted">${workerFeed[i].feedback}</p>
                     </td>
                     <td class="td-actions text-right" id="feedDel">
-                      <form action="/auth/apagarfeedback/${workerFeed[i]._id}" method="POST" class="feedDelete">
+                      <form action="/auth/deleteFeedbackT/${workerFeed[i]._id}" method="POST" class="feedDelete">
                         <div>
                           <button type="submit" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
                             <i class="tim-icons icon-trash-simple"></i>
@@ -787,7 +787,7 @@
 
       $.ajax({
         method: 'DELETE',
-        url: action,
+        url: action + '/' + workerId,
         dataType: 'json',
         success: function(data) {
           console.log(data);

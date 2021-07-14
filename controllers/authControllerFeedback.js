@@ -105,7 +105,7 @@ exports.deleteFeedback = async(req,res) => {
 
         const deletedFeed = await Feedback.deleteOne({_id: req.params._id});
         console.log(req.body);
-        
+
         res.status(200).json(deletedFeed);
         console.log("Feedback Deleted");
 
@@ -119,11 +119,11 @@ exports.deleteFeedbackT = async(req,res) => {
 
     console.log("Deleting Feedback from Worker...");
     console.log(req.params._id);
-    console.log(req.params.worker);
+    console.log(req.params.workerId);
 
     try {
         
-        const workerFeed = await Trab.findByIdAndUpdate(req.params.worker, { $pull: { feedbacksT: req.params._id}}, {useFindAndModify: false});
+        const workerFeed = await Trab.findByIdAndUpdate(req.params.workerId, { $pull: { feedbacksT: req.params._id}}, {useFindAndModify: false});
         await workerFeed.save();
 
         const deletedFeed = await Feedback.deleteOne({_id: req.params._id});

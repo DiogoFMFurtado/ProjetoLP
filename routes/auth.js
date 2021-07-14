@@ -170,7 +170,7 @@ router.get('/trabByIdGET/:_id', authControllerTrab.getTrabById);
 router.put('/giveNote/:_id', authControllerTrab.giveNote);
 router.put('/trabNDisp/:_id', authControllerTrab.workerSDisp);
 router.put('/trabCDisp/:_id', authControllerTrab.workerCDisp);
-router.delete('/deleteFeedbackT/:_id/:worker', authControllerFeedback.deleteFeedbackT);
+router.delete('/deleteFeedbackT/:_id/:workerId', authControllerFeedback.deleteFeedbackT);
 
 
 router.get('/allAdminsGET', authControllerAdmin.getAllAdmins);
