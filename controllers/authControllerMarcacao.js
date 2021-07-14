@@ -16,7 +16,7 @@ const Trab = require('../models/Trab');
 
 exports.registerMarcHandle = async (req, res) => {
     
-    const { name, email, date, hour, type, address } = req.body;
+    const { name, email, date, hour, address } = req.body;
 
     try {
         console.log(req.body);
@@ -25,7 +25,6 @@ exports.registerMarcHandle = async (req, res) => {
             email,
             date,
             hour,
-            type,
             address
         });
         const user = await User.findById(req.user);

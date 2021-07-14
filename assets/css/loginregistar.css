@@ -4,7 +4,6 @@
 * {box-sizing: border-box;}
 
 body {
-	background-image: url("fundo.png");
 	background-repeat: no-repeat;
 	background-size: cover;
 	display: flex;
@@ -28,9 +27,9 @@ a {color: #333; font-size: 14px; text-decoration: none; margin: 15px 0;}
 
 button {
 	border-radius: 20px;
-	border: 1px solid #e5ff00;
-	background-color: #00d9ff;
-	color: #ff0080;
+	border: 1px solid #000000;
+	background-color: #eee;
+	color: #000000;
 	font-size: 12px;
 	font-weight: bold;
 	padding: 12px 45px;
@@ -49,13 +48,14 @@ button.close {
 	border: 1px solid transparent;
 	background-color: transparent;
 	position: left;
-	color: #ff0080;
+	color: #ff0000;
 	padding: 5px 10px;
 }
 
 button.ghost {
 	background-color: transparent;
 	border-color: #FFFFFF;
+	color: #FFFFFF
 }
 
 form {
@@ -141,7 +141,7 @@ input {
 .overlay {
 	background: #FF416C;
 	background: -webkit-linear-gradient(to right, #00ff15, #ffbb00);
-	background: linear-gradient(to right, #ffa797, #0b3fcc);
+	background: linear-gradient(to right, #ff8330, #b97a4f);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;

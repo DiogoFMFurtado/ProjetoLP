@@ -15,13 +15,17 @@
 				<button class='close' onclick="javascript: location.replace('/auth/welcome')" >X</button>
 				<form id='reg-form' action="/auth/register" method="POST">
 					<h1>Registar:</h1>
-					<input type="name" id="name" name="name" class="form-control" placeholder="Enter Name"
+					<input pattern="^[a-zA-Z ]+$" title="Não pode ter caracteres especiais e números" required
+					  type="name" id="name" name="name" class="form-control" placeholder="Nome:"
                       value="<%= typeof name != 'undefined' ? name : '' %>" />
-					<input type="email" id="email" name="email" class="form-control" placeholder="Enter Email"
+					<input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required
+					  type="email" id="email" name="email" class="form-control" placeholder="Email:"
                       value="<%= typeof email != 'undefined' ? email : '' %>" />
-					<input type="password" id="password" name="password" class="form-control" placeholder="Enter Password"
+					<input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Tem de ter pelo menos 1 número 1 maiúscula, 1 minuscula e 8 caracteres" required
+					  type="password" id="password" name="password" class="form-control" placeholder="Password:"
                       value="<%= typeof password != 'undefined' ? password : '' %>" />
-					<input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password"
+					<input pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Tem de ter pelo menos 1 número 1 maiúscula, 1 minuscula e 8 caracteres" required
+					  type="password" id="password2" name="password2" class="form-control" placeholder="Confirma a Password:"
                       value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
 					<button onclick="javascript: form.action='/auth/register'" type="submit">Registar</button>
 				</form>
@@ -30,8 +34,8 @@
 				<button class='close' onclick="javascript: location.replace('/')">X</button>
 				<form action="/auth/login"  method="POST" id='login'>
 					<h1>Login:</h1>
-					<input type="email" id="email" name="email" class="form-control" placeholder="Digite o seu E-mail:" />
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Digite a sua palavra passe:" />
+					<input required type="email" id="email" name="email" class="form-control" placeholder="Digite o seu E-mail:" />
+                    <input required type="password" id="password" name="password" class="form-control" placeholder="Digite a sua palavra passe:" />
 					<button onclick="javascript: form.action='/auth/login'" type="submit">Confirmar</button>
 					<a href="/auth/forgot">Não se lembra da senha?</a>
 				</form>
