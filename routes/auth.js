@@ -46,6 +46,11 @@ router.get('/resetAdmin/:id', (req, res) => {
     res.render('resetAdmin', { id: req.params.id })
 });
 
+router.get('/resetTrab/:id', (req, res) => {
+    // console.log(id)
+    res.render('resetTrab', { id: req.params.id })
+});
+
 //------------ Register Route ------------//
 //router.get('/register', (req, res) => res.render('register'));
 
@@ -115,14 +120,22 @@ router.post('/forgot', authController.forgotPassword);
 
 router.post('/forgotAd', authControllerAdmin.forgotAdminPassword);
 
+router.post('/forgotTrab', authControllerTrab.forgotTrabPassword);
+
 //------------ Reset Password Handle ------------//
 router.post('/reset/:id', authController.resetPassword);
 
 router.post('/resetAdmin/:id', authControllerAdmin.resetAdminPassword);
 
+router.post('/resetTrab/:id', authControllerTrab.resetTrabPassword);
+
 //------------ Reset Password Handle ------------//
 router.get('/forgot/:token', authController.gotoReset);
+
 router.get('/forgotAd/:token', authControllerAdmin.gotoResetAdmin);
+
+router.get('/forgotTrab/:token', authControllerTrab.gotoResetTrab);
+
 
 //------------ Login POST Handle ------------//
 //router.post('/login', authController.loginHandle);
