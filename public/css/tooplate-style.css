@@ -3,7 +3,7 @@
 Template 2103 Central
 
 http://www.tooplate.com/view/2103-central
-	
+
 */
 
 body {
@@ -162,14 +162,7 @@ button:focus {
   color: #f8f9fa;
 }
 
-.slick-prev {
-  left: 5px;
-  z-index: 1000;
-}
 
-.slick-next {
-  right: 5px;
-}
 .tm-slider-img {
   width: 100%;
 }
@@ -280,7 +273,7 @@ a {
 
 }
 
-.btn-marcar { 
+.btn-marcar {
   width: 150px;
   height: 60px;
 }
@@ -680,28 +673,31 @@ a {
 #click{
   display: none;
 }
-@media (max-width: 940px) {
+@media (max-width: 1050px) {
   .navigationbar .menu-btn i{
     display: block;
   }
   #click:checked ~ .menu-btn i:before{
+    display: none;
     content: "\f00d";
   }
   .navigationbar ul{
-    position: fixed;
+    z-index: 1;
+    position: absolute;
     top: 80px;
     left: -100%;
     background: #111;
-    height: 100vh;
+    height: 500%;
     width: 100%;
-    display: block;
+    display: inline-block;
     text-align: center;
     transition: all 0.3s ease;
   }
   #click:checked ~ ul{
-    left:0%;
+    left:0;
   }
   .navigationbar ul li{
+    z-index: 1;
     margin: 40px 0;
   }
   .navigationbar ul li a{
