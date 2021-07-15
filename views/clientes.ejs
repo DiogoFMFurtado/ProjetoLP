@@ -230,7 +230,7 @@
           </table>
         </div>
       <!-- Fim Tabela Clientes -->
-      
+
 
 
 
@@ -428,18 +428,18 @@
       let table = document.getElementById('tabelaClientesAdmin')
 
       for(let i = 0; i < clients.length; i++){
-        let row = `<tr>
+        let row = `<table class="sortable"><tr>
                       <td>${clients[i]._id}</td>
                       <td>${clients[i].name}</td>
                       <td>${data.primeiro_nome[i] + " " + data.ultimo_nome[i]}</td>
                       <td>
                           <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Cliente</button>
                       </td>
-                  </tr>`
+                  </tr></table >`
         table.innerHTML += row
       }
     }
-    
+
     function store(index) {
 
       console.log("Trying to get clientId....")
@@ -509,6 +509,7 @@
             yAxes: [{
               ticks:{
                 beginAtZero: true,
+                stepSize: 1,
               }
             }]
           }

@@ -453,19 +453,27 @@
 
   </script>
 
+  <!-- GRAICO DOS TRABALHADORES -->
+  <!--<canvas id="chart_trabalhadores_canvas" width="400" height="400"></canvas>-->
   <script>
     async function get_trabalhadores(){
       const trabalhadores = await fetch('/auth/workersGET/')
       const data_trabalhadores = await trabalhadores.json()
+      console.log(data_trabalhadores)
       const valores_solo = []
+      const indisponiveis = []
       for (i=0; i<data_trabalhadores.length;i++){
-        if(data_trabalhadores[i].pequipa === "Não"){
+        if(data_trabalhadores[i].pequipa === "Não" || data_trabalhadores[i].pequipa === "Não disponível"){
           valores_solo.push(data_trabalhadores[i])
+        }
+        if (data_trabalhadores[i].disponibilidade !== "Sim"){
+          indisponiveis.push(data_trabalhadores[i])
         }
       }
       document.getElementById("trabalhadores_total").innerHTML = "Total de trabalhadores: " + data_trabalhadores.length
-      const trabalhadores_size = valores_solo.length
-      return {trabalhadores_size};
+      const trabalhadores_disponiveis = valores_solo.length - indisponiveis.length
+      const trabalhadores_indisponiveis = indisponiveis.length
+      return {trabalhadores_disponiveis, trabalhadores_indisponiveis};
     }
     async function get_equipas(){
       const equipas = await fetch('/auth/equipasGET/')
@@ -480,13 +488,13 @@
       const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ["Trabalhadores soltos", "Equipas"],
+          labels: ["Disponiveis","Indisponiveis", "Equipas"],
           datasets: [{
-            data: [data_trabalhador.trabalhadores_size,data_equipas.equipas_size],
+            data: [data_trabalhador.trabalhadores_disponiveis,data_trabalhador.trabalhadores_indisponiveis,data_equipas.equipas_size],
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
-              //'rgba(255, 206, 86, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
               //'rgba(75, 192, 192, 0.2)',
               //'rgba(153, 102, 255, 0.2)',
               //'rgba(255, 159, 64, 0.2)'
@@ -494,7 +502,7 @@
             borderColor: [
               'rgba(255, 99, 132, 1)',
               'rgba(54, 162, 235, 1)',
-              //'rgba(255, 206, 86, 1)',
+              'rgba(255, 206, 86, 1)',
               //'rgba(75, 192, 192, 1)',
               //'rgba(153, 102, 255, 1)',
               //'rgba(255, 159, 64, 1)'
@@ -503,11 +511,14 @@
           }]
         },
         options: {
+          responsive: true,
           legend:false,
           scales: {
             yAxes: [{
               ticks:{
+                autoSkip: false,
                 beginAtZero: true,
+                stepSize: 1,
               }
             }]
           }

@@ -102,6 +102,7 @@
             ticks:{
               autoSkip: false,
               beginAtZero: true,
+              stepSize: 1,
             }
           }]
         }
@@ -116,15 +117,21 @@
   async function get_trabalhadores(){
     const trabalhadores = await fetch('/auth/workersGET/')
     const data_trabalhadores = await trabalhadores.json()
+    console.log(data_trabalhadores)
     const valores_solo = []
+    const indisponiveis = []
     for (i=0; i<data_trabalhadores.length;i++){
-      if(data_trabalhadores[i].pequipa === "Não"){
+      if(data_trabalhadores[i].pequipa === "Não" || data_trabalhadores[i].pequipa === "Não disponível"){
         valores_solo.push(data_trabalhadores[i])
+      }
+      if (data_trabalhadores[i].disponibilidade !== "Sim"){
+        indisponiveis.push(data_trabalhadores[i])
       }
     }
     document.getElementById("trabalhadores_total").innerHTML = "Total de trabalhadores: " + data_trabalhadores.length
-    const trabalhadores_size = valores_solo.length
-    return {trabalhadores_size};
+    const trabalhadores_disponiveis = valores_solo.length - indisponiveis.length
+    const trabalhadores_indisponiveis = indisponiveis.length
+    return {trabalhadores_disponiveis, trabalhadores_indisponiveis};
   }
   async function get_equipas(){
     const equipas = await fetch('/auth/equipasGET/')
@@ -139,13 +146,13 @@
     const myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ["Trabalhadores soltos", "Equipas"],
+        labels: ["Disponiveis","Indisponiveis", "Equipas"],
         datasets: [{
-          data: [data_trabalhador.trabalhadores_size,data_equipas.equipas_size],
+          data: [data_trabalhador.trabalhadores_disponiveis,data_trabalhador.trabalhadores_indisponiveis,data_equipas.equipas_size],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
-            //'rgba(255, 206, 86, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
             //'rgba(75, 192, 192, 0.2)',
             //'rgba(153, 102, 255, 0.2)',
             //'rgba(255, 159, 64, 0.2)'
@@ -153,7 +160,7 @@
           borderColor: [
             'rgba(255, 99, 132, 1)',
             'rgba(54, 162, 235, 1)',
-            //'rgba(255, 206, 86, 1)',
+            'rgba(255, 206, 86, 1)',
             //'rgba(75, 192, 192, 1)',
             //'rgba(153, 102, 255, 1)',
             //'rgba(255, 159, 64, 1)'
@@ -169,6 +176,7 @@
             ticks:{
               autoSkip: false,
               beginAtZero: true,
+              stepSize: 1,
             }
           }]
         }
@@ -250,6 +258,7 @@
            ticks:{
              autoSkip: false,
              beginAtZero: true,
+             stepSize: 1,
            }
          }]
        }
@@ -310,6 +319,7 @@
               ticks:{
                 autoSkip: false,
                 beginAtZero: true,
+                stepSize: 1,
               }
             }]
           }
@@ -467,7 +477,7 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-8">
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Avaliações</h5>
@@ -506,8 +516,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
@@ -521,19 +529,23 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-8">
+          <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Daily Sales</h5>
-                <h3 class="card-title"><i id="trabalhadores_total" ></i></h3>
+                <h5 class="card-category">Comparações</h5>
+                <h3 class="card-title"><i id="comparacoes" ></i></h3>
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="chart_trabalhadores_canvas" height="0"></canvas>
+                  <canvas id="novo_chart"  height="0"></canvas>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="row">
+
         </div>
       </div>
     </div>
@@ -679,6 +691,77 @@
         application: "black-dashboard-free"
       });
   </script>
+
+<script>
+  async function get_admins_total(){
+    const administrador = await fetch('/auth/allAdminsGET/')
+    const data_admin = await administrador.json()
+    const numero_de_admins = data_admin.length
+    return {numero_de_admins}
+  }
+  async function get_clientes_total(){
+    const response = await fetch('/auth/clientsGET/')
+    const data_clientes = await response.json()
+    const numero_de_clientes = data_clientes.length
+    return {numero_de_clientes};
+  }
+  async function get_trabalhadores_total(){
+    const trabalhadores = await fetch('/auth/workersGET/')
+    const data_trabalhadores = await trabalhadores.json()
+    const total_de_trabalhadores = data_trabalhadores.length
+    return {total_de_trabalhadores}
+  }
+  async function get_marcacoes_total(){
+    const avaliacoes = await fetch('/auth/marcacoesGETAll/')
+    const data_avaliacoes = await avaliacoes.json()
+    const total_sem_avaliacao = []
+    for (let i=0; i<data_avaliacoes.length;i++){
+      if (data_avaliacoes[i].aval_client ==="Sem Avaliação do Cliente"){
+        total_sem_avaliacao.push(data_avaliacoes[i])
+      }
+    }
+    const total_de_marcacoes = total_sem_avaliacao.length
+    return {total_de_marcacoes};
+  }
+  async function get_novo_chart() {
+    const data_admins = await get_admins_total();
+    const data_clientes = await get_clientes_total();
+    const data_trabalhadores = await get_trabalhadores_total();
+    const data_marcacoes = await get_marcacoes_total();
+    const admin_por_cliente =data_admins.numero_de_admins/data_clientes.numero_de_clientes
+    const trabalhadores_por_marcacoes = data_trabalhadores.total_de_trabalhadores/data_marcacoes.total_de_marcacoes
+    document.getElementById("comparacoes").innerHTML = "A/C: " + admin_por_cliente.toFixed(2) + " | " + "T/M: " + trabalhadores_por_marcacoes.toFixed(2)
+
+    const ctx = document.getElementById('novo_chart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ["Administradores", "Clientes", "Trabalhador", "Marcações"],
+        datasets: [{
+          data: [data_admins.numero_de_admins, data_clientes.numero_de_clientes, data_trabalhadores.total_de_trabalhadores, data_marcacoes.total_de_marcacoes],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1,
+        }]
+      },
+    });
+  }
+  get_novo_chart();
+</script>
 </body>
 
 </html>
