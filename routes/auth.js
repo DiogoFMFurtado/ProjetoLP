@@ -93,7 +93,7 @@ router.get('/clientGET/:clientId', ControllerClient.getClient);
 router.put('/adminPUT/:clientId', ControllerClient.hasAdmin);
 router.get('/clientByIdGET/:clientId', ControllerClient.getClientById);
 router.put('/adminNPUT/:admin/:client', ControllerClient.disAssAdmin);
-
+router.get('/adminGET/:adminId', authControllerAdmin.getAdmin);
 
 
 
