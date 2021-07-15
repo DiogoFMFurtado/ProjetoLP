@@ -399,7 +399,7 @@
                                 <option selected="selected" hidden>Selecione a Equipa</option>
                                 ${option.list}
                               </select>
-                              <button type="submit" id="ModalBtn" class="btn btn-primary" onClick="window.location.reload();">Adicionar</button>
+                              <button type="submit" id="ModalBtn" class="btn btn-primary" >Adicionar</button>
                             </div>
                           </form>
                         </div>
@@ -427,7 +427,7 @@
                               <label>About Projeto</label>
                               <p>${thisMarcacao.descricao}</p>
                               <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
-                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
+                              <button type="submit" class="btn btn-fill btn-primary" >Submeter Descrição</button>
                             </div>
                           </form>
                         </div>
@@ -456,7 +456,7 @@
                             <div class="form-group">
                               <label>Equipa</label>
                               <p>${data.name}</p>
-                              <button type="submit" id="ModalBtn" class="btn btn-primary" onClick="window.location.reload();">Disassociar</button>
+                              <button type="submit" id="ModalBtn" class="btn btn-primary" >Disassociar</button>
                             </div>
                           </form>
                         </div>
@@ -484,7 +484,7 @@
                               <label>About Projeto</label>
                               <p>${thisMarcacao.descricao}</p>
                               <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
-                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
+                              <button type="submit" class="btn btn-fill btn-primary" >Submeter Descrição</button>
                             </div>
                           </form>
                         </div>
@@ -513,7 +513,7 @@
                             <div class="form-group">
                               <label>Equipa</label>
                               <p>${data.name}</p>
-                              <button type="submit" id="ModalBtn" class="btn btn-primary" onClick="window.location.href('/ver_projetos');">Disassociar</button>
+                              <button type="submit" id="ModalBtn" class="btn btn-primary" >Disassociar</button>
                             </div>
                           </form>
                         </div>
@@ -547,7 +547,7 @@
                               <label>Avaliação Projeto</label>
                               <p>${thisMarcacao.aval_admin}</p>
                               <input type="text" name="aval_admin" class="form-control" placeholder="L1-L5" >
-                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Avaliação</button>
+                              <button type="submit" class="btn btn-fill btn-primary" >Submeter Avaliação</button>
                             </div>
                           </form>
                         </div>
@@ -559,7 +559,7 @@
                               <label>About Projeto</label>
                               <p>${thisMarcacao.descricao}</p>
                               <textarea rows="4" cols="80" name="descricao" class="form-control" placeholder="Uma descrição do Projeto"></textarea>
-                              <button type="submit" class="btn btn-fill btn-primary" onClick="window.location.reload();">Submeter Descrição</button>
+                              <button type="submit" class="btn btn-fill btn-primary" >Submeter Descrição</button>
                             </div>
                           </form>
                         </div>
@@ -618,7 +618,7 @@
         dataType: 'json',
         complete: function() { //complete
           //console.log(data);
-          window.location.href = './ver_projeto_marcacoes';
+          window.location.href = './ver_projeto';
         }
       });
     });
@@ -633,7 +633,7 @@
         dataType: 'json',
         complete: function() { //complete
           //console.log(data);
-          window.location.href = './ver_projeto_marcacoes';
+          window.location.href = './ver_projeto';
         }
       });
     });
