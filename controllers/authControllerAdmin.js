@@ -380,3 +380,13 @@ exports.getAllAdmins = async (req, res) => {
 
 }
 
+exports.getAdmin = async(req,res) => {
+    console.log("Getting Admin...")
+    try {
+        const admin = await Admin.findById(req.user);
+        console.log('administrador', admin);
+        res.status(200).json(admin);
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+}
