@@ -396,15 +396,14 @@
       return {list}
     }
     let clientId = sessionStorage.getItem("clientId");
+
     async function get_admin(){
       const administrador = await fetch('/auth/allAdminsGET/')
       const data_admin = await administrador.json()
       const client = await fetch('/auth/clientByIdGET/' + clientId)
       const data_client = await client.json()
-      //console.log(data_client)
       const primeiro_nome = []
       const ultimo_nome = []
-     //console.log(thisMarcacao._id)
       for (let i=0;i<data_client.marcacaoCliente.length; i++){
         if (data_client.marcacaoCliente[i] === thisMarcacao._id){
           for (let a=0;a<data_admin.length; a++){
@@ -452,7 +451,7 @@
                                 <option selected="selected" hidden>Selecione a Equipa</option>
                                 ${option.list}
                               </select>
-                              <button type="submit" id="ModalBtn" class="btn btn-primary" onClick="window.location.reload();">Adicionar</button>
+                              <button type="submit" id="ModalBtn" class="btn btn-primary">Adicionar</button>
                             </div>
                           </form>
                         </div>
@@ -509,7 +508,7 @@
                             <div class="form-group">
                               <label>Equipa</label>
                               <p>${data.name}</p>
-                              <button type="submit" id="ModalBtn" class="btn btn-primary" onClick="window.location.reload();">Disassociar</button>
+                              <button type="submit" id="ModalBtn" class="btn btn-primary">Disassociar</button>
                             </div>
                           </form>
                         </div>
