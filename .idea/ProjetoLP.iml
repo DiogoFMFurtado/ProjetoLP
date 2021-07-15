@@ -14,5 +14,6 @@
     <orderEntry type="library" name="all" level="application" />
     <orderEntry type="library" name="@fortawesome/fontawesome-free" level="application" />
     <orderEntry type="library" name="jquery-3.5.1" level="application" />
+    <orderEntry type="library" name="sorttable" level="application" />
   </component>
 </module>
