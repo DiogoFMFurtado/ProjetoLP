@@ -41,6 +41,7 @@
                 <header id="header" class="text-center tm-text-gray">
                     <h1>CILLIT BANG</h1>
                     <p>A Sujidade Desaparece</p>
+                    <p>Nome: <%= name %></p>
                 </header>
             </section>
 <!--Slide-de-imagens------------------------------------------->
@@ -65,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-            </section>     
+            </section>
 <!--Sobre-nos-------------------------------------------------->
             <section class="tm-section-2" id="sobrenos">
                 <div class="row">
@@ -127,17 +128,18 @@
 
 <!--Marcações-Trabalhador-------------------------------------->
             <section class="tm-section-7" id="tm-section-7">
-                <h2 class="hidden" id="nome" >Nome do Trabalhador</h2>
                 <div id="marcacoesdelimpeza" class="row mb-3 pl-xl-3 hidden">
+                    <h2 class="h2-spaced">Marcações</h2>
                     <table id="tabelaWorker" class="tabela-clientes">
                         <tr>
                             <th>Morada</th>
                             <th>Data</th>
                             <th>Hora</th>
-                            <th>Tipo Projeto</th>
-                            <th>Gestor</th>
+                            <th>Estado</th>
+                            <th>Terminar</th>
+                            <th>Avaliação</th>
                         </tr>
-                        <tbody>
+                        <tbody id="marcsT">
 
                         </tbody>
                     </table>
@@ -147,20 +149,16 @@
                     <h2 class="h2-spaced">Feedback</h2>
                     <div class="col-xl-12">
                         <div class="contact_message">
-                            <form action="" method="post" class="contact-form">
+                            <form action="/auth/feedbackT" method="post" class="contact-form" id="trabalhador_feedback_enviar">
                                 <div class="row mb-3">
                                     <div class="form-group col-xs-12 pl-lg-3">
-                                        <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Primeiro e Último nome" required/>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="form-group col-xs-12 pl-lg-3">
-                                        <input type="text" id="contact_number" class="form-control" placeholder="Número do Trabalhador" required/>
+                                        <input pattern="^[a-zA-Z ]+$" title="Não pode ter caracteres especiais e números"
+                                          type="text" id="contact_name" name="name" class="form-control" required placeholder="Nome:" value="<%= name %>"/>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <div class="form-group col-xl-8 pl-lg-3">
-                                        <textarea id="contact_message" name="contact_message" class="form-control" rows="6" placeholder="Feedback" required></textarea>
+                                        <textarea id="contact_message" name="feedback" class="form-control" rows="6" placeholder="Feedback" required></textarea>
                                     </div>
                                     <div id="fback-btn" class="form-group col-xl-2 pl-xl-4">
                                         <button type="submit" class="btn  tm-btn-submit float-right btn-marcar">Enviar</button>
@@ -170,6 +168,22 @@
                         </div>
                     </div>
                 </div>
+                <script>
+                    $("#trabalhador_feedback_enviar").submit(function(e) {
+                        e.preventDefault(); // avoid to execute the actual submit of the form.
+                        var form = $(this);
+                        $.ajax({
+                            type: "POST",
+                            url: '/auth/feedbackT/',
+                            data: form.serialize(), // serializes the form's elements.
+                            datatype: "json",
+                            complete: function(data)
+                            {
+                                window.location.href = "./workerpage";
+                            }
+                        });
+                    });
+                </script>
             </section>
 <!--Rodapé----------------------------------------------------->
             <footer class="mt-5">
@@ -187,4 +201,111 @@
         <script src="/public/js/page.js"></script>
 
     </body>
+
+
+    <script>
+
+        let thisArray = []
+        let userId = $('#userId').val();
+
+        $.ajax({
+            method:'GET',
+            url:'/auth/marcsTrabGET/' + userId,
+            dataType: 'json',
+            data: {
+                userId: userId
+            },
+            success:function(marcs){
+                thisArray = marcs;
+                buildTable(marcs);
+                console.log(thisArray);      
+            }
+        });
+
+        function buildTable(marcs){
+            let table = document.getElementById('marcsT');
+
+            for(let i = 0; i < marcs.length; i++){
+
+                if(marcs[i].state == "Pendente" && marcs[i].avaliado_admin == "Não"){
+
+                    let row = `<tr>
+                                <td>${marcs[i].address}</td>
+                                <td>${marcs[i].date}</td>
+                                <td>${marcs[i].hour}</td>
+                                <td>${marcs[i].state}</td>
+                                <td>
+                                    <div class="form-group col-xs-12 pl-lg-3" id="kuku">
+                                        <form action="/auth/endProject/${marcs[i]._id}" method="POST" class="endProject" >
+                                            <div class="form-group" class="div1">
+                                                <button type="submit" class="btn btn-fill btn-primary">Terminar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>`
+                    table.innerHTML += row 
+                } else if (marcs[i].state == "Terminado" && marcs[i].avaliado_admin == "Não"){
+                    let row = `<tr>
+                            <td>${marcs[i].address}</td>
+                            <td>${marcs[i].date}</td>
+                            <td>${marcs[i].hour}</td>
+                            <td>${marcs[i].state}</td>
+                            <td>
+                                <div class="form-group" class="div1">
+                                    <p>Terminado!</p>
+                                </div>    
+                            </td>
+                            <td>
+                                <div class="form-group" class="div1">
+                                    <p>Aguardando Avaliação</p>
+                                </div>    
+                            </td>
+                        </tr>`
+                    table.innerHTML += row
+                }else if(marcs[i].state == "Terminado" && marcs[i].avaliado_admin == "Sim"){
+                    let row = `<tr>
+                            <td>${marcs[i].address}</td>
+                            <td>${marcs[i].date}</td>
+                            <td>${marcs[i].hour}</td>
+                            <td>${marcs[i].state}</td>
+                            <td>
+                                <div class="form-group" class="div1">
+                                    <p>Terminado!</p>
+                                </div>    
+                            </td>
+                            <td>${marcs[i].aval_admin}</td>
+                        </tr>`
+                    table.innerHTML += row
+                    
+                    
+                }
+            }
+        }
+
+        $('#marcsT').on('submit', '.endProject', function(e) {
+            e.preventDefault();
+            const $form = $(e.target);
+            const action = $form.attr('action');
+            $.ajax({
+                method: 'PUT',
+                url: action,
+                dataType: 'json',
+                complete: function(data) {
+                    console.log(data);
+                    //$("#kuku").load(location.href + " #kuku");
+                    //$("#kuku").load(location.href+" #kuku>*","");
+                    window.location.href =" ./workerpage"
+                    $form.replaceWith("<p>Terminado!</p>");
+                }
+            })
+        })
+    
+
+
+
+
+
+
+    </script>
 </html>

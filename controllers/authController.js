@@ -14,17 +14,10 @@ exports.registerHandle = (req, res) => {
     let errors = [];
 
 //-----Requesitos-de-registo---------------------------------------------------
-    if (!name || !email || !password || !password2) {
-        errors.push({ msg: 'Preencha todos os espaços' });
-    }else{
-        if (password.length < 8) {
-            errors.push({ msg: 'A Password tem de ter no mínimo 8 caracteres' });
-        }else{
-            if (password != password2) {
-                errors.push({ msg: 'As Passwords não correspondem.' });
-            }
-        }
-    }  
+    
+    if (password != password2) {
+        errors.push({ msg: 'As Passwords não correspondem.' });
+    }
 
 //-----Validaçao-de-conta------------------------------------------------------
     if (errors.length > 0) {
@@ -84,7 +77,7 @@ exports.registerHandle = (req, res) => {
                 });
 
                 const mailOptions = {
-                    from: '"Nome da empresa" <nodejsa@gmail.com>',
+                    from: '"Cilit Bang" <nodejsa@gmail.com>',
                     to: email,
                     subject: "Confirme a sua conta.",
                     generateTextFromHTML: true,
@@ -136,7 +129,7 @@ exports.activateHandle = (req, res) => {
                         //------------ User already exists ------------//
                         req.flash(
                             'error_msg',
-                            'Email ID already registered! Please log in.'
+                            'Email com conta associada, por favor faça o login'
                         );
                         res.redirect('/auth/login_registar_user');
                     } else {
@@ -169,7 +162,7 @@ exports.activateHandle = (req, res) => {
         })
     }
     else {
-        console.log("Account activation error!")
+        console.log("Ocorreu um erro na criação da conta!")
     }
 }
 
@@ -180,9 +173,6 @@ exports.forgotPassword = (req, res) => {
     let errors = [];
 
     //------------ Checking required fields ------------//
-    if (!email) {
-        errors.push({ msg: 'Please enter an email ID' });
-    }
 
     if (errors.length > 0) {
         res.render('forgot', {
@@ -223,7 +213,7 @@ exports.forgotPassword = (req, res) => {
 
                 User.updateOne({ resetLink: token }, (err, success) => {
                     if (err) {
-                        errors.push({ msg: 'Erro.' });
+                        errors.push({ msg: 'Erro na nova senha!' });
                         res.render('forgot', {
                             errors,
                             email
@@ -244,10 +234,10 @@ exports.forgotPassword = (req, res) => {
 
                         // send mail with defined transport object
                         const mailOptions = {
-                            from: '"Nome da Empresa" <nodejsa@gmail.com>', // sender address
-                            to: email, // list of receivers
-                            subject: "Redfinir nova senha", // Subject line
-                            html: output, // html body
+                            from: '"Cilit Bang" <nodejsa@gmail.com>',
+                            to: email,
+                            subject: "Redfinir nova senha",
+                            html: output,
                         };
 
                         transporter.sendMail(mailOptions, (error, info) => {
@@ -295,7 +285,7 @@ exports.gotoReset = (req, res) => {
                     if (err) {
                         req.flash(
                             'error_msg',
-                            'User with email ID does not exist! Please try again.'
+                            'Utilizador enixestente, por fvor tente de novo'
                         );
                         res.redirect('/auth/login_registar_user');
                     }
@@ -307,7 +297,7 @@ exports.gotoReset = (req, res) => {
         })
     }
     else {
-        console.log("Password reset error!")
+        console.log("Deu erro redefenir a nova senha.")
     }
 }
 
@@ -318,25 +308,7 @@ exports.resetPassword = (req, res) => {
     let errors = [];
 
     //------------ Checking required fields ------------//
-    if (!password || !password2) {
-        req.flash(
-            'error_msg',
-            'Please enter all fields.'
-        );
-        res.redirect(`/auth/reset/${id}`);
-    }
-
-    //------------ Checking password length ------------//
-    else if (password.length < 8) {
-        req.flash(
-            'error_msg',
-            'A Password tem de ter no mínimo 8 caracteres.'
-        );
-        res.redirect(`/auth/reset/${id}`);
-    }
-
-    //------------ Checking password mismatch ------------//
-    else if (password != password2) {
+    if (password != password2) {
         req.flash(
             'error_msg',
             'As Passwords não correspondem.'

@@ -10,11 +10,12 @@
     <script src="https://kit.fontawesome.com/761d42c757.js" crossorigin="anonymous"></script>
 	</head>
 	<body>
+    <h1>Cillit Bang</h1>
         <div class="container" id="container">
             <div class="form-container sign-in-container">
                 <form id="reg-form" action="/auth/forgot" method="POST">
                   <h3>Coloque o Email para atualizar a password</h3>
-                  <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" />
+                  <input type="email" id="email" name="email" class="form-control" placeholder="Email:" required/>
                   <button type="submit" id="submit">
                     Reset password
                   </button>
@@ -24,8 +25,8 @@
             <div class="overlay">
                 <div class="overlay-panel overlay-right">
                     <h1>Olá</h1>
-                    <p>Faça o seu login para ver os seus filmes favoritos</p>
-                    <button href="/auth/login" class="ghost" id="signUp" onclick="f()">Fazer Login</button>
+                    <p>Faça o login para agendar as limpezas</p>
+                    <button href="/auth/login" class="ghost" onclick="f()">Fazer Login</button>
                     <div id="mensagem"><%- include ("./messages") %></div>
                 </div>
             </div>

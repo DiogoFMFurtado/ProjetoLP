@@ -27,6 +27,8 @@ router.get('/forgot', (req, res) => res.render('forgot'));
 
 router.get('/forgotAd', (req, res) => res.render('forgotAd'));
 
+router.get('/forgotTrab', (req, res) => res.render('forgotTrab'));
+
 router.get('/colegas', (req, res) => res.render('colegas'));
 
 router.get('/colegas2', (req, res) => res.render('colegas2'));
@@ -68,7 +70,7 @@ router.put('/evalPUT/:marcacaoId', authControllerMarcacao.giveAval);
 router.put('/descripPUT/:marcacaoId', authControllerMarcacao.giveDescrip);
 router.delete('/projDEL/:_id/:clientId', authControllerMarcacao.deleteMarc);
 router.put('/teamAttr/:_id2', authControllerMarcacao.atribTeam);
-router.put('/disAssE/:_id2', authControllerMarcacao.disAssEquipa);
+router.put('/disAssE/:_id2/:_id1', authControllerMarcacao.disAssEquipa);
 
 
 
@@ -85,6 +87,7 @@ router.get('/clientsGET', ControllerClient.getClients);
 router.get('/clientGET/:clientId', ControllerClient.getClient);
 router.put('/adminPUT/:clientId', ControllerClient.hasAdmin);
 router.get('/clientByIdGET/:clientId', ControllerClient.getClientById);
+router.put('/adminNPUT/:admin/:client', ControllerClient.disAssAdmin);
 
 
 
@@ -140,6 +143,7 @@ router.get('/logoutTrab', authControllerTrab.logoutTrabHandle);
 
 router.post('/marcacaoPOST', authControllerMarcacao.registerMarcHandle);
 router.put('/avaliacaoPUT/:_id', authControllerMarcacao.clientAval);
+router.put('/endProject/:_id', authControllerMarcacao.terminateMarc);
 
 //Feedback
 
@@ -147,7 +151,7 @@ router.post('/feedback', authControllerFeedback.registerFeedbackHandle);
 router.post('/feedbackT', authControllerFeedback.postFeedT);
 router.get('/getUserFeedback/:_id', authControllerFeedback.getFeedBacksById);
 router.get('/getWorkerFeedback/:_id', authControllerFeedback.getFeedBacksByIdT);
-router.delete('/apagarfeedback/:_id', authControllerFeedback.deleteFeedback);
+router.delete('/apagarfeedback/:_id/:clientId', authControllerFeedback.deleteFeedback);
 router.get('/getFeedbacks', authControllerFeedback.getFeedbacks);
 
 
@@ -168,5 +172,9 @@ router.get('/trabByIdGET/:_id', authControllerTrab.getTrabById);
 router.put('/giveNote/:_id', authControllerTrab.giveNote);
 router.put('/trabNDisp/:_id', authControllerTrab.workerSDisp);
 router.put('/trabCDisp/:_id', authControllerTrab.workerCDisp);
+router.delete('/deleteFeedbackT/:_id/:workerId', authControllerFeedback.deleteFeedbackT);
+
+
+router.get('/allAdminsGET', authControllerAdmin.getAllAdmins);
 
 module.exports = router;

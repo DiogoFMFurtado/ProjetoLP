@@ -1,54 +1,49 @@
 <html lang="pt">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Login/Registar</title>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Icons CDN -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/loginregistar.css">
-    <script src="https://kit.fontawesome.com/761d42c757.js" crossorigin="anonymous"></script>
-	</head>
-	<body>
-        <div class="container" id="container">
-            <div class="form-container sign-in-container">
-                <form id="reg-form" action="/auth/forgotAd" method="POST">
-                  <h3>Coloque o Email para atualizar a password</h3>
-                  <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email" />
-                  <button type="submit" id="submit">
-                    Reset password
-                  </button>
-                </form>
-            </div>
-            <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-right">
-                  <%- include ("./messages") %>
-                    <h1>Olá</h1>
-                    <p>Faça o seu login para ver os seus filmes favoritos</p>
-                    <button href="/auth/loginAd" class="ghost" id="signUp" onclick="f()">Fazer Login</button>
-                </div>
-            </div>
-        </div>
-        <script src="/assets/js/js.js"></script>
-		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
-  <script>
-    function f() {
-      location.replace("/auth/loginAd")
-    }
-  </script>
-</body>
-</html>
-          
-          
-          
+<head>
+  <title>Ad: Redefenir Senha</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
 
-       
+<body>
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="login-wrap p-4 p-md-5">
+          <div class="icon d-flex align-items-center justify-content-center">
+            <span class="fa fa-user-o"></span>
+          </div>
+          <h3 class="text-center mb-4">Administrador</h3>
+    <form action="/auth/loginAd" method="POST" class="login-form">
+      <%- include ("./messages") %>
+            <div class="form-group">
+              <input type="email" id="email" name="email" class="form-control rounded-left" placeholder="E-mail:" required>
+            </div>
+            <div class="form-group d-md-flex"> 
+              <div class="w-50"></div>
+              <div class="w-50 text-md-right">
+                <a href="/auth/loginAd">Voltar</a>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" id="submit" class="btn btn-primary rounded submit p-3 px-5">Enviar Senha</button>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/popper.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+</body>
+
+</html>

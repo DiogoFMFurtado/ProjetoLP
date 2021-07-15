@@ -1,12 +1,3 @@
-const passport = require('passport');
-const bcryptjs = require('bcryptjs');
-const nodemailer = require('nodemailer');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-const jwt = require('jsonwebtoken');
-const JWT_KEY = "jwtactive987";
-const JWT_RESET_KEY = "jwtreset987";
-
 const Marcacao = require('../models/Marcacao');
 const User = require('../models/User');
 const Equipas = require('../models/Equipas');
@@ -15,7 +6,7 @@ const Trab = require('../models/Trab');
 
 exports.registerMarcHandle = async (req, res) => {
     
-    const { name, email, date, hour, type, address } = req.body;
+    const { name, email, date, hour, address } = req.body;
 
     try {
         console.log(req.body);
@@ -24,7 +15,6 @@ exports.registerMarcHandle = async (req, res) => {
             email,
             date,
             hour,
-            type,
             address
         });
         const user = await User.findById(req.user);
@@ -131,6 +121,20 @@ exports.giveDescrip = async (req,res) => {
     console.log("Done!")
 }
 
+exports.terminateMarc = async (req,res) => {
+
+    console.log("Worker is terminating the project...");
+    console.log(req.params._id);
+    try {
+        const terminate = await Marcacao.findByIdAndUpdate(req.params._id, {state: "Terminado"}, {useFindAndModify: false});
+        terminate.save();
+        res.status(200).json();
+        console.log("Done!");
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+}
+
 
 exports.deleteMarc = async (req,res) => {
 
@@ -210,33 +214,42 @@ exports.atribTeam = async(req,res) => {
 exports.disAssEquipa = async(req,res) => {
 
     console.log("Removing Team for Project....");
-    console.log(req.body);
-    console.log(req.params._id2);
+    console.log(req.params._id2); // Marcacao
+    console.log(req.params._id1); // Equipa
 
     try {
-        
-        const proj = await Marcacao.findByIdAndUpdate(req.params._id2, {team: null}, {useFindAndModify: false});
-        await proj.save();
-
-        const equipa = await Equipas.findByIdAndUpdate(req.body, { $pull: { marcsEquipa: req.params._id2}});
+       
+        console.log("1");
+        // Retira Projeto Da Equipa
+        const equipa = await Equipas.findByIdAndUpdate(req.params._id1, { $pull: {marcsEquipa: req.params._id2}}, {useFindAndModify: false});
         await equipa.save();
 
-        const equipaFalse = await Marcacao.findByIdAndUpdate(req.params._id2, {equipa: "Não"}, {useFindAndModify: false});
-        await equipaFalse.save();
-        
+        console.log("2");
+        // Retira Projeto Dos Trabalhadores
         const worker1 = await Trab.findByIdAndUpdate(equipa.trab1, { $pull: {marcTrab: req.params._id2}});
         await worker1.save();
         const worker2 = await Trab.findByIdAndUpdate(equipa.trab2, { $pull: {marcTrab: req.params._id2}});
         await worker2.save();
         const worker3 = await Trab.findByIdAndUpdate(equipa.trab3, { $pull: {marcTrab: req.params._id2}});
         await worker3.save();
+        
+        // equipa: não
+        const equipaFalse = await Marcacao.findByIdAndUpdate(req.params._id2, {equipa: "Não"}, {useFindAndModify: false});
+        await equipaFalse.save();
 
-        res.status(201).json()
+        console.log("3");
+
+        // Retira equipa do Projeto
+        const proj = await Marcacao.findByIdAndUpdate(req.params._id2, {team: null}, {useFindAndModify: false});
+        await proj.save();
+
+        console.log("4");
+        
+        res.status(200).json();
         console.log("Done!");
-
 
     } catch (err) {
         res.status(404).json({message: err});
     }
-
+    
 }

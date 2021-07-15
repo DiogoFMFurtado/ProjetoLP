@@ -7,7 +7,6 @@ const MarcacaoSchema = new mongoose.Schema({
     email: { type: String, required: true },
     date: { type: Date, required: true},
     hour: { type: String, required: true},
-    type: { type: String, required: true},
     address: {type: String, required: true},
     state: {type: String, default: 'Pendente'},
     equipa: {

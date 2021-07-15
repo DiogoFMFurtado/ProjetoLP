@@ -87,21 +87,21 @@ module.exports = function (passport) {
                 if (admin)
                     done(null, admin);
                 else
-                    done(err, { message: 'Admin not found' })
+                    done(err, { message: 'Administrador não encontrado' })
             });
         }else if (login.role === 'Cliente') {
-            User.findById(login, (err, admin) => {
-                if (admin)
-                    done(null, admin);
+            User.findById(login, (err, user) => {
+                if (user)
+                    done(null, user);
                 else
-                    done(err, { message: 'Admin not found' })
+                    done(err, { message: 'Cliente não encontrado' })
             });
         }else if (login.role === 'Trabalhador') {
-            Trab.findById(login, (err, admin) => {
-                if (admin)
-                    done(null, admin);
+            Trab.findById(login, (err, trab) => {
+                if (trab)
+                    done(null, trab);
                 else
-                    done(err, { message: 'Admin not found' })
+                    done(err, { message: 'Trabalhador não encontrado' })
             });
         }
     });

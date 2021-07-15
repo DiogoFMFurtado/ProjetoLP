@@ -1,12 +1,3 @@
-const passport = require('passport');
-const bcryptjs = require('bcryptjs');
-const nodemailer = require('nodemailer');
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
-const jwt = require('jsonwebtoken');
-const JWT_KEY = "jwtactive987";
-const JWT_RESET_KEY = "jwtreset987";
-
 const User = require('../models/User');
 const Admin = require('../models/Admin');
 
@@ -47,46 +38,33 @@ exports.getClientById = async(req,res) => {
     }
 }
 
-/*
-exports.hasAdmin = async(req,res) => {
-    console.log("Updating Manager...");
-    console.log(req.params.clientId);
-    try {
-        const assigned = await User.findByIdAndUpdate(req.params.clientId, req.body, {useFindAndModify: false});
-        console.log(req.body);
-        const manager = await User.findByIdAndUpdate(req.params.clientId, {$set: { hasAdmin: true }}, {useFindAndModify: false});
-        await manager.save();
-        console.log("Saved!");
-        res.status(200).json(assigned);
-    } catch (err) {
-        res.json({message: err})
-    }
-    console.log("Done!")
-}
-*/
-
 exports.hasAdmin = async(req,res) => {
     
-    console.log(req.body);
+    console.log(req.params.clientId);
+    console.log(req.user);
+
     try {
-        await Admin.findOne({firstName: req.body.admin}).exec(async function(err, admin) {
+        await Admin.findOne({_id: req.user}).exec(async function(err, admin) {
 
             if(admin){
                 //Atribui cliente ao Admin.
                 const user = await User.findById(req.params.clientId);
                 admin.clients.push(user);
                 await admin.save();
+                user.admin = admin;
+                await user.save();
                 console.log("Admin has a new Client...");
 
                 // Faz update ao nome do admin do cliente, e faz update true cliente tem admin
                 console.log("... & updating Users Admin...");
-                const assigned = await User.findByIdAndUpdate(req.params.clientId, req.body, {useFindAndModify: false});
-                await assigned.save();
+                
                 const manager = await User.findByIdAndUpdate(req.params.clientId, {$set: { hasAdmin: true }}, {useFindAndModify: false});
                 await manager.save();
+
+
                 console.log("Done!");
 
-                res.status(200).json(assigned);
+                res.status(200).json();
                 
                 
             }else{
@@ -95,7 +73,31 @@ exports.hasAdmin = async(req,res) => {
         });
         
     } catch (err) {
-        res.json({message: err})
+        res.status(400).json({message: err})
     }
 }
 
+
+exports.disAssAdmin = async(req,res) =>{
+
+    console.log(req.params.client);
+    console.log(req.params.admin);
+
+    try {
+        
+        const admin = await Admin.findByIdAndUpdate(req.params.admin, { $pull: { clients : req.params.client}}, {useFindAndModify: false});
+        await admin.save();
+        
+        const noAdmin = await User.findByIdAndUpdate(req.params.client, {admin: null}, {useFindAndModify: false});
+        await noAdmin.save();
+
+        const manager = await User.findByIdAndUpdate(req.params.client, {$set: { hasAdmin: false}}, {useFindAndModify: false});
+        await manager.save();
+
+        console.log("Done!");
+        res.status(200).json();
+
+    } catch (err) {
+        res.status(400).json({message: err})
+    }
+}
