@@ -8,7 +8,7 @@ const JWT_KEY = "jwtactive987";
 const JWT_RESET_KEY = "jwtreset987";
 
 const Admin = require('../models/Admin');
-const User = require('../models/User');
+
 
 //------------ Register Handle ------------//
 
@@ -210,7 +210,7 @@ exports.forgotAdminPassword = (req, res) => {
                 const output = `
                 <h2>Nova senha</h2>
                 <p>Para escolher a sua nova senha copie o seginte link:</p>
-                <p>${CLIENT_URL}/auth/forgot/${token}</p>
+                <p>${CLIENT_URL}/auth/forgotAd/${token}</p>
                 <p><b>Atenção: </b></p>
                 <p>O link vai expirar após  30 minutos.</p>
                 `;

@@ -174,7 +174,7 @@ exports.forgotTrabPassword = (req, res) => {
 
     //------------ Checking required fields ------------//
     if (errors.length > 0) {
-        res.render('forgot', {
+        res.render('forgotTrab', {
             errors,
             email
         });
@@ -183,7 +183,7 @@ exports.forgotTrabPassword = (req, res) => {
             if (!trab) {
                 //------------ User already exists ------------//
                 errors.push({ msg: 'Email não encontrado, confirme o seu email' });
-                res.render('forgot', {
+                res.render('forgotTrab', {
                     errors,
                     email
                 });
@@ -205,7 +205,7 @@ exports.forgotTrabPassword = (req, res) => {
                 const output = `
                 <h2>Nova senha</h2>
                 <p>Para escolher a sua nova senha copie o seginte link:</p>
-                <p>${CLIENT_URL}/auth/forgot/${token}</p>
+                <p>${CLIENT_URL}/auth/forgotTrab/${token}</p>
                 <p><b>Atenção: </b></p>
                 <p>O link vai expirar após  30 minutos.</p>
                 `;
@@ -213,7 +213,7 @@ exports.forgotTrabPassword = (req, res) => {
                 Trab.updateOne({ resetLink: token }, (err, success) => {
                     if (err) {
                         errors.push({ msg: 'Erro na nova senha!' });
-                        res.render('forgot', {
+                        res.render('forgotTrab', {
                             errors,
                             email
                         });
@@ -246,7 +246,7 @@ exports.forgotTrabPassword = (req, res) => {
                                     'error_msg',
                                     'Algo deu errado, tente de novo.'
                                 );
-                                res.redirect('/auth/forgot');
+                                res.redirect('/auth/forgotTrab');
                             }
                             else {
                                 console.log('Mail sent : %s', info.response);
@@ -254,13 +254,93 @@ exports.forgotTrabPassword = (req, res) => {
                                     'success_msg',
                                     'Sucesso! Confirme o seu email.'
                                 );
-                                res.redirect('/auth/colegas2');
+                                res.redirect('/auth/forgotTrab');
                             }
                         })
                     }
                 })
 
             }
+        });
+    }
+}
+
+exports.gotoResetTrab = (req, res) => {
+    const { token } = req.params;
+
+    if (token) {
+        jwt.verify(token, JWT_RESET_KEY, (err, decodedToken) => {
+            if (err) {
+                req.flash(
+                    'error_msg',
+                    'Link incorreto ou expirado, tente de novo.'
+                );
+                res.redirect('/auth/loginTrab');
+            }
+            else {
+                const { _id } = decodedToken;
+                Trab.findById(_id, (err, user) => {
+                    if (err) {
+                        req.flash(
+                            'error_msg',
+                            'Utilizador enixestente, por fvor tente de novo'
+                        );
+                        res.redirect('/auth/loginTrab');
+                    }
+                    else {
+                        res.redirect(`/auth/resetTrab/${_id}`)
+                    }
+                })
+            }
+        })
+    }
+    else {
+        console.log("Deu erro redefenir a nova senha.")
+    }
+}
+
+
+exports.resetTrabPassword = (req, res) => {
+    var { password, password2 } = req.body;
+    const id = req.params.id;
+    let errors = [];
+
+    //------------ Checking required fields ------------//
+    if (password != password2) {
+        req.flash(
+            'error_msg',
+            'As Passwords não correspondem.'
+        );
+        res.redirect(`/auth/resetTrab/${id}`);
+    }
+
+    else {
+        bcryptjs.genSalt(10, (err, salt) => {
+            bcryptjs.hash(password, salt, (err, hash) => {
+                if (err) throw err;
+                password = hash;
+
+                Trab.findByIdAndUpdate(
+                    { _id: id },
+                    { password },
+                    function (err, result) {
+                        if (err) {
+                            req.flash(
+                                'error_msg',
+                                'Erro na confirmação da nova password'
+                            );
+                            res.redirect(`/auth/resetTrab/${id}`);
+                        } else {
+                            req.flash(
+                                'success_msg',
+                                'Sucesso na confirmação da nova password.'
+                            );
+                            res.redirect('/auth/loginTrab');
+                        }
+                    }
+                );
+
+            });
         });
     }
 }
