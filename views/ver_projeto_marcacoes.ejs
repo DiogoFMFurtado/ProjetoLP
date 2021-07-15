@@ -400,17 +400,14 @@
     async function get_admin(){
       const administrador = await fetch('/auth/allAdminsGET/')
       const data_admin = await administrador.json()
-      const client = await fetch('/auth/clientByIdGET/' + clientId)
-      const data_client = await client.json()
       const primeiro_nome = []
       const ultimo_nome = []
-      for (let i=0;i<data_client.marcacaoCliente.length; i++){
-        if (data_client.marcacaoCliente[i] === thisMarcacao._id){
-          for (let a=0;a<data_admin.length; a++){
-            if (data_admin[a]._id === data_client.admin){
-              primeiro_nome.push(data_admin[a].firstName)
-              ultimo_nome.push(data_admin[a].lastName)
-            }
+      for (let i=0; i<data_admin.length; i++){
+        for (let a=0; a<data_admin[i].clients.length; a++){
+          //console.log(data_admin[i].clients[a])
+          if (data_admin[i].clients[a] === thisMarcacao.cliente){
+            primeiro_nome.push(data_admin[i].firstName)
+            ultimo_nome.push(data_admin[i].lastName)
           }
         }
       }
@@ -427,7 +424,7 @@
       const data = await get_equipas();
       const option = await slider();
       let card = document.getElementById('cardProjeto');
-      console.log(data)
+      //console.log(data)
       if(thisMarcacao.equipa == "Não" || data.name == "Falta Associar"){
         let cardInfo =
         `

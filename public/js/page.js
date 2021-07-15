@@ -7,7 +7,22 @@ var renderPage = true;
             renderPage = false;
         }
 
-//script para esconder a marcação da limpeza
+//Responsividade do dropdown menu
+$(document).ready(function(){
+    $('#sobre').on('click', function(){
+            $('#click').click();
+    })
+})
+$(document).ready(function(){
+    $('#serv').on('click', function(){
+        $('#click').click();
+    })
+})
+$(document).ready(function(){
+    $('#contact').on('click', function(){
+        $('#click').click();
+    })
+})
 
 // Marcação da limpeza
 $(document).ready(function(){
