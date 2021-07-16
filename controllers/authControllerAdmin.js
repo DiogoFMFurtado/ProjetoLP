@@ -390,3 +390,17 @@ exports.getAdmin = async(req,res) => {
         res.status(404).json({message: err});
     }
 }
+
+exports.adminUpdate = async (req,res) => {
+
+    console.log("Updating Admin Data...");
+    try {
+        const newData = await Admin.findByIdAndUpdate(req.user, req.body, {useFindAndModify: false});
+        await newData.save();
+        console.log(req.body);
+        res.status(200).json(newData);
+    } catch (err) {
+        res.status(404).json({message: err})
+    }
+    console.log("Done!")
+}
