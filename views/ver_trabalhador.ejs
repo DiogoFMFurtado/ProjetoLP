@@ -632,7 +632,7 @@
             if(marcsTrab[i].state == "Pendente" && marcsTrab[i].avaliado_admin == "Não"){
 
                 let row = 
-                ` 
+                ` <div>
                 <tr>
                     <td>${marcsTrab[i]._id}</td>
                     <td>${marcsTrab[i].address}</td>
@@ -640,12 +640,12 @@
                     <td>${marcsTrab[i].date}</td>
                     <td>${marcsTrab[i].hour}</td>
                     <td>${marcsTrab[i].avaliado_admin}</td>
-                </tr>   
+                </tr>   </div>
                 `
                 table.innerHTML += row
             } else if(marcsTrab[i].state == "Terminado" && marcsTrab[i].avaliado_admin == "Sim"){
                 let row = 
-                ` 
+                ` <div>
                 <tr>
                     <td>${marcsTrab[i]._id}</td>
                     <td>${marcsTrab[i].address}</td>
@@ -662,12 +662,12 @@
                         </div>
                     </form>
                     </td>
-                </tr>   
+                </tr>   </div>
                 `
                 table.innerHTML += row
             } else if(marcsTrab[i].state == "Terminado" && marcsTrab[i].avaliado_admin == "Não"){
                 let row = 
-                ` 
+                ` <div>
                 <tr>
                     <td>${marcsTrab[i]._id}</td>
                     <td>${marcsTrab[i].address}</td>
@@ -682,7 +682,7 @@
                         </div>
                     </form>
                     </td>
-                </tr>   
+                </tr>  </div>
                 `
                 table.innerHTML += row
             }
@@ -734,7 +734,7 @@
       let tabela = document.getElementById('feedbacksT')
 
       for(let i = 0; i < workerFeed.length; i++){
-        let row = `
+        let row = `<div>
                   <tr>
                     <td>
                       <p class="text-muted">${workerFeed[i].feedback}</p>
@@ -748,7 +748,7 @@
                         </div>
                       </form>
                     </td>
-                  </tr>
+                  </tr></div>
                   `
         tabela.innerHTML += row
       }

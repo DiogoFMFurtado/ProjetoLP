@@ -487,7 +487,7 @@
         if(marcsEquipa[i].state == "Pendente" && marcsEquipa[i].avaliado_admin == "Não"){
 
           let row = 
-          ` 
+          ` <div>
             <tr>
               <td>${marcsEquipa[i]._id}</td>
               <td>${data_clientes.nome_do_cliente[i]}</td>
@@ -496,12 +496,12 @@
               <td>${marcsEquipa[i].date}</td>
               <td>${marcsEquipa[i].hour}</td>
               <td>${marcsEquipa[i].avaliado_admin}</td>
-            </tr>   
+            </tr>   </div>
           `
           table.innerHTML += row
         } else if(marcsEquipa[i].state == "Terminado" && marcsEquipa[i].avaliado_admin == "Sim"){
           let row = 
-          ` 
+          ` <div>
             <tr>
               <td>${marcsEquipa[i]._id}</td>
               <td>${data_clientes.nome_do_cliente[i]}</td>
@@ -519,12 +519,12 @@
                   </div>
                 </form>
               </td>
-            </tr>   
+            </tr>   </div>
           `
           table.innerHTML += row
         } else if(marcsEquipa[i].state == "Terminado" && marcsEquipa[i].avaliado_admin == "Não"){
           let row = 
-          ` 
+          ` <div>
             <tr>
               <td>${marcsEquipa[i]._id}</td>
               <td>${data_clientes.nome_do_cliente[i]}</td>
@@ -540,7 +540,7 @@
                   </div>
                 </form>
               </td>
-            </tr>   
+            </tr>  </div>
           `
           table.innerHTML += row
         }

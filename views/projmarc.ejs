@@ -402,7 +402,7 @@
       let table = document.getElementById('tabelaMarcacoes')
 
       for(let i = 0; i < marcacoes.length; i++){
-        let row = `<tr>
+        let row = `<div><tr>
                       <td>${marcacoes[i]._id}</td>
                       <td>${marcacoes[i].address}</td>
                       <td>${data_cliente.nome_do_cliente[i]}</td>
@@ -423,7 +423,7 @@
                         </form>
                       </td>
 
-                  </tr>`
+                  </tr></div>`
         table.innerHTML += row
       }
     }

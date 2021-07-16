@@ -384,7 +384,7 @@
       let table = document.getElementById('tabelaClienteAdmin')
 
       for(let i = 0; i < client.length; i++){
-        let row = `<tr>
+        let row = `<div><tr>
                         <td>${client[i]._id}</td>
                         <td>${client[i].address}</td>
                         <td>${client[i].equipa}</td>
@@ -392,7 +392,7 @@
                         <td>
                           <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Projeto</button>
                         </td>
-                  </tr>`
+                  </tr></div>`
         table.innerHTML += row
       }
     }
@@ -566,7 +566,7 @@
       let tabela = document.getElementById('tabelaFeeds')
 
       for(let i = 0; i < userFeed.length; i++){
-        let row = `
+        let row = `<div>
                   <tr>
                     <td>
                       <p class="text-muted">${userFeed[i].feedback}</p>
@@ -580,7 +580,7 @@
                         </div>
                       </form>
                     </td>
-                  </tr>
+                  </tr></div>
                   `
         tabela.innerHTML += row
       }

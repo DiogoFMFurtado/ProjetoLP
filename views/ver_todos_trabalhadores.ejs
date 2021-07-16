@@ -425,7 +425,7 @@
       let table = document.getElementById('tabelaWorkers')
 
       for(let i = 0; i < workers.length; i++){
-        let row = `<tr>
+        let row = `<div><tr>
                       <td>${workers[i]._id}</td>
                       <td>${workers[i].name}</td>
                       <td>${workers[i].pequipa}</td>
@@ -434,7 +434,7 @@
                           <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Trabalhador</button>
                         </a>
                       </td>
-                  </tr>`
+                  </tr></div>`
         table.innerHTML += row
       }
     }
