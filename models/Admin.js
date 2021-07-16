@@ -31,6 +31,14 @@ const AdminSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
+  gender: { type: String,  
+  },
+  distrito: { type: String,  
+  },
+  concelho: { type: String,  
+  },
+  descricao: { type: String, 
+  },
   clients: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
