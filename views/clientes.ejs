@@ -403,14 +403,14 @@
       let table = document.getElementById('tabelaClientesAdmin')
 
       for(let i = 0; i < clients.length; i++){
-        let row = `<table class="sortable"><tr>
+        let row = `<div><tr>
                       <td>${clients[i]._id}</td>
                       <td>${clients[i].name}</td>
                       <td>${data.primeiro_nome[i] + " " + data.ultimo_nome[i]}</td>
                       <td>
                           <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Cliente</button>
                       </td>
-                  </tr></table >`
+                  </tr></div>`
         table.innerHTML += row
       }
     }

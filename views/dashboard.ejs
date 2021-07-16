@@ -49,16 +49,14 @@
   async function get_clientes(){
     const clientes_label = []
     const response = await fetch('/auth/clientsGET/')
+    console.log(await fetch('/auth/clientsGET/'))
     const data = await response.json()
     const valores_true = []
     const valores_false = []
-    for (i=0; i<data.length;i++){
+    for (let i=0; i<data.length;i++){
       if(data[i].hasAdmin === true){
         valores_true.push(data[i])
-      }
-    }
-    for (i=0; i<data.length;i++){
-      if(data[i].hasAdmin === false){
+      }else{
         valores_false.push(data[i])
       }
     }
@@ -200,10 +198,7 @@
     for (let i=0; i<data_avaliacoes.length;i++){
       if (data_avaliacoes[i].aval_client ==="Sem Avaliação do Cliente"){
         total_sem_avaliacao.push(data_avaliacoes[i])
-      }
-    }
-    for (let i=0; i<data_avaliacoes.length;i++){
-      if(data_avaliacoes[i].aval_client === "1"){
+      }else if(data_avaliacoes[i].aval_client === "1"){
         uma_estrela.push(data_avaliacoes[i])
       }else if(data_avaliacoes[i].aval_client === "2"){
         duas_estrela.push(data_avaliacoes[i])

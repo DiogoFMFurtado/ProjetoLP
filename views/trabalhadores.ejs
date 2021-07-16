@@ -399,7 +399,7 @@
 
       for(let i = 0; i < equipas.length; i++){
 
-        let row = `<tr>
+        let row = `<div><tr>
                       <td>${equipas[i]._id}</td>
                       <td>${equipas[i].teamName}</td>
                       <td>
@@ -407,7 +407,7 @@
                           <button type="button" class="btn btn-primary" onclick="store(${i})">Ver Equipa</button>
                         </a>
                       </td>
-                  </tr>`
+                  </tr></div>`
         table.innerHTML += row
 
       }

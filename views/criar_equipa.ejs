@@ -360,10 +360,10 @@
 
   for(let i = 0; i < trab.length; i++){
     if(trab[i].pequipa == 'Não'){
-      let row = `<tr>
+      let row = `<div><tr>
                     <td>${trab[i]._id}</td>
                     <td>${trab[i].name}</td>
-                </tr>`
+                </tr></div>`
       table.innerHTML += row
     }
   }
