@@ -322,13 +322,13 @@
     dataType: 'json',
     success:function(admin){
         thisArray = admin 
-        buildTable(thisArray)
-        card1(thisArray);
+        buildForm(thisArray)
+        card(thisArray);
         console.log(thisArray)    
     }
   })
 
-  function card1(admin){
+  function card(admin){
 
     let titulo = document.getElementById('titulo');
     let nomeCompleto = `<h5 class="title">${admin.firstName} ${admin.lastName}</h5>`
@@ -340,7 +340,7 @@
     texto.innerHTML = sobreMim
   }
 
-  function buildTable(admin){
+  function buildForm(admin){
     let cardAdmin= document.getElementById("cardAdmin")
     let card1 = `
     <form action="/auth/adminUpdate/" method="POST" class="adminForm">
