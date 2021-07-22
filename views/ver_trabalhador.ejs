@@ -373,7 +373,26 @@
       }
     });
 
-    function buildCard(worker){
+
+    async function get_equipas(){
+      const equipas = await fetch('/auth/equipasGET/')
+      const data_equipas = await equipas.json()
+      const nome = []
+      for (let i=0;i<data_equipas.length; i++){
+        if (data_equipas[i]._id === thisWorker.equipa){
+          nome.push(data_equipas[i].teamName)
+        }
+      }
+      if(nome.length === 0){
+        nome.push("Falta Associar")
+      }
+      const name = nome
+      return {name}
+    }
+
+
+    async function buildCard(thisWorker){
+        const data = await get_equipas()
         let card = document.getElementById('cardTrabalhador');
 
         if(thisWorker.pequipa == "Não" && thisWorker.disponibilidade == "Sim"){
@@ -467,7 +486,7 @@
                       <div class="col-md-6 pl-md-1">
                         <div class="form-group">
                           <label>Equipa</label>
-                          <p>${thisWorker.equipa}</p>
+                          <p>${data.name}</p>
                         </div>
                       </div>
                     </div>
@@ -525,12 +544,6 @@
                           <div class="form-group">
                             <label>Pertence a Equipa</label>
                             <p>${thisWorker.pequipa}</p>
-                          </div>
-                        </div>
-                        <div class="col-md-6 pl-md-1">
-                          <div class="form-group">
-                            <label>Equipa</label>
-                            <p>${thisWorker.equipa}</p>
                           </div>
                         </div>
                       </div>
