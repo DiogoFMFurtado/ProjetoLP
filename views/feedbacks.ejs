@@ -321,6 +321,7 @@
     })
 
     function containers(feed){
+        console.log(feed)
         let container = document.getElementById('divFeeds') 
 
         for(let i = 0; i < feed.length; i++){
@@ -333,7 +334,7 @@
                             </div>
                           </div>
                           <div class="card-footer" id="btnDelete">
-                              <form action="/auth/apagarfeedback/${feed[i]._id}" method="POST">
+                              <form action="/auth/apagarfeedback/${feed[i]._id}/${feed[i].cliente}" method="POST">
                                 <button type="submit" id="feedDelete" class="btn btn-fill btn-primary">Apagar</button>
                               </form>
                           </div>
@@ -343,6 +344,8 @@
             container.innerHTML += row
         }
     }
+
+
 
     
     $('#divFeeds').on('submit', '#btnDelete', function(e) {
@@ -361,7 +364,6 @@
             '<div class="card-footer"><p>Apagado!</p></div>')
         }
       })
-
     })
     
 
