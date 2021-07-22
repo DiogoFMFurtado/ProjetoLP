@@ -570,7 +570,7 @@
 
       let formData = $(this).serialize();
       let formAction = $(this).attr('action');
-
+click
 
       $.ajax({
         method: 'PUT',
@@ -579,13 +579,13 @@
         data: formData,
         success: function(data) {
           //console.log(data);
+          window.location.href='ver_projeto'
         }
       })
     })
 
-    $('.card').on('click', '.description', function(e) {
+    $('.card').on('submit', '.description', function(e) {
       e.preventDefault();
-
       let formData2 = $(this).serialize();
       let formAction2 = $(this).attr('action');
       $.ajax({
@@ -594,7 +594,7 @@
         dataType: 'json',
         data: formData2,
         success: function(data) {
-          //console.log(data);
+          window.location.href='/ver_projeto'
         }
       })
     })
